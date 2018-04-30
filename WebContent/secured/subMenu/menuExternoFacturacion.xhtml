@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+ <h:head>
+ </h:head>
+ <h:body>
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ <div id="header">
+ 	    <ui:define  name="header">
+	    
+ 		<div id="logo">
+ 		<!--  	
+ 		<h:panelGroup rendered="#{aplicacionesController.imgAppSeleccionada != null}"  style="margin-bottom:50px;"> 
+ 		 <a href="/ElektraDineroBit/secured/menuApp.xhtml">
+	      <p:graphicImage width="150"  height="40" style="cursor: pointer;" value="../../../../ElektraDineroBit/#{aplicacionesController.imgAppSeleccionada}"/>    
+	    </a>
+	    </h:panelGroup> 
+	    -->
+	  <!--  <h:panelGroup rendered="#{aplicacionesController.imgAppSeleccionada == null}"  style="margin-bottom:50px;">  --> 
+ 		 <a href="/Intranet/secured/menu.xhtml">
+	    <img src="${facesContext.externalContext.requestContextPath}/resources/images/default/logo_shq.png"  width="160" height="50" style="cursor: pointer;" />
+	    </a>
+	  <!--   </h:panelGroup> -->
+	  <br /><br />
+
+	  
+   		 </div>
+   		
+	<h:panelGroup>
+
+	
+	</h:panelGroup>
+
+   <h:panelGroup rendered="#{loginController.username!=null}"  style="margin-bottom:50px;">  
+
+	
+   
+    <div id="loginUserName">
+	<h3>Bienvenido    <p:commandLink   action="#{usuarioController.recuperarDatosUsuario(loginController.usuarioLogeado.idUsuario)}" oncomplete="location.href='../../../menu/miPerfil/misDatos.xhtml'"  style="color:green">#{loginController.nombreUsuarioLogeado}</p:commandLink></h3><br/>
+	
+	<h:form>
+
+	<div>
+	  <h:commandLink action="#{loginController.doLogout}"><img src="${facesContext.externalContext.requestContextPath}/resources/images/layout/header/cerrarSesionRed_32x32.png" height="16" width="16" alt="Cerrar sesión" style="float:left;"/><p style="font-size:14px; display:inline; padding-left:3px; float:right;">Cerrar sesión</p></h:commandLink>
+	</div>		
+	</h:form>
+	
+	
+	</div>
+	
+	
+
+</h:panelGroup>
+   		 
+   		 
+	
+	 
+ </ui:define>
+	 
+ 
+ 
+ </div>
+ 
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	   <h:outputScript name="jquery-2.1.0.min.js" library="js" target="head"></h:outputScript>
+	   
+	   	<h:form>
+	   	
+	   	
+	   	
+	   		
+	<p:panelGrid columns="3" layout="grid">   
+			
+			
+
+			
+			
+			 <p:commandLink  oncomplete="location.href='subMenu/inventario/consulta/listarProductos.xhtml'" >
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Consulta</span> <br/>
+  				    <i style="color:green"  class="fa fa-search"/> 
+  				
+  			</div>
+			</p:commandLink>
+			
+			
+ 
+    	<p:commandLink  oncomplete="location.href='subMenu/inventario/salidas/listarSalidasInventario.xhtml'">
+			 <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Facturar </span> <br/>
+  				      <i style="color:green"  class="fa fa-print"/> 
+  			</div>
+			</p:commandLink>
+			
+
+	</p:panelGrid>
+	
+	</h:form>
+	
+	
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

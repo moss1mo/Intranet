@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/appLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 
+
+	
+
+          
+          <h:form style="font-size:12px;" onreset="#{bitacorasController.updateBitacorasUsuario(loginController.usuarioLogeado.idUsuario)}"> 
+          
+            <p:tabMenu activeIndex="0">
+     <p:menuitem value="Lista de bitacoras" url="misBitacoras.xhtml" icon="ui-icon-search"/>
+     <p:menuitem value="Crear bitacora"  url="registrarBitacora.xhtml" icon="ui-icon-document" />
+    </p:tabMenu>   
+          
+          
+           <p:contextMenu for="bitacoras">  
+        <p:menuitem value="Ver" update="display" icon="ui-icon-search" oncomplete="PF('bitacoraDetalle').show()"/>   
+   	 </p:contextMenu> 
+   	 
+   	 <p:panel style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;">
+          
+          <p:dataTable id="bitacoras" var="bit" value="#{bitacorasController.getBitacorasUsuario()}" paginator="true" rows="10"  widgetVar="bitacorasTable" emptyMessage="No has creado bitacoras en esta aplicación"
+                 rowKey="#{bit.idBitacora}"  selection="#{bitacorasController.bitacoraSeleccionada}"  selectionMode="single"  paginatorPosition="bottom"  scrollable="true"  sortBy="fechaCambio" sortOrder="descending">  
+
+
+
+        	 <f:facet name="header">  
+       		 <div  style="clear:both; margin-right: 600px;" >
+            <p:outputPanel>  
+                <h:outputText value="Filtrar bitacoras " />  
+                <p:inputText id="globalFilter" onkeyup="bitacorasTable.filter()" style="width:150px" />  
+            </p:outputPanel>  
+            </div>
+        </f:facet> 
+        
+ 
+ 		    <p:column sortBy="fechaCambio"  headerText="Fecha del cambio" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="fechaCambioStr" >  
+           		 #{bit.fechaCambioStr}  
+        	</p:column> 
+       		 <p:column headerText="Folio simbanet" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="folioSimbanet" sortBy="folioSimbanet">  
+           		 #{bit.folioSimbanet}  
+        	</p:column>   
+        	<p:column headerText="Persona aplicó cambio" sortBy="personaAplicoCambio">  
+            	#{bit.personaAplicoCambio}  
+            	
+        	</p:column>  
+        
+    	</p:dataTable> 
+    	
+    </p:panel>
+    
+
+    	<p:dialog header="Detalles de bitacora" widgetVar="bitacoraDetalle" resizable="false"  
+              width="800" height="400" showEffect="clip" hideEffect="fold" id="dialog" draggable="false" modal="true" >  
+  
+        <h:panelGrid id="display" columns="2" cellpadding="4" width="750">  
+  		  
+  		  <h:outputText value="Fecha de creación:" style="width:60%;"/>  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.fechaCreacionStr}" style="font-weight:bold; width:40%;"/>
+            
+  		  <h:outputText value="Folio de simbanet:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.folioSimbanet}" style="font-weight:bold"/> 
+  		  
+            <h:outputText value="Folio de la bitacora:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.idBitacora}" style="font-weight:bold"/> 
+            
+            <h:outputText value="Area donde se realizó los cambios:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.areaCambios}" style="font-weight:bold"/> 
+            
+            <h:outputText value="Persona que apoyo en los cambios:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.personaAreaApoyoCambio}" style="font-weight:bold"/> 
+  
+            <h:outputText value="Persona aplicó cambio:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.personaAplicoCambio}" style="font-weight:bold"/>  
+  
+              <h:outputText value="Descripción del cambio:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.descripcionCambio}" style="font-weight:bold"/> 
+            
+           
+           
+              <h:outputText value="Hubo Problemas:"/>  
+              
+            <h:outputText value="Sí"  rendered="#{bitacorasController.bitacoraSeleccionada.huboProblemas}" style="font-weight:bold"/> 
+             <h:outputText value="No"  rendered="#{!bitacorasController.bitacoraSeleccionada.huboProblemas}" style="font-weight:bold"/>
+            
+              <h:outputText value="Tipo de problema:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.tipoCambio}" style="font-weight:bold"/> 
+            
+              <h:outputText value="Descripción del problema:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.descripcionProblema}" style="font-weight:bold"/> 
+            
+              <h:outputText value="Se solucionó el problema:" />  
+            <h:outputText value="Sí"  rendered="#{bitacorasController.bitacoraSeleccionada.solucionoProblema}" style="font-weight:bold"/> 
+             <h:outputText value="No"  rendered="#{!bitacorasController.bitacoraSeleccionada.solucionoProblema}" style="font-weight:bold"/>
+            
+              <h:outputText value="Descripción de la solución:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.comoSoluciono}" style="font-weight:bold"/> 
+            
+              <h:outputText value="Fecha del cambio:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.fechaCambioStr}" style="font-weight:bold"/> 
+            
+              <h:outputText value="Hora del cambio:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.horaDelCambio}" style="font-weight:bold"/> 
+            
+              <h:outputText value="Resultado obtenido después de los cambios:" />  
+            <h:outputText value="#{bitacorasController.bitacoraSeleccionada.resultadoObtenido}" style="font-weight:bold"/> 
+            
+            
+        </h:panelGrid>  
+    </p:dialog>  
+    	
+    	</h:form>
+<!--      </p:tab>  -->
+        
+<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+ 
+
+          
+<!--          </p:tab>  -->
+         
+
+<!--      </p:tabView> -->
+
+                 
+ 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

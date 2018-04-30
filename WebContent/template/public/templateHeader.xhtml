@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <body>
+ <ui:composition>
+  <div id="header">
+ 
+
+  
+	 
+	 
+	 <div class="ui-g" style="font-size:13px;">
+    <div class="ui-g-12 ui-md-4 ui-lg-3">
+    	<div>
+    		<img src="${facesContext.externalContext.requestContextPath}/resources/images/default/logo_shq.png"  width="172" height="54" style="cursor: pointer;float:right;" />
+    	</div>  	
+	</div>
+    <div class="ui-g-12 ui-md-4 ui-lg-7">
+    
+    
+    <p:growl id="messages"/>
+    
+    
+    
+ 
+ 	<br/>
+ 	<h:form>
+ 	
+ 	
+    <p:menubar>
+        <p:menuitem value="Inicio" style="margin-left:1em;" url="/public/tienda/compras.xhtml" icon="ui-icon-home"  />
+       <p:menuitem value="Productos" style="margin-left:1em;" url="/public/tienda/productos.xhtml"  />
+       <p:menuitem value="Ayuda" style="margin-left:1em;" url="/compras.xhtml"  />
+       <p:menuitem value="Términos y políticas" style="margin-left:1em;" url="/compras.xhtml"  />
+       <p:menuitem value="Contacto" style="margin-left:1em;" url="/compras.xhtml"  />
+        <p:submenu rendered="#{loginController.usuarioLogeado==null}" label="Intranet" style="margin-left:1em;">
+            <p:menuitem value="Registrarse"  onclick="PF('dlgRegistro').show()" icon="ui-icon-arrowreturnthick-1-w" />
+        	<p:menuitem value="Ingresar" onclick="PF('dlgLogin').show()"  icon="ui-icon-arrowreturnthick-1-e" />
+        	
+        </p:submenu>
+       <p:menuitem rendered="#{loginController.usuarioLogeado!=null}" value="Intranet" style="margin-left:1em;" url="../../secured/menu.xhtml?faces-redirect=true"  />
+        
+        <p:submenu rendered="#{loginController.usuarioLogeado!=null}" label="#{loginController.nombreUsuarioLogeado}" style="margin-left:1em;">
+    
+            <p:menuitem value="Perfil: #{loginController.rol.nombre}" url="../../secured/menuPerfil.xhtml?faces-redirect=true"    icon="fa fa-user" />
+        	<p:menuitem value="Salir" action="#{loginController.doLogout}" style="color:red;" icon="fa fa-power-off" />
+        	
+        </p:submenu>
+        
+         
+        
+       
+        
+        
+    </p:menubar>
+    </h:form>
+    
+    
+    <p:dialog header="Ingresar" id="dlgLogin" widgetVar="dlgLogin" modal="true" >
+        
+        
+        <div id="content">
+	 
+	 
+	 
+	 <div class="ui-g" style="font-size:13px;">
+    <div class="ui-g-12 ui-md-4 ui-lg-4"></div>
+    <div class="ui-g-12 ui-md-4 ui-lg-4"><p >Acceso al sistema Intranet de SHQ</p>
+	 </div>
+    <div class="ui-g-12 ui-md-4 ui-lg-4"></div>
+</div>
+	 
+	 
+	 
+	 <h:form id="form" >
+	 
+    <p:panel id="pnlLogin"  onreset="#{loginController.limpiarForm()}">
+        <p:panelGrid columns="2" layout="grid">
+             <p:inputText style="width:100%;" id="txtUsuario" value="#{loginController.username}"  placeholder="Usuario" required="true" requiredMessage="El usuario es requerido">
+                    <p:ajax update="msgUsuario" event="change" /> 
+                    <p:ajax update="form" event="change" /> 
+                     <p:message id="msgUsuario" for="txtUsuario" display="text"/>  
+			 </p:inputText>
+				
+             
+            <p:password style="width:100%;" id="passPassword" value="#{loginController.password}" placeholder="Contraseña" autocomplete="off" redisplay="true" required="true" requiredMessage="La contraseña es requerida" >
+                      <p:ajax update="msgPass" event="change" />
+                     <p:message id="msgPass" for="passPassword" display="text"/> 
+                     </p:password>
+   </p:panelGrid>
+   <br/><br/> 
+
+	 	 <p:commandButton style="width:45%;font-size:12px;" id="btnEntrar" value="Entrar" actionListener="#{loginController.doLogin}" update="@form"  validateClient="true" />
+    	 <p:commandButton style="width:45%;margin-left:8%;color:green;font-size:12px;" id="btnContinuarInvitado" value="Continuar como invitado"  onclick="closeIframe();" />																																							
+    </p:panel>
+
+</h:form>
+
+	¿Aún no está registrado? Regístrese y disfrute de nuestra plataforma.
+<!--  	 	 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" rendered="true" redisplay="true"/>  -->
+ 
+  </div>
+  
+    </p:dialog>   
+    
+    
+    
+    
+    <p:dialog header="Registro" id="dlgRegistro" widgetVar="dlgRegistro" modal="true" >
+        
+        
+        <div id="content">
+	 
+	 
+	 
+    <h:form id="formRegistro" >
+    
+    
+    <p:panel id="pnlRegistroPro"  onreset="#{loginController.limpiarForm()}">
+         <p:wizard flowListener="#{externosController.onFlowProcess}"   nextLabel="Siguiente" backLabel="Atrás">
+        <p:tab id="accesoPro" title="Acceso" titleStyle="font-size: 14px;">
+            <p:panel header="Datos de acceso" >
+                <p:messages />
+                <h:panelGrid columns="2" columnClasses="label, value" >
+                    <h:outputText value="Usuario*:" />
+                    <p:inputText value="#{externosController.usuario.nombreUsuario}" required="true" label="Firstname"/>
+					<h:outputLabel for="pwd1Pro" value="Contraseña*:" />
+			        <p:password id="pwd1Pro" value="#{externosController.usuario.password}" match="pwd2Pro" label="Password 1" required="true" />
+			        <h:outputLabel for="pwd2Pro" value="Confirmar contraseña*:" />
+			        <p:password id="pwd2Pro" value="#{externosController.usuario.password}" label="Password 2" required="true" />
+                </h:panelGrid>
+            </p:panel>
+        </p:tab>
+        <p:tab id="personalPro" title="Personal" titleStyle="font-size: 14px;">
+            <p:panel header="Datos de personales">
+                <p:messages />
+                <h:panelGrid columns="2" columnClasses="label, value">
+                    <h:outputText value="Nombre*:" />
+                    <p:inputText value="#{externosController.externo.nombre}"  required="true" label="nombre"/>
+					<h:outputText value="clave*:" />
+                    <p:inputText value="#{externosController.externo.clave}" required="true" label="clave"/>
+					<h:outputText value="RFC*:" />
+                    <p:inputText value="#{externosController.externo.rfc}" required="true" label="rfc"/>	
+                </h:panelGrid>
+            </p:panel>
+        </p:tab>
+        <p:tab id="addressPro" title="Dirección" titleStyle="font-size: 14px;">
+            <p:panel header="Datos de dirección">
+                <p:messages />      
+                <h:panelGrid columns="2" columnClasses="label, value">
+                    <h:outputText value="Calle: " />
+                    <p:inputText value="#{externosController.externo.calle}" />
+					<h:outputText value="Núm ext: " />
+                    <p:inputText value="#{externosController.externo.numExt}" />
+ 					<h:outputText value="Saltar al último paso:" />
+                    <h:selectBooleanCheckbox value="#{externosController.skip}" />
+                </h:panelGrid>
+            </p:panel>
+        </p:tab>
+        <p:tab id="contactPro" title="Contacto" titleStyle="font-size: 14px;" >
+            <p:panel header="Información de contacto">
+                <p:messages />
+                <h:panelGrid columns="2" columnClasses="label, value">
+                	<h:outputText value="Nombre de contacto: " />
+                    <p:inputText value="#{externosController.externo.nombreContacto}"/>
+                    <h:outputText value="Correo eléctronico: " />
+                    <p:inputText value="#{externosController.externo.correoContacto}" label="Email"/>
+                    <h:outputText value="Télefono: " />
+                    <p:inputText value="#{externosController.externo.telContacto}"/>
+                </h:panelGrid>
+            </p:panel>
+            <h:outputText value="Saltar al último paso:" />
+                    <h:selectBooleanCheckbox value="#{externosController.skip}" />
+        </p:tab>
+ 
+        <p:tab id="confirmPro" title="Confirmación" titleStyle="font-size: 14px;" >
+            <p:panel header="Confirmación de datos">
+                <h:panelGrid id="confirmationPro" columns="3" columnClasses="grid,grid,grid">
+                    <h:panelGrid columns="2" columnClasses="label, value">
+                        <h:outputText value="Nombre de usuario " />
+                        <h:outputText value="#{externosController.usuario.nombreUsuario}" styleClass="outputLabel"/>
+                        <h:outputText value="Nombre: " />
+                        <h:outputText value="#{externosController.externo.nombre}" styleClass="outputLabel"/>
+                    </h:panelGrid>
+                    <h:panelGrid columns="2" columnClasses="label, value">
+                         <h:outputText value="Clave: " />
+                        <h:outputText value="#{externosController.externo.clave}" styleClass="outputLabel"/>
+                         <h:outputText value="RFC:" />
+                        <h:outputText value="#{externosController.externo.rfc}" styleClass="outputLabel"/>
+                    </h:panelGrid>
+                </h:panelGrid>
+                <p:commandButton value="Registrar" style="width:20%;font-size:12px;margin-left:80%;"  actionListener="#{externosController.guardarProveedor}" update="@form" process="@this"/>
+            </p:panel>
+        </p:tab>
+    </p:wizard>
+   <br/><br/> 
+
+	 	
+    	<br/><br/>
+    	
+    		<strong>¿Aún no está registrado? Regístrese como proveedor y sea un socio comercial de nuestra empresa.</strong>
+    </p:panel>
+
+</h:form>
+
+
+ 
+  </div>
+  
+    </p:dialog>  
+    
+    </div>
+	</div>
+	 
+	 
+	 
+	
+  </div>
+  
+    
+    	
+</ui:composition>
+
+
+ </body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+ <h:head>
+ </h:head>
+ <h:body>
+ <ui:composition template="../../template/loginLayout.xhtml">
+  <div id="header">
+   <ui:define  name="header">
+  <div>
+  
+   <div class="ui-g">
+  
+  <div class="ui-g-2 ui-md-4 ui-lg-4"></div>
+    <div class="ui-g-8 ui-md-4 ui-lg-4">
+  		<img src="${facesContext.externalContext.requestContextPath}/resources/images/default/logo_shq.png"  width="240" height="75" style="cursor: pointer;" />
+    </div>
+    <div class="ui-g-2 ui-md-4 ui-lg-4"></div>
+    
+   		 </div>
+   		 </div>
+  
+   </ui:define>
+  </div>
+ 
+  <div id="content">
+	 <ui:define  name="content">
+	 
+	 
+	 <div class="ui-g" style="font-size:13px;">
+    <div class="ui-g-12 ui-md-4 ui-lg-4"></div>
+    <div class="ui-g-12 ui-md-4 ui-lg-4"><p style="color:green;">Para continuar se requieren datos de acceso de proveedores</p>
+	 <p style="color:green;">generados por el administrador central del sistema</p></div>
+    <div class="ui-g-12 ui-md-4 ui-lg-4"></div>
+</div>
+	 
+	 
+	 
+	 <h:form id="form" >
+	 
+    <p:panel id="pnlLogin"  onreset="#{loginController.limpiarForm()}">
+        <p:panelGrid columns="2" layout="grid">
+             <p:inputText style="width:100%;" id="txtUsuario" value="#{loginController.username}"  placeholder="Usuario" required="true" requiredMessage="El usuario es requerido">
+                    <p:ajax update="msgUsuario" event="change" /> 
+                    <p:ajax update="form" event="change" /> 
+                     <p:message id="msgUsuario" for="txtUsuario" display="text"/>  
+			 </p:inputText>
+				
+             
+            <p:password style="width:100%;" id="passPassword" value="#{loginController.password}" placeholder="Contraseña" autocomplete="off" redisplay="true" required="true" requiredMessage="La contraseña es requerida" >
+                      <p:ajax update="msgPass" event="change" />
+                     <p:message id="msgPass" for="passPassword" display="text"/> 
+                     </p:password>
+   </p:panelGrid>
+   <br/><br/>
+
+	 	 <p:commandButton style="width:45%;" id="btnEntrar" value="Entrar" actionListener="#{loginController.doLogin}" update="@form"  validateClient="true" />
+    	 <p:button style="width:45%;margin-left:8%" id="btnCancelar" value="Cancelar"  onclick="closeIframe();" />																																							
+    </p:panel>
+
+</h:form>
+
+
+ <div class="ui-g" style="font-size:13px;">
+    <div class="ui-g-3 ui-md-4 ui-lg-4"></div>
+    <div class="ui-g-6 ui-md-4 ui-lg-4">
+    	<p style="text-align:center;">Solicite sus datos al administrador central via correo electrónico</p>
+	 	<a href="administrador@shq.com.mx" style="color:blue;">administrador@shq.com.mx</a></div>
+    <div class="ui-g-3 ui-md-4 ui-lg-4"></div>
+</div>
+
+
+
+<!--  	 	 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" rendered="true" redisplay="true"/>  -->
+ 
+	 </ui:define>
+  </div>
+    	
+</ui:composition>
+ </h:body>
+</html>

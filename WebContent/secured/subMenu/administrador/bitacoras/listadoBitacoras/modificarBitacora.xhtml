@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/appLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioBitacora" style=" font-size:12px;" >
+      
+       
+       <p:tabMenu activeIndex="1" >
+     <p:menuitem value="Lista de bitacoras de la aplicación" url="../../../bitacoras/listadoBitacoras/listaBitacoras.xhtml"  icon="ui-icon-search"/>
+     <p:menuitem value="Modificar bitacora"   icon="ui-icon-document" />
+    </p:tabMenu>
+      <p:panel id="pnl" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px; ">
+      
+        <p:panelGrid  cellpadding="10" style="margin-left:60px;">
+		<p:row>
+			<p:column>
+				<p:inputMask id="folioSimb" value="#{bitacorasController.bitacoraSeleccionada.folioSimbanet}"  mask="999999"   maxlength="6"    placeHolder=""/> 
+				 <p:watermark for="folioSimb" value="Folio simbanet" />
+			</p:column>
+		</p:row>
+ 
+<p:row>
+ <p:column>
+      <p:autoComplete id="keyword" value="#{bitacorasController.bitacoraSeleccionada.responsablesCambio}"  completeMethod="#{bitacorasController.getIntegrantesResponsablesCambios}"  forceSelection="true" multiple="true" onchange="" size="5" placeholder="Escribe las personsas reponsables del cambio"/>
+      
+      
+      <p:watermark for="keyword" value="Personas responsables" />
+     
+     </p:column>
+
+
+
+      <p:column>
+      <p:autoComplete id="quienAplicoCambio" value="#{bitacorasController.bitacoraSeleccionada.personaAplicoCambio}"  completeMethod="#{bitacorasController.getIntegrantesAplicanCambios}"   placeholder="¿Quien aplicó el cambio?" size="25" forceSelection="true" />
+
+      </p:column> 
+		 
+</p:row>
+
+
+   <p:row>     
+     <p:column > <p:autoComplete id="archivosCambio" value="#{bitacorasController.bitacoraSeleccionada.archivosSubidos}" completeMethod="#{bitacorasController.getListaDeArchivos}" multiple="true"  size="5" forceSelection="true"/>        
+      <p:watermark for="archivosCambio" value="Archivos del cambio" />
+    </p:column>  
+  	<p:column >      
+  		<h:outputScript library="js" name="calendar_es.js" />          
+     	<p:calendar value="#{bitacorasController.bitacoraSeleccionada.fechaCambio}" navigator="true" id="fechaCambio" showOn="button" locale="es" placeholder="Fecha del cambio"  /> 
+     </p:column> 
+     
+    
+  </p:row>
+ 
+        
+         <p:row>
+
+         </p:row>
+        
+        <p:row>
+
+      <p:column >      
+            <p:inputTextarea value="#{bitacorasController.bitacoraSeleccionada.descripcionCambio}" scrollHeight="100" style="width:400px; resize: none;" rows="5" cols="30" label="Firstname" counter="counter" maxlength="1000"       
+    counterTemplate="Tienes {0} caracteres restantes." autoResize="false" placeholder="Escribe una breve descripción del cambio realizado">  
+  <f:validateLength minimum="2" />
+  </p:inputTextarea><br/>
+<h:outputText style="font-size:12px;" id="counter" />  
+</p:column>
+
+<p:column >
+<h:panelGroup id="tituloProblemas">
+<h:outputText value="¿Problemas?" /> <p:spacer  width="40px;"/>
+
+<h:panelGroup rendered="#{bitacorasController.bitacoraSeleccionada.huboProblemas}"  > 
+ <h:outputText value="Tipo de problema" /><br/>
+ </h:panelGroup>
+ </h:panelGroup>
+<p:selectBooleanButton value="#{bitacorasController.bitacoraSeleccionada.huboProblemas}" onLabel="Sí" offLabel="No" style="margin-top:15px; margin-bottom: 30px;" >
+  <p:ajax process="@this"   update="tipoProblemas,panelProblemas,btnSolucionoProblema,tituloProblemas,solucionoProblemas" partialSubmit="true"  />
+  
+  
+  </p:selectBooleanButton>
+<p:spacer  width="60px;"/>
+     <h:panelGroup id="tipoProblemas">
+     <h:panelGroup rendered="#{bitacorasController.bitacoraSeleccionada.huboProblemas}" > 
+     
+     <p:selectOneMenu value="#{bitacorasController.bitacoraSeleccionada.tipoCambio}"  >  
+            <f:selectItem itemLabel="Mal desarrollo en el cambio" itemValue="Mal desarrollo en el cambio" />  
+            <f:selectItems value="#{bitacorasController.getListaDeProblemas()}" var="problema" itemLabel="#{problema}" itemValue="#{problema}"/>  
+        	</p:selectOneMenu> 
+       </h:panelGroup>
+ </h:panelGroup>
+</p:column>
+  </p:row>
+  
+   
+     
+     
+  
+
+        <p:row>
+   
+       <p:column >
+       <h:panelGroup id="panelProblemas">
+     <h:panelGroup  rendered="#{bitacorasController.bitacoraSeleccionada.huboProblemas}"  >
+            <p:inputTextarea id="descripProblemas" counter="contadorDescripProblemas" maxlength="1000" value="#{bitacorasController.bitacoraSeleccionada.descripcionProblema}" required="true" scrollHeight="100"  rows="5" cols="30"  label="Surname"  style=" width:400px; resize: none;"  counterTemplate="Tienes {0} caracteres restantes." autoResize="false" placeholder="Escribe un breve explicación de cuál fue el problema" />
+           <br/>
+			<h:outputText style="font-size:12px;" id="contadorDescripProblemas" />  
+     </h:panelGroup>
+     </h:panelGroup>
+        </p:column>  
+          
+           <p:column >
+           <h:panelGroup id="btnSolucionoProblema">
+           <h:panelGroup rendered="#{bitacorasController.bitacoraSeleccionada.huboProblemas}"  > 
+            <h:outputText value="¿Se solucionó?" />  <br />
+           <p:selectBooleanButton value="#{bitacorasController.bitacoraSeleccionada.solucionoProblema}" onLabel="Sí" offLabel="No" style="margin-top:15px; margin-bottom: 30px;"> 
+             <p:ajax process="@this"   update="solucionoProblemas" partialSubmit="true"  />
+            </p:selectBooleanButton>
+           </h:panelGroup> 
+           </h:panelGroup>
+           </p:column>
+       
+          </p:row>   
+
+         <p:row>
+        
+           <p:column >
+            <h:panelGroup id="solucionoProblemas" >
+               <h:panelGroup rendered="#{bitacorasController.bitacoraSeleccionada.huboProblemas and bitacorasController.bitacoraSeleccionada.solucionoProblema}"  > 
+            <p:inputTextarea id="comoSoluciono" counter="contadorDescripSolucion" maxlength="1000" value="#{bitacorasController.bitacoraSeleccionada.comoSoluciono}" required="true" scrollHeight="100"  rows="5" cols="30"  label="comoSoluciono"  style=" width:400px; resize: none;"  counterTemplate="Tienes {0} caracteres restantes." autoResize="false" placeholder="Escribe un breve explicación de como se solucionó el problema" />
+           <br/>
+			<h:outputText style="font-size:12px;" id="contadorDescripSolucion" />  
+       	 	</h:panelGroup> 
+       	 	</h:panelGroup>
+        </p:column> 
+    
+         </p:row>   
+           
+          <p:row>
+       
+          <p:column>
+               
+             <h:panelGroup>
+        <p:commandButton id="saveBtn" value="Modificar" icon="ui-icon-check" 
+        style="margin:0;" actionListener="#{bitacorasController.actualizarBitacora()}" oncomplete="location.href='misBitacoras.xhtml'"  />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+ <h:head>
+  
+  
+ </h:head>
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+
+  
+  <div id="content">
+   
+	 <ui:define  name="content">
+	   <h:outputScript name="jquery-2.1.0.min.js" library="js" target="head"></h:outputScript>
+
+   
+	<h:form>
+	
+	<p:panelGrid columns="3" layout="grid">   
+	
+			 <p:commandLink  oncomplete="location.href='./subMenu/menuSHQCompras.xhtml'" rendered="#{loginController.rol.idRol == 1 || loginController.rol.idRol == 2}">
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Compras</span> <br/>
+  				    <i style="color:green"  class="fa fa-shopping-cart"/> 
+  			</div>
+			</p:commandLink>
+			<p:commandLink  oncomplete="location.href='./subMenu/menuExternoCompras.xhtml'" rendered="#{loginController.rol.idRol == 6}">
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Compras</span> <br/>
+  				    <i style="color:green"  class="fa fa-shopping-cart"/> 
+  			</div>
+			</p:commandLink>
+			
+			<p:commandLink  oncomplete="location.href='./subMenu/menuSHQVentas.xhtml'" rendered="#{loginController.rol.idRol == 1 || loginController.rol.idRol == 3}">
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Ventas</span> <br/>
+  				    <i style="color:green"  class="fa fa-money"/> 
+  				
+  			</div>
+			</p:commandLink>
+			
+			<p:commandLink  oncomplete="location.href='./subMenu/menuExternoVentas.xhtml'" rendered="#{loginController.rol.idRol == 6}">
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Ventas</span> <br/>
+  				    <i style="color:green"  class="fa fa-shopping-cart"/> 
+  			</div>
+			</p:commandLink>
+  				
+  		
+			
+			<p:commandLink  oncomplete="location.href='./subMenu/menuSHQInventario.xhtml'" rendered="#{loginController.rol.idRol == 1 || loginController.rol.idRol == 2 || loginController.rol.idRol == 3}">
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Inventario</span> <br/>
+  				    <i style="color:green"  class="fa fa-list"/> 
+  				
+  			</div>
+			</p:commandLink>
+			
+			<p:commandLink  oncomplete="location.href='./subMenu/menuExternoFacturacion.xhtml'" rendered="#{loginController.rol.idRol == 6}">
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Facturar</span> <br/>
+  				    <i style="color:green"  class="fa fa-calendar-o"/> 
+  				
+  			</div>
+			</p:commandLink>
+			
+			<p:commandLink  oncomplete="location.href='./subMenu/menuSHQFacturacion.xhtml'" rendered="#{loginController.rol.idRol == 1 || loginController.rol.idRol == 2 || loginController.rol.idRol == 3}">
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Facturar</span> <br/>
+  				    <i style="color:green"  class="fa fa-calendar-o"/> 
+  				
+  			</div>
+			</p:commandLink>
+			
+			
+			
+			<p:commandLink  oncomplete="location.href='./subMenu/menuSupEmpleados.xhtml'" rendered="#{loginController.rol.idRol == 1}">
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Empleados</span> <br/>
+  				    <i style="color:green"  class="fa fa-users"/> 
+  				
+  			</div>
+			</p:commandLink>
+			
+			<p:commandLink  oncomplete="location.href='./subMenu/menuPerfil.xhtml'" >
+			  <div class="btn-menu gi-2x">
+  				<br/><span style="color:#6624FB">Perfil</span> <br/>
+  				    <i style="color:green"  class="fa fa-user-o"/> 
+  				
+  			</div>
+			</p:commandLink>
+	
+	
+	</p:panelGrid>
+
+
+
+ </h:form>
+
+	<script>
+			$(function() {
+
+				$( '#mi-slider' ).catslider();
+
+			});
+		</script> 	
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

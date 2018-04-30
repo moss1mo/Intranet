@@ -1,0 +1,67 @@
+ <!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioMisDatos"  style=" font-size:12px;">
+       
+       
+       <p:tabMenu activeIndex="2" >
+     <p:menuitem value="Generales"  url="misDatos.xhtml" icon="ui-icon-document" />
+      <p:menuitem value="Contacto" url="contacto.xhtml"  icon="ui-icon-document" />
+       <p:menuitem value="Cambiar contraseña"  icon="ui-icon-document" />
+      
+    </p:tabMenu>
+      <p:panel id="pnl" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:14px;" >
+       <p:messages id="messages" showDetail="true" autoUpdate="true"/> 
+        <h:panelGrid columns="2" cellpadding="10" cellspacing="15" style="margin-left:60px;">
+ 
+  <h:outputLabel for="nuevaCtr" value="Nueva contraseña " />  
+            <p:password id="nuevaCtr" value="#{usuarioController.usuario.contrasena}" redisplay="true" required="true"  requiredMessage="La contraseña es requerida" feedback="true"   
+                        promptLabel="Escribe tu nueva contraseña" weakLabel="Nivel de seguridad bajo"  
+                        goodLabel="Nivel de seguridad bueno" strongLabel="Nivel de seguridad optimo" >  
+  			<p:ajax update="msgNuevaCtr" event="keyup"/>
+  			</p:password>
+  			 <p:message id="msgNuevaCtr" for="nuevaCtr" display="text"/>  
+<!--             <h:outputLabel for="pwd2" value="Otra vez nueva contraseña " />   -->
+<!-- 			 <p:password id="pwd2" value="#{passwordBean.password5}" label="Password 2" required="true"/>  -->
+			 
+			      <br/><br/><br/><br/><br/>
+          <p:row>
+          <p:column>
+               
+             <h:panelGroup>
+
+        <p:commandButton id="saveBtn" value="Guardar cambios" icon="ui-icon-check" 
+        style="margin:0;" action="#{usuarioController.guardarCambiosUsuario()}"  validateClient="true"/>
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+			 
+			 
+			 
+</h:panelGrid>
+
+ </p:panel>
+    <p:blockUI block="pnl" trigger="saveBtn" >
+                 Cargando<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   
+            </h:form>
+        </ui:define>
+  </div>	
+</ui:composition>
+ </h:body>
+</html>

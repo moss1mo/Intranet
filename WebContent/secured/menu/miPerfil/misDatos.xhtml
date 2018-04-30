@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioMisDatos"  style=" font-size:12px;">
+       
+       
+       <p:tabMenu activeIndex="0" >
+     <p:menuitem value="Generales"   icon="ui-icon-document" />
+      <p:menuitem value="Contacto"  url="contacto.xhtml" icon="ui-icon-document" />
+       <p:menuitem value="Cambiar contraseña"  url="actualizarContrasena.xhtml" icon="ui-icon-document" />
+    </p:tabMenu>
+      <p:panel id="pnl" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:14px;" >
+      
+        <h:panelGrid columns="2" cellpadding="10" cellspacing="15" style="margin-left:60px;">
+	
+		<h:outputText value="Nombre de usuario" style="font-weight:bold;" />  
+
+            
+				<p:inplace id="nombreUsuario" editor="true" emptyLabel="Vacio">  
+                <p:inputText  value="#{usuarioController.usuario.nombreUsuario}" 
+                             label="text" placeholder="Nombre de usuario"/>  
+                 </p:inplace>       
+         
+	
+			
+			<h:outputText value="Nombre(s) " style="font-weight:bold;" />  
+				<p:inplace id="nombre" editor="true" emptyLabel="Vacio">  
+                <p:inputText  value="#{usuarioController.usuario.nombre}"  
+                             label="text" placeholder="Nombre(s)"/>  
+            </p:inplace>  
+			
+		
+		    <h:outputText value="Apellido paterno" style="font-weight:bold;" /> 
+				<p:inplace id="apellidoPaterno" editor="true" emptyLabel="Vacio">  
+                <p:inputText  value="#{usuarioController.usuario.apellidoPaterno}"  
+                            label="text" placeholder="Apellido paterno"/>  
+            </p:inplace>  
+			
+		 <h:outputText value="Apellido materno" style="font-weight:bold;" /> 
+				<p:inplace id="apellidoMaterno" editor="true" emptyLabel="Vacio">  
+                <p:inputText  value="#{usuarioController.usuario.apellidoMaterno}"  
+                             label="text" placeholder="Apellido materno"/>  
+            </p:inplace>  
+		
+        <h:outputText value="Fecha de nacimiento" style="font-weight:bold;" />
+  		         
+     	<p:calendar value="#{usuarioController.usuario.fechaNacimiento}" navigator="true" id="fechaCambio" showOn="button" locale="es" placeholder="Fecha de nacimiento"  /> 
+ 		<h:outputScript library="js" name="calendar_es.js" /> 
+  		<h:outputText />
+ 
+	<h:outputText value="Dirección" style="font-weight:bold;" />
+				<p:inplace id="direccion" editor="true" emptyLabel="Vacio">  
+                <p:inputText  value="#{usuarioController.usuario.direccion}"  
+                             label="text" placeholder="Dirección"/>  
+            </p:inplace>  
+	
+	      <br/><br/><br/><br/><br/>
+          <p:row>
+          <p:column>
+               
+             <h:panelGroup>
+
+        <p:commandButton id="saveBtn" value="Guardar cambios" icon="ui-icon-check" 
+        style="margin:0;" action="#{usuarioController.guardarCambiosUsuario()}" />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </h:panelGrid>
+            
+        
+   
+ </p:panel>
+    <p:blockUI block="pnl" trigger="saveBtn" >
+                 Cargando<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   
+            </h:form>
+            
+           
+               
+          
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

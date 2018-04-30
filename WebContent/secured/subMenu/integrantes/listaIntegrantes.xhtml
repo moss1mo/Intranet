@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/appLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+          
+          <h:form style="font-size:12px;"> 
+          
+            <p:tabMenu activeIndex="0">
+     <p:menuitem value="Lista de integrantes de la aplicación"  icon="ui-icon-search"/>
+
+    </p:tabMenu>   
+      
+          <p:contextMenu for="usuarios">  
+        <p:menuitem value="Ver" update="display" icon="ui-icon-search" oncomplete="PF('integranteDetalle').show()"/>  
+   	 </p:contextMenu> 
+   	 
+   	 <p:panel style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;">
+          
+          <p:dataTable id="usuarios" var="integrant" value="#{usuarioController.recuperarListaTodosUsuariosPorApp(bitacorasController.appSeleccionada)}" paginator="true" rows="10"  
+                 rowKey="#{integrant.idUsuario}"  selection="#{usuarioController.usuarioSeleccionado}"  selectionMode="single"  paginatorPosition="bottom" scrollable="true" >  
+  
+        <!-- 	<p:ajax event="rowSelect" listener="#{tableBean.onRowSelect}"   
+                    update=":form:display :form:growl" oncomplete="PF('carDialog').show()" />  
+        	<p:ajax event="rowUnselect" listener="#{tableBean.onRowUnselect}" update=":form:growl"/>   -->
+ 
+       		 <p:column headerText="Id" >  
+           		 #{integrant.idUsuario}  
+        	</p:column>  
+        	<p:column headerText="Usuario"  >  
+            	#{integrant.nombreUsuario}  
+        	</p:column>  
+        	<p:column headerText="Nombre(s)" >  
+           		 #{integrant.nombre}  
+        	</p:column>  
+        	<p:column headerText="Apellidos" >  
+            	#{integrant.apellidoPaterno.concat(" ").concat(integrant.apellidoMaterno)}  
+        	</p:column> 
+        	<p:column headerText="Celular"  >  
+            	#{integrant.telCelular }  
+        	</p:column>
+        	<p:column headerText="Ext" >  
+            	#{integrant.telExtension}  
+        	</p:column>
+        	<p:column headerText="Email empresa" >  
+            	#{integrant.emailEmpresa}  
+        	</p:column>
+    	</p:dataTable> 
+    	
+    </p:panel>
+    
+
+    	<p:dialog header="Detalles de integrante" widgetVar="integranteDetalle" resizable="false"  
+              width="800" height="400" showEffect="clip" hideEffect="fold" id="dialog" draggable="false" modal="true" >  
+  
+        <h:panelGrid id="display" columns="2" cellpadding="4" >  
+  		  
+  		  <h:outputText value="Id de usuario:" />  
+            <h:outputText value="#{usuarioController.usuarioSeleccionado.idUsuario}" style="font-weight:bold"/>
+            
+  		  <h:outputText value="Usuario:" />  
+            <h:outputText value="#{usuarioController.usuarioSeleccionado.nombreUsuario}" style="font-weight:bold"/> 
+  		  
+            <h:outputText value="Nombre(s):" />  
+            <h:outputText value="#{usuarioController.usuarioSeleccionado.nombre}" style="font-weight:bold"/> 
+  
+            <h:outputText value="Apellidos:" />  
+            <h:outputText value="#{usuarioController.usuarioSeleccionado.apellidoPaterno.concat(' ').concat(usuarioController.usuarioSeleccionado.apellidoMaterno)}" style="font-weight:bold"/>  
+  
+            <h:outputText value="Celular:" />  
+            <h:outputText value="#{usuarioController.usuarioSeleccionado.telCelular}" style="font-weight:bold"/>  
+            
+              <h:outputText value="Teléfono del trabajo:" />  
+            <h:outputText value="#{usuarioController.usuarioSeleccionado.telTrabajo.concat(' ').concat('ext').concat(' ').concat(usuarioController.usuarioSeleccionado.telExtension)}" style="font-weight:bold"/> 
+             
+             <h:outputText value="Email empresa" />  
+            <h:outputText value="#{usuarioController.usuarioSeleccionado.emailEmpresa}" style="font-weight:bold"/> 
+            
+             <h:outputText value="Email personal:" />  
+            <h:outputText value="#{usuarioController.usuarioSeleccionado.emailPersonal}" style="font-weight:bold"/> 
+            
+            
+             <h:outputText value="Fecha de nacimiento:" />  
+            <h:outputText value="#{usuarioController.usuarioSeleccionado.fechaNacimientoStr}" style="font-weight:bold"/> 
+            
+              <h:outputText value="Tipo de usuario:" />  
+              <h:outputText value="Básico"  rendered="#{usuarioController.usuarioSeleccionado.rolUsuario == 1}" style="font-weight:bold"/> 
+             <h:outputText value="Administrador"  rendered="#{usuarioController.usuarioSeleccionado.rolUsuario == 0}" style="font-weight:bold"/>
+            
+             <h:outputText value="Usuario de cambios" />  
+             <h:outputText value="Sí"  rendered="#{usuarioController.usuarioSeleccionado.usuarioDeCambios}" style="font-weight:bold"/> 
+             <h:outputText value="No"  rendered="#{!usuarioController.usuarioSeleccionado.usuarioDeCambios}" style="font-weight:bold"/>
+            
+             <h:outputText value="Usuario desarrollador" />  
+            <h:outputText value="Sí"  rendered="#{usuarioController.usuarioSeleccionado.desarrollador}" style="font-weight:bold"/> 
+            <h:outputText value="No"  rendered="#{!usuarioController.usuarioSeleccionado.desarrollador}" style="font-weight:bold"/>
+             
+            
+        </h:panelGrid>  
+    </p:dialog>  
+    	
+    	
+    	</h:form>
+
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

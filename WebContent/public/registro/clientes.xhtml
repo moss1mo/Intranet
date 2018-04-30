@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+ <h:head>
+ </h:head>
+ <h:body>
+ <ui:composition template="../../template/loginLayout.xhtml">
+  <div id="header">
+   <ui:define  name="header">
+ 
+  
+   </ui:define>
+  </div>
+ 
+  <div id="content">
+	 <ui:define  name="content">
+	 
+	 
+	 <div class="ui-g" style="font-size:13px;">
+    <div class="ui-g-12 ui-md-4 ui-lg-4"></div>
+    <div class="ui-g-12 ui-md-4 ui-lg-4">
+    <div><img src="${facesContext.externalContext.requestContextPath}/resources/images/default/logo_shq.png"  width="172" height="54" style="cursor: pointer;float:right;" /> <p style="color:green;font-size:32px;font-weight: bold;float:left;">Registro en sistema</p></div>
+    
+	  	
+</div>
+    <div class="ui-g-12 ui-md-4 ui-lg-4"></div>
+</div>
+	 
+	 
+	 
+	 <h:form id="form" >
+	 
+    <p:panel id="pnlLogin"  onreset="#{loginController.limpiarForm()}">
+	    <p:messages id="messages" showDetail="true" autoUpdate="true" />
+	
+         <p:fieldset legend="Datos Personales" style="margin-bottom:20px;">
+        <p:panelGrid columns="6" cellpadding="1">
+        
+        <p:outputLabel for="txtUsername" value="Nombre de usuario"/>
+		<p:inputText id="txtUsername" value="#{clientesController.cliente.username}" validatorMessage="La contraseña es requerida"/>
+		
+		
+		
+		<h:outputLabel for="txtPassword" value="Contraseña" />
+        <p:password id="txtPassword" value="#{clientesController.cliente.password}" match="txtPasswordConfirm" validatorMessage="Confirmación de contraseña distinta"  required="true" />
+ 
+        <h:outputLabel for="txtPasswordConfirm" value="Confirmar contraseña" />
+        <p:password id="txtPasswordConfirm" value="#{clientesController.cliente.password}" required="true" />
+ 
+
+		
+		
+		
+        
+        <p:outputLabel for="txtNombres" value="Nombre(s)"/>
+		<p:inputText id="txtNombres" value="#{clientesController.cliente.nombre}"/>
+		
+		<p:outputLabel for="txtApellidoP" value="Apellido paterno"/>
+		<p:inputText id="txtApellidoP" value="#{clientesController.cliente.apePaterno}"/>
+		
+		<p:outputLabel for="txtApellidoM" value="Apellido materno"/>
+		<p:inputText id="txtApellidoM" value="#{clientesController.cliente.apeMaterno}"/>
+		 
+		
+        </p:panelGrid>
+    </p:fieldset>
+             
+   <br/><br/>
+
+	 	 <p:commandButton style="float:right;margin-top:-2%;" id="btnRegistrar" value="Registrar" actionListener="#{clientesController.guardarCliente()}" update="@form"  validateClient="true" />
+    	 <p:button style="float:right;margin-top:-2%;" id="btnCancelar" value="Cancelar"  onclick="closeIframe();" />																																							
+    </p:panel>
+
+</h:form>
+<!--  	 	 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" rendered="true" redisplay="true"/>  -->
+ 
+	 </ui:define>
+  </div>
+    	
+</ui:composition>
+ </h:body>
+</html>

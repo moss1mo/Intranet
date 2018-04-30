@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioMisDatos"  style=" font-size:12px;">
+       
+       
+       <p:tabMenu activeIndex="1" >
+     <p:menuitem value="Generales"  url="misDatos.xhtml" icon="ui-icon-document" />
+      <p:menuitem value="Contacto"  icon="ui-icon-document" />
+       <p:menuitem value="Cambiar contraseña"  url="actualizarContrasena.xhtml" icon="ui-icon-document" />
+      
+    </p:tabMenu>
+      <p:panel id="pnl" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:14px;" >
+      
+        <h:panelGrid columns="2" cellpadding="10" cellspacing="15" style="margin-left:60px;">
+	
+		<h:outputText value="Teléfono celular" style="font-weight:bold;" />  
+		<p:inplace id="telCelular" editor="true" emptyLabel="Vacio">  
+          <p:inputText  value="#{usuarioController.usuario.telCelular}" 
+                             label="text" placeholder="Teléfono celular"/>  
+         </p:inplace>       
+			
+		
+		    <h:outputText value="Teléfono trabajo" style="font-weight:bold;" /> 
+				<p:inplace id="telTrabjo" editor="true" emptyLabel="Vacio">  
+                <p:inputText  value="#{usuarioController.usuario.telTrabajo}"  
+                             label="text" placeholder="Teléfono trabajo"/>  
+            </p:inplace>  
+			
+		 <h:outputText value="Extensión" style="font-weight:bold;" /> 
+				<p:inplace id="ext" editor="true" emptyLabel="Vacio">  
+                <p:inputText  value="#{usuarioController.usuario.telExtension}"  
+                            label="text" placeholder="Extensión"/>  
+            </p:inplace>  
+            
+             <h:outputText value="Email trabajo" style="font-weight:bold;" /> 
+				<p:inplace id="emailTrabajo" editor="true" emptyLabel="Vacio">  
+                <p:inputText  value="#{usuarioController.usuario.emailEmpresa}"  
+                             label="text" placeholder="Email trabajo"/>  
+            </p:inplace>  
+		
+		 <h:outputText value="Email personal" style="font-weight:bold;" /> 
+				<p:inplace id="emailPersonal" editor="true" emptyLabel="Vacio">  
+                <p:inputText  value="#{usuarioController.usuario.emailPersonal}"  
+                             label="text" placeholder="Email personal"/>  
+            </p:inplace>  
+		 
+	
+	      <br/><br/><br/><br/><br/>
+          <p:row>
+          <p:column>
+               
+             <h:panelGroup>
+
+        <p:commandButton id="saveBtn" value="Guardar cambios" icon="ui-icon-check" 
+        style="margin:0;" action="#{usuarioController.guardarCambiosUsuario()}" />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </h:panelGrid>
+            
+        
+   
+ </p:panel>
+    <p:blockUI block="pnl" trigger="saveBtn" >
+                 Cargando<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   
+            </h:form>
+            
+           
+               
+          
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+<persistence-unit name="ektbitacora" transaction-type="RESOURCE_LOCAL">
+ 		<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider> 
+ 		<non-jta-data-source>java:comp/env/jdbc/EktdinBitacora</non-jta-data-source>
+		<class>com.shq.entities.UsuarioEntity</class>
+		<class>com.shq.entities.AplicacionesEntity</class>
+		<class>com.shq.entities.ArchivosEntity</class>
+	    <class>com.shq.entities.BitacoraEntity</class>
+	    <class>com.shq.entities.UsuarioAppEntity</class>
+<!-- 	    <properties> -->
+<!--         	<property name="javax.persistence.jdbc.driver" value="org.sqlite.JDBC" /> -->
+<!-- 	        <property name="javax.persistence.jdbc.url" value="jdbc:sqlite:F:\Work\BancoAzteca\ElektraDinero\Servidores\jboss-eap-6.1.0\jboss-eap-6.1\bin\bitacorasEkt.sqlite" /> -->
+<!--     	    <property name="eclipselink.logging.level" value="ALL" /> -->
+<!-- 	    </properties>  -->
+	 </persistence-unit>
+</persistence>

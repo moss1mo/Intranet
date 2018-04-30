@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	  
+          
+          <h:form style="font-size:12px;"> 
+          
+            <p:tabMenu activeIndex="0">
+     <p:menuitem value="Lista de archivos"  icon="ui-icon-search"/>
+     <p:menuitem value="Crear archivo"  url="registrarArchivo.xhtml" icon="ui-icon-document" />
+
+    </p:tabMenu>   
+      
+          <p:contextMenu for="archivos">   
+          <p:menuitem value="Eliminar" update="archivos" icon="ui-icon-close" actionListener="#{archivosController.borrarArchivo}"/>  
+   	 </p:contextMenu> 
+   	 
+   	 <p:panel style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;">
+          
+          <p:dataTable id="archivos" var="arch" value="#{archivosController.getTodosArchivos()}" paginator="true" rows="10"  editable="true" editMode="cell"
+                 rowKey="#{arch}"  selection="#{archivosController.archivoTablaSeleccionada}"  selectionMode="single"  paginatorPosition="bottom" scrollable="true" >  
+  
+        <!-- 	<p:ajax event="rowSelect" listener="#{tableBean.onRowSelect}"   
+                    update=":form:display :form:growl" oncomplete="PF('carDialog').show()" />  
+        	<p:ajax event="rowUnselect" listener="#{tableBean.onRowUnselect}" update=":form:growl"/>   -->
+ 
+ 		 <p:column headerText="Id" style="width:33%">  
+           				 #{arch.idArchivo}  
+        			</p:column>
+ 
+ 				  <p:ajax event="cellEdit" listener="#{archivosController.actualizarArchivo()}" />  
+  
+  
+        <p:column headerText="Archivo" style="width:33%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{arch.nombreArchivo}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInput" value="#{arch.nombreArchivo}" style="width:96%"/></f:facet>  
+               </p:cellEditor>  
+           </p:column>  
+           
+           <p:column headerText="Aplicación" style="width:34%">  
+            	#{arch.nombreAppAsignado}  
+        	</p:column>  
+    
+    	</p:dataTable> 
+    	
+    </p:panel>
+ 
+    	</h:form>
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 
+
+	
+
+          <h:form style="font-size:12px;" onreset=""> 
+   
+   	  	 
+   
+   	 
+   	 <p:panel id="pnlTablaEntradas"  style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+   	 
+  
+          
+          <p:dataTable id="lstEntradas"  var="inventario" value="#{inventarioController.getInventarioTableModel()}" paginator="true" rows="10"  emptyMessage="No hay solicitudes de alta registradas"
+                  selectionMode="single"  paginatorPosition="bottom"  scrollable="true"  sortOrder="descending">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+        
+        
+          <p:column sortBy="producto.producto"  headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="producto.producto" >  
+           		 #{inventario.id.producto}  
+        	</p:column> 
+        <p:column sortBy="cantidad"  headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="cantidad" >  
+           		 #{inventario.id.cantidad}  
+        	</p:column> 
+        	
+        	
+       		  
+    	</p:dataTable> 
+    	
+    	
+    	
+   
+    	
+    </p:panel>
+    
+
+    	
+    	
+    	</h:form>
+<!--      </p:tab>  -->
+        
+<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+ 
+
+          
+<!--          </p:tab>   -->
+         
+
+<!--      </p:tabView> -->
+
+                 
+ 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

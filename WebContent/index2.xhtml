@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+ <h:head>
+ </h:head>
+ <h:body>
+ <ui:composition template="template/mainLayout.xhtml">
+  <div id="header">
+   <ui:define  name="header">
+  <div id="logo">
+	    <img src="${facesContext.externalContext.requestContextPath}/resources/images/default/logo_shq.png"  width="160" height="50" style="cursor: pointer;" />
+   		 </div>
+  
+   </ui:define>
+  </div>
+ 
+  <div id="content">
+	 <ui:define  name="content">
+	 
+	 <h:form id="form" >
+	 
+    <p:panel id="pnlLogin" header="Login" style="width:280px; height:280px; margin-left:345px; margin-top:100px" onreset="#{loginController.limpiarForm()}">
+        <h:panelGrid columns="2">
+             <p:inputText id="txtUsuario" value="#{loginController.username}"  placeholder="Usuario" required="true" requiredMessage="El usuario es requerido">
+                    <p:ajax update="msgUsuario" event="change" /> 
+                    <p:ajax update="form" event="change" /> 
+                     <p:message id="msgUsuario" for="txtUsuario" display="text"/>  
+			 </p:inputText>
+				
+              <br/><br/><br/>
+            <p:password id="passPassword" value="#{loginController.password}" placeholder="Contraseña" autocomplete="off" redisplay="true" required="true" requiredMessage="La contraseña es requerida" >
+                      <p:ajax update="msgPass" event="change" />
+                     <p:message id="msgPass" for="passPassword" display="text"/> 
+                     </p:password>
+   </h:panelGrid>
+   <br/><br/>
+
+	 	 <p:commandButton style="width:80px; display:block; margin-left: auto; margin-right: auto;" id="btnEntrar" value="Entrar" actionListener="#{loginController.doLogin}" update="@form"  validateClient="true" />
+    																																												
+    </p:panel>
+
+</h:form>
+<!--  	 	 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" rendered="true" redisplay="true"/>  -->
+ 
+	 </ui:define>
+  </div>
+    	
+</ui:composition>
+ </h:body>
+</html>

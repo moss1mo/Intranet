@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioArchivo" style=" font-size:12px;" >
+      
+       
+       <p:tabMenu activeIndex="1" >
+     <p:menuitem value="Lista de archivos"  url="listaArchivos.xhtml" icon="ui-icon-search"/>
+     <p:menuitem value="Crear archivo"   icon="ui-icon-document" />
+    </p:tabMenu>
+      <p:panel id="pnl" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px; ">
+      
+        <p:panelGrid  cellpadding="10" style="margin-left:60px;">
+		<p:row>
+			<p:column>
+				<p:inputText id="nombreArch" value="#{archivosController.archivo.nombreArchivo}"  placeholder="Nombre del archivo" size="30" required="true" requiredMessage="El nombre de archivo es requerido">
+				 <p:ajax update="msgNombreArch" event="keyup" /> 
+				  </p:inputText>
+				   <p:message id="msgNombreArch" for="nombreArch" display="text"/>   
+			</p:column>
+		</p:row>
+		<p:row>
+		 <p:column>
+      			<p:autoComplete id="nombreAppAsignado" value="#{archivosController.archivo.nombreAppAsignado}" var="app" itemLabel="#{app.nombreApp}" itemValue="#{app.nombreApp}"  completeMethod="#{aplicacionesController.getAplicacionesFiltro}"    placeholder="¿A que aplicación pertenece?" size="25" forceSelection="true" required="true" requiredMessage="El nombre de la aplicación es requerido">
+      			 <p:ajax update="msgAppAsign" event="keyup" /> 
+				 </p:autoComplete>
+				   <p:message id="msgAppAsign" for="nombreAppAsignado" display="text"/>   
+     		 </p:column> 
+		</p:row>
+       
+          <p:row>
+          <p:column>
+               
+             <h:panelGroup>
+
+        <p:commandButton id="saveBtn" value="Registrar" icon="ui-icon-check"
+        style="margin:0;" actionListener="#{archivosController.guardarArchivo()}"  update="pnl" validateClient="true"   />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

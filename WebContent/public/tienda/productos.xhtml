@@ -1,0 +1,101 @@
+<html class="html" lang="es-ES"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+	 
+	 
+	 <h:head>
+      <h:outputStylesheet name="customPanelGrid.css" library="css"/>
+    <h:outputStylesheet name="styleItemSlider.css" library="css"/>
+    <h:outputStylesheet name="styleFontItemSlider.css" library="css"/>
+	<h:outputStylesheet name="layout-style.css" library="css"/>
+ 	<h:outputStylesheet name="layoutHeader.css" library="css"/>
+ 	<h:outputStylesheet name="../../resources/css/index.css" library="css"/>
+    </h:head>
+
+	
+ <h:body>
+ <ui:composition template="../../template/publicLayout.xhtml">
+ 		
+		 <ui:define  name="content" >
+		<img src="../../resources/images/public/banner-compras.png" width="100%"></img>
+		<p style="font-size:28px;color:#483D8B;">Nuestros productos en inventario</p>
+		
+		
+		          <h:form style="font-size:12px;" onreset=""> 
+   
+   	  	 
+   
+   	 
+   	 <p:panel id="pnlTablaEntradas"  style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+   	 
+  
+          
+          <p:dataTable id="lstProductos" editable="false" var="inventario"  rowKey="#{inventario.producto.id}" value="#{inventarioController.geProductoSolCotDataModel()}" paginator="true" rows="10"  widgetVar="lstProductos" emptyMessage="No hay solicitudes de alta registradas"
+                  selection="#{inventarioController.listaProductosCotizarSeleccionados}"  style="text-align:center"  paginatorPosition="bottom"  scrollable="true"  sortOrder="descending">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+        
+         
+        <p:column style="width:16px">
+            <p:rowToggler />
+        </p:column>
+        
+        
+        
+          <p:column sortBy="#{inventario.producto.producto}"  headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="#{inventario.producto.producto}"  >  
+           		 #{inventario.producto.producto}  
+        	</p:column> 
+        <p:column sortBy="#{inventario.producto.especificaciones}"  headerText="Especificaciones" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="#{inventario.producto.especificaciones}" >  
+           		 #{inventario.producto.especificaciones}
+        	</p:column>
+        	
+        	
+        	
+        	
+        	<p:rowExpansion>
+            <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
+                <f:facet name="header">
+                    <p:graphicImage name="images/default/sinImagen.png"/> 
+                </f:facet>
+ 
+
+            </p:panelGrid>
+        </p:rowExpansion>
+        
+        
+        
+        
+        
+       		  
+    	</p:dataTable> 
+    	
+    	<br/>
+            <p:commandButton id="btnSolCot" style="float:right;" icon="ui-icon-search"  value="Realizar cotización" oncomplete="location.href='./solicitudCotizacion.xhtml'"  />
+			<br/> <br/>    	
+    	
+    	
+   
+    	
+    </p:panel>
+    
+
+    	
+    	
+    	</h:form>
+    	
+    	</ui:define>
+		
+			</ui:composition>
+		
+	</h:body>
+</html>

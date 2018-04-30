@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+      
+      
+      
+    <body>
+	    <ui:composition>
+ 		<div id="logo">
+ 		 <a href="/Intranet/secured/menu.xhtml">
+	    <img src="${facesContext.externalContext.requestContextPath}/resources/images/default/logo_shq.png"  width="160" height="50" style="cursor: pointer;" />
+	    </a>
+   		 </div>
+   <h:panelGroup rendered="#{loginController.username!=null}" >  
+    <div id="loginUserName">
+    
+    
+	<h3>Usuario:    <p:commandLink   action="#{usuarioController.recuperarDatosUsuario(loginController.usuarioLogeado.idUsuario)}" oncomplete="location.href='/../../Intranet/secured/menu/miPerfil/misDatos.xhtml'"  style="color:green">#{loginController.nombreUsuarioLogeado}</p:commandLink></h3>
+				
+				
+			
+    
+    
+	<h3>Perfil:  <p:commandLink style="color:#106393">#{loginController.rol.nombre} </p:commandLink></h3><br/>
+	<h:form>
+	<div>
+	  <h:commandLink action="#{loginController.doLogout}"><img src="${facesContext.externalContext.requestContextPath}/resources/images/layout/header/cerrarSesionRed_32x32.png" height="16" width="16" alt="Cerrar sesión" style="float:left;"/><p style="font-size:14px; display:inline; padding-left:3px; float:right;">Cerrar sesión</p></h:commandLink>
+	</div>
+	</h:form>
+	</div>
+</h:panelGroup>
+   		 
+   		 
+	
+	 
+ 
+	    </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+
+
+	<ui:composition template="/template/mainLayout.xhtml">
+
+		<div id="content">
+
+			<ui:define name="content">
+
+
+
+
+				<h:form id="cotizacionCompleta" style="font-size:12px;" onreset="">
+
+
+
+
+
+					<p:panel id="pnlTablaAsignados"
+						style="border:0px; margin-bottom:25px; overflow:auto; font-size:12px;">
+
+
+						<h2>Cotización de SHQ</h2>
+						<br />
+
+						<p:fieldset legend="Responsable de compras"
+							rendered="#{comprasController.cotizacionProveedor.solCotizacion.usuarioByIdComprador != null}">
+
+							<p:panelGrid columns="3">
+								<p:outputLabel for="asignado"
+									value="Usuario de compras asignado:"
+									style="font-weight: bold;font-size:14px;" />
+								<p:outputLabel id="asignado"
+									value="#{comprasController.cotizacionProveedor.solCotizacion.usuarioByIdComprador.empleado.nombre} #{comprasController.cotizacionProveedor.solCotizacion.usuarioByIdComprador.empleado.apellidoMaterno} #{comprasController.cotizacionProveedor.solCotizacion.usuarioByIdComprador.empleado.apellidoPaterno}" />
+							</p:panelGrid>
+
+						</p:fieldset>
+						<br />
+
+						<p:fieldset legend="Datos de la empresa">
+							<p:panel>
+
+								<p:panelGrid columns="1">
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="Suministros Herbolarios y Químicos, S.A. de C.V." />
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="Pino 18, Las Rosas, CP 54069, Tlalnepantla de Baz, Estado de México, México" />
+								</p:panelGrid>
+								<p:panelGrid columns="3">
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="SHQ1403107G5" />
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="Tel: 6648 9495" />
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="Email: ventas@shq.com.mx" />
+								</p:panelGrid>
+							</p:panel>
+						</p:fieldset>
+						<br />
+
+						<p:fieldset legend="Datos de la cotización">
+							<p:panel>
+
+								<p:panelGrid columns="2">
+									<p:outputLabel for="fechaReq"
+										style="font-weight: bold;font-size:14px;"
+										value="Fecha solicitud:" />
+									<p:outputLabel id="fechaReq" style="width:100%"
+										value="#{comprasController.cotizacionProveedor.solCotizacion.fechaSol}" />
+									<p:outputLabel for="folio"
+										style="font-weight: bold;font-size:14px;"
+										value="Requerimiento:" />
+									<p:outputLabel id="folio" style="width:100%"
+										value="#{comprasController.cotizacionProveedor.solCotizacion.id}" />
+								</p:panelGrid>
+
+							</p:panel>
+						</p:fieldset>
+						<br />
+
+						<p:fieldset legend="Datos del cliente">
+							<p:panel>
+
+								<p:panelGrid columns="6">
+									<p:outputLabel for="clave"
+										style="font-weight: bold;font-size:14px;"
+										value="Clave del cliente:" />
+									<p:outputLabel id="clave" style="width:100%"
+										value="#{comprasController.cotizacionProveedor.solCotizacion.usuarioByIdExterno.externo.idExterno}" />
+									<p:outputLabel for="nombre"
+										style="font-weight: bold;font-size:14px;" value="Cliente:" />
+									<p:outputLabel id="nombre" style="width:100%"
+										value="#{comprasController.cotizacionProveedor.solCotizacion.nombre} #{comprasController.cotizacionProveedor.solCotizacion.apellidoPaterno} #{comprasController.cotizacionProveedor.solCotizacion.apellidoMaterno}" />
+									<p:outputLabel for="rfc"
+										style="font-weight: bold;font-size:14px;" value="RFC:" />
+									<p:outputLabel id="rfc" style="width:100%"
+										value="#{comprasController.cotizacionProveedor.solCotizacion.rfc}" />
+
+									<p:outputLabel for="tel"
+										style="font-weight: bold;font-size:14px;" value="Télefono:" />
+									<p:outputLabel id="tel" style="width:100%"
+										value="#{comprasController.cotizacionProveedor.solCotizacion.telefono}" />
+
+									<p:outputLabel for="correo"
+										style="font-weight: bold;font-size:14px;" value="Correo:" />
+									<p:outputLabel id="correo" style="width:100%"
+										value="#{comprasController.cotizacionProveedor.solCotizacion.correo}" />
+
+
+								</p:panelGrid>
+							</p:panel>
+						</p:fieldset>
+						<br />
+
+						<p:fieldset legend="Datos del domicilio">
+							<p:panel>
+
+								<p:panelGrid columns="2">
+									<p:outputLabel for="dirFiscal"
+										style="font-weight: bold;font-size:14px;"
+										value="Dirección fiscal:" />
+									<p:outputLabel id="dirFiscal" style="width:100%"
+										value="#{comprasController.cotizacionProveedor.solCotizacion.direccionFiscal}" />
+
+									<p:outputLabel for="dirEntrega"
+										style="font-weight: bold;font-size:14px;"
+										value="Dirección entrega:" />
+									<p:outputLabel id="dirEntrega" style="width:100%"
+										value="#{comprasController.cotizacionProveedor.solCotizacion.direccionEntrega}" />
+
+
+
+								</p:panelGrid>
+
+								<ui:remove>
+									<p:panelGrid columns="2" id="pnlDomicilioGlobal"
+										columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid"
+										styleClass="ui-panelgrid-blank">
+
+
+										<p:panelGrid columns="2" id="pnlDomicilio"
+											columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+											styleClass="ui-panelgrid-blank">
+
+											<p:outputLabel for="pais" value="País:"
+												style="font-weight: bold;font-size:14px;" />
+
+											<p:outputLabel id="pais" style="width:100%"
+												value="#{comprasController.cotizacionProveedor.solCotizacion.pais}" />
+
+
+											<p:outputLabel for="municipio" value="Municipio:"
+												style="font-weight: bold;font-size:14px;" />
+
+											<p:outputLabel id="municipio"
+												value="#{catalogosController.getMunicipio({comprasController.cotizacionProveedor.solCotizacion.municipio},{comprasController.cotizacionProveedor.solCotizacion.estado}).id.DMnpio}" />
+
+
+
+											<p:outputLabel for="cp" value="Código Postal:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel id="cp"
+												value="#{catalogosController.getUnicoCP({comprasController.cotizacionProveedor.solCotizacion.estado},{comprasController.cotizacionProveedor.solCotizacion.municipio},{comprasController.cotizacionProveedor.solCotizacion.colonia}).id.DCodigo}" />
+
+
+										</p:panelGrid>
+
+										<p:panelGrid columns="2" id="pnlDomicilio2"
+											columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+											styleClass="ui-panelgrid-blank">
+
+											<p:outputLabel for="estado" value="Estado:"
+												style="font-weight: bold;font-size:14px;" />
+
+											<p:outputLabel id="estado"
+												value="#{catalogosController.getEstado({comprasController.cotizacionProveedor.solCotizacion.estado}).id.DEstado}" />
+
+
+
+
+
+											<p:outputLabel for="colonia" value="Colonia:"
+												style="font-weight: bold;font-size:14px;" />
+
+
+											<p:outputLabel id="colonia"
+												value="#{catalogosController.getColonia({comprasController.cotizacionProveedor.solCotizacion.colonia},{comprasController.cotizacionProveedor.solCotizacion.estado},{comprasController.cotizacionProveedor.solCotizacion.municipio}).id.DAsenta}" />
+
+
+											<p:outputLabel for="calle" value="Calle:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel id="calle" size="35"
+												value="#{comprasController.cotizacionProveedor.solCotizacion.calle}" />
+
+
+
+										</p:panelGrid>
+										<p:panelGrid columns="2" id="pnlDomicilio3"
+											columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+											styleClass="ui-panelgrid-blank">
+
+											<p:outputLabel for="ref" value="Referencias:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel id="ref" size="35"
+												value="#{comprasController.cotizacionProveedor.solCotizacion.referencias}" />
+
+
+										</p:panelGrid>
+
+
+
+
+
+										<p:panelGrid columns="4" id="pnlDomicilio4"
+											columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid"
+											styleClass="ui-panelgrid-blank">
+
+											<p:outputLabel for="numExt" value="Núm. Ext:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel id="numExt" size="10"
+												value="#{comprasController.cotizacionProveedor.solCotizacion.numExt}" />
+
+											<p:outputLabel value="Núm. Int:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel
+												rendered="#{comprasController.cotizacionProveedor.solCotizacion.numInt != ''}"
+												value="#{comprasController.cotizacionProveedor.solCotizacion.numInt}" />
+											<p:outputLabel
+												rendered="#{comprasController.cotizacionProveedor.solCotizacion.numInt == ''}"
+												value="-" />
+
+
+										</p:panelGrid>
+
+									</p:panelGrid>
+								</ui:remove>
+
+							</p:panel>
+						</p:fieldset>
+						<br />
+						
+						
+						<p:fieldset legend="Datos de tipo de cambio">
+							<p:panelGrid columns="2" columnClasses="label,value">
+							<p:outputLabel style="font-weight: bold;font-size:14px;"
+								value="Divisas:" />
+							<p:outputLabel  id="div"
+								value="USD a MXN" />
+							
+							
+							
+							<p:outputLabel style="font-weight: bold;font-size:14px;"
+								value="Tipo de cambio:" />
+							<p:outputLabel style="color:red;" id="tipoCambio"
+								value="#{inventarioController.tc}" />
+							
+							</p:panelGrid>
+						</p:fieldset>
+
+
+						<br />
+						<p:fieldset legend="Productos de la cotización">
+							<p:panelGrid columns="2" columnClasses="label,value"
+								style="width:100%">
+								<f:facet name="header">
+									<p:dataTable id="listaSolcitudesAsignadas" var="pro"
+										value="#{comprasController.cotizacionProveedor.listaProductoCotProveedors}"
+										paginator="true" rows="10"
+										emptyMessage="No hay productos en esta cotización"
+										paginatorPosition="bottom" scrollable="true" editable="false"
+										 sortOrder="descending" sortBy="#{pro.cotizacionProveedor.id}">
+
+
+										<p:column headerText="Clave" filterMatchMode="contains"
+											filterStyle="display:none">  
+           		 #{pro.producto.clave}  
+        	</p:column>
+
+										<p:column headerText="Producto" filterMatchMode="contains"
+											filterStyle="display:none">  
+           		 #{pro.producto.producto}  
+        	</p:column>
+
+										<p:column headerText="Cantidad (kg)"
+											filterMatchMode="contains" filterStyle="display:none">  
+           		 #{pro.cantidad}  
+        	</p:column>
+
+										<p:column headerText="IVA/IEPS" filterMatchMode="contains"
+											filterStyle="display:none">  
+           		 #{pro.producto.impuesto}%  
+        	</p:column>
+        	
+        					<p:column headerText="Moneda"
+											filterMatchMode="contains" filterStyle="display:none">
+
+											<p:cellEditor>
+												<f:facet name="output" >
+													<h:outputText value="#{pro.moneda}" rendered="#{pro.moneda != null}" />
+													<h:outputText value="USD" rendered="#{pro.moneda == null}" />
+												</f:facet>
+												<f:facet name="input">
+														
+														 <p:selectOneMenu  required="true" id="moneda" value="#{pro.moneda}" style="width:40px">
+												            <f:selectItem itemLabel="USD" itemValue="USD" />
+												            <f:selectItem itemLabel="MXN" itemValue="MXN" />
+												        </p:selectOneMenu>
+        
+													
+
+												</f:facet>
+											</p:cellEditor>
+
+										</p:column>
+        	
+        								
+        
+
+										<p:column headerText="Costo unitario"
+											filterMatchMode="contains" filterStyle="display:none">
+
+											
+													$<h:outputText value="#{pro.costo}">
+														<f:convertNumber currencySymbol="$" locale="en-US" groupingUsed="true" minFractionDigits="2"/>
+													</h:outputText>
+							
+
+										</p:column>
+
+										<p:column headerText="Tiempo de entrega (Días hábiles)"
+											filterMatchMode="contains" filterStyle="display:none">
+
+											<p:cellEditor>
+												<f:facet name="output">
+													<h:outputText value="#{pro.tiempoEntrega}" />
+												</f:facet>
+												<f:facet name="input">
+													<f:facet name="input">
+														<p:inputText id="tiempoEntrega"
+															value="#{pro.tiempoEntrega}" />
+													</f:facet>
+
+												</f:facet>
+											</p:cellEditor>
+
+										</p:column>
+										
+										<p:column headerText="Monto(MXN)" filterMatchMode="contains"
+											filterStyle="display:none" rendered="#{pro.moneda eq 'USD' or pro.moneda eq null}">  
+
+											$<h:outputText value="#{pro.cantidad*pro.costo*inventarioController.tc}">
+												<f:convertNumber currencySymbol="$" locale="en-US" groupingUsed="true" minFractionDigits="2"/>
+											</h:outputText>
+
+        								</p:column>
+        						
+        						
+        								
+        								<p:column headerText="Monto(MXN)" filterMatchMode="contains"
+											filterStyle="display:none" rendered="#{pro.moneda eq 'MXN'}">  
+           								 	$<h:outputText value="#{pro.cantidad*pro.costo}">
+												<f:convertNumber currencySymbol="$" locale="en-US" groupingUsed="true" minFractionDigits="2"/>
+											</h:outputText>
+           								 	
+        								</p:column>
+        								
+        								
+        								<p:summaryRow>
+            <p:column colspan="7" style="text-align:right">
+                <h:outputText value="Subtotal:" />
+                <br/><h:outputText value="IVA:" />
+                <br/><h:outputText value="Total:" />
+            </p:column>
+            <p:column>
+                $<h:outputText value="#{comprasController.totalCotizacionSinIva}">
+					<f:convertNumber currencySymbol="$" locale="en-US" groupingUsed="true" minFractionDigits="2"/>
+				</h:outputText><br/>
+				 $<h:outputText value="#{comprasController.totalCotizacionSinIva*0.16}">
+					<f:convertNumber currencySymbol="$" locale="en-US" groupingUsed="true" minFractionDigits="2"/>
+				</h:outputText><br/>
+				 $<h:outputText value="#{comprasController.totalCotizacionSinIva*1.16}">
+					<f:convertNumber currencySymbol="$" locale="en-US" groupingUsed="true" minFractionDigits="2"/>
+				</h:outputText>
+            </p:column>
+         
+        </p:summaryRow>
+        
+  
+
+									</p:dataTable>
+
+								</f:facet>
+
+
+							</p:panelGrid>
+
+
+						</p:fieldset>
+						<br />
+
+
+						<p:fieldset legend="Terminos y condiciones de entrega">
+    <p:panel>
+    
+    	<p:panelGrid columns="8">
+    	    <p:outputLabel for="dondeEntrega" value="Tipo de entrega:" style="font-weight: bold;font-size:14px;" />
+    	    <p:outputLabel id="dondeEntrega" value="#{comprasController.cotizacionProveedor.solCotizacion.dondeEntregar}" />
+            
+
+    	    <p:outputLabel for="metodoPago" value="Método de pago:" style="font-weight: bold;font-size:14px;" />
+    	    <p:outputLabel id="metodoPago" value="#{comprasController.cotizacionProveedor.solCotizacion.metodoPago}" />
+    	    
+    	    <p:outputLabel for="valor" value="Valor:" style="font-weight: bold;font-size:14px;" />
+    	    <p:outputLabel id="valor" value="#{comprasController.cotizacionProveedor.solCotizacion.valor}" />
+    	    
+    	     <p:outputLabel for="fletera" value="Fletera:" style="font-weight: bold;font-size:14px;" />
+    	    <p:outputLabel id="fletera" value="#{comprasController.cotizacionProveedor.solCotizacion.fletera}" />
+            
+        </p:panelGrid>
+        
+    	 <p:panelGrid columns="2" >
+    	 
+    	 
+    	 <p:outputLabel for="fecha" value="Fecha máxima de entrega:" style="font-weight: bold;font-size:14px;" />
+        
+           <p:outputLabel id="fecha"  value="#{comprasController.cotizacionProveedor.solCotizacion.fechaEntrega}"  />
+    	  </p:panelGrid>
+    	 
+    	 
+	
+        
+       
+    </p:panel>
+    
+    
+    </p:fieldset>
+    
+
+
+					</p:panel>
+		
+ 				<br />	
+ 				
+ 				<center>
+				<p:panelGrid columns="1">
+				  
+				<p:commandButton  id="btnAsignCot" process="cotizacionCompleta" rendered="#{comprasController.cotizacionProveedor.solCotizacion.codStatus eq 5}"
+							 update="cotizacionCompleta"
+							value="Aceptar cotización" icon="fa fa-paper-plane-o"
+							actionListener="#{comprasController.aceptarCotizacion()}" />
+				</p:panelGrid>			
+</center>
+
+
+
+
+
+					<br /><br />
+					<br />
+					<br />
+
+
+
+
+				</h:form>
+				<!--      </p:tab>  -->
+
+				<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+
+
+
+				<!--          </p:tab>   -->
+
+
+				<!--      </p:tabView> -->
+
+
+
+
+
+			</ui:define>
+		</div>
+
+
+	</ui:composition>
+</h:body>
+</html>

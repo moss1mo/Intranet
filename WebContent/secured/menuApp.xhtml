@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+ <h:head>
+ </h:head>
+ <h:body>
+
+ <ui:composition template="/template/appLayout.xhtml">
+ <div id="header">
+ 	    <ui:define  name="header">
+	    
+ 		<div id="logo">
+ 		<!--  	
+ 		<h:panelGroup rendered="#{aplicacionesController.imgAppSeleccionada != null}"  style="margin-bottom:50px;"> 
+ 		 <a href="/ElektraDineroBit/secured/menuApp.xhtml">
+	      <p:graphicImage width="150"  height="40" style="cursor: pointer;" value="../../../../ElektraDineroBit/#{aplicacionesController.imgAppSeleccionada}"/>    
+	    </a>
+	    </h:panelGroup> 
+	    -->
+	  <!--  <h:panelGroup rendered="#{aplicacionesController.imgAppSeleccionada == null}"  style="margin-bottom:50px;">  --> 
+ 		 <a href="/ElektraDineroBit/secured/menu.xhtml">
+	    <img src="${facesContext.externalContext.requestContextPath}/resources/images/default/logo_shq.png"  width="160" height="50" style="cursor: pointer;" />
+	    </a>
+	  <!--   </h:panelGroup> -->
+	  <br /><br />
+	  	<div id="appName">
+   	 
+		<!-- <h3> Aplicación </h3> <p style="color:green">#{aplicacionesController.nombreAppSelect}</p> -->
+	</div>
+	  
+   		 </div>
+   		
+	<h:panelGroup>
+
+	
+	</h:panelGroup>
+
+   <h:panelGroup rendered="#{loginController.username!=null}"  style="margin-bottom:50px;">  
+
+	
+   
+    <div id="loginUserName">
+	<h3>Bienvenido   <p style="color:green">#{loginController.nombreUsuarioLogeado}</p></h3><br/>
+	
+	<h:form>
+
+	<div>
+	  <h:commandLink action="#{loginController.doLogout}"><img src="${facesContext.externalContext.requestContextPath}/resources/images/layout/header/cerrarSesionRed_32x32.png" height="16" width="16" alt="Cerrar sesión" style="float:left;"/><p style="font-size:14px; display:inline; padding-left:3px; float:right;">Cerrar sesión</p></h:commandLink>
+	</div>
+<br />
+	<div >
+	   <h:commandLink action="#{aplicacionesController.regresarMenuApps}"><img src="${facesContext.externalContext.requestContextPath}/resources/images/layout/header/cambiarAplicacion_32x32.png" height="16" width="16" alt="Cerrar sesión" style="float:left;"/><p style="font-size:14px; display:inline; padding-left:3px; float:right;">Cambiar App</p></h:commandLink>
+	</div>
+		
+	
+	</h:form>
+	
+	
+	</div>
+	
+	
+
+</h:panelGroup>
+   		 
+   		 
+	
+	 
+ </ui:define>
+	 
+ 
+ 
+ </div>
+ 
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	   <h:outputScript name="jquery-2.1.0.min.js" library="js" target="head"></h:outputScript>
+	
+	<h:form>
+	<div id="mi-slider" class="mi-slider">
+
+    <ul>
+        <li><a href="subMenu/misBitacoras/misBitacoras.xhtml"><img src="${facesContext.externalContext.requestContextPath}/resources/images/menu/misBitacoras_64x64.png" alt="Mis bitacoras"/><h4>Mis bitacoras<br/><br/></h4></a></li>
+        <li><a href="subMenu/bitacoras/listadoBitacoras/listaBitacoras.xhtml"><img src="${facesContext.externalContext.requestContextPath}/resources/images/menu/listadoBitacoras_64x64.png" alt="Listado de bitacoras"/><h4>Listado de bitacoras</h4></a></li>
+    </ul>
+    
+    <ul>
+        <li><a href="subMenu/integrantes/listaIntegrantes.xhtml"><img src="${facesContext.externalContext.requestContextPath}/resources/images/menu/listaMiembros_64x64.png" alt="Lista de miembros"/><h4>Lista de integrantes<br/></h4></a></li>
+    </ul>    
+    <h:panelGroup rendered="#{loginController.tipoUsr == 0}" >  
+     <ul>
+        <li><a href="subMenu/administrador/estadisticas/estadisticas.xhtml"><img src="${facesContext.externalContext.requestContextPath}/resources/images/menu/estadisticasCambios_64x64.png" alt="Estadisticas de cambios"/><h4>Estadisticas de cambios<br/><br/></h4></a></li>
+    </ul>
+    </h:panelGroup>
+    <nav>
+        <a href="#">Bitacoras</a>
+        <a href="#">Integrantes</a>
+        <h:panelGroup rendered="#{loginController.tipoUsr == 0}" >  
+        <a href="#">Estadisticas</a>
+        </h:panelGroup>
+    </nav>
+</div>
+ </h:form>
+	<script>
+			$(function() {
+
+				$( '#mi-slider' ).catslider();
+
+			});
+		</script> 	
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

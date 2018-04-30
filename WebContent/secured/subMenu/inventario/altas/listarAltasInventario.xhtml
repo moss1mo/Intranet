@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 
+
+	
+
+          <h:form style="font-size:12px;" onreset=""> 
+          
+          
+   
+   	 
+   	 
+   	  	 
+   	  <div  style="clear:both;" >
+                <h:panelGrid columns="7" style="margin-bottom:10px" cellpadding="5">
+                
+                <p:outputLabel for="slctAlta" value="Alta:" />
+		        <p:selectOneMenu id="slctAlta" value="#{inventarioController.itemAltaInventario}" style="width:150px" >
+		            <f:selectItem itemLabel="Producto" itemValue="producto" />
+		            <f:selectItem itemLabel="Almacen" itemValue="almacen" />
+		            <p:ajax process="@this"   update="lstProductos,lstAlmacenes,pnlTablaProductos" partialSubmit="true"  />
+		            <p:ajax event="change" update="lstProductos,lstAlmacenes,pnlTablaProductos" listener="#{inventarioController.updateListas()}" />
+		        </p:selectOneMenu>
+
+				
+				<p:remoteCommand name="rc" actionListener="#{inventarioController.mostrarPantallaRegistro}" />
+ 
+    			<p:growl id="msgs" showDetail="true" />
+    			<p:commandButton type="button" onclick="rc()" value="Solicitud de alta"  icon="ui-icon-circle-plus" />
+    
+           </h:panelGrid>
+              
+            </div>
+    
+   	 
+   	 <p:panel id="pnlTablaProductos"   style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+   	 
+  
+          
+          <p:dataTable id="lstProductos" var="prod" value="#{inventarioController.getProductoTableModel()}" paginator="true" rows="10"  widgetVar="bitacorasTable" emptyMessage="No hay solicitudes de alta registradas"
+                 rowKey="#{prod.id}"   selection="#{inventarioController.productoSeleccionado}"  selectionMode="single"  paginatorPosition="bottom"  scrollable="true"  sortOrder="descending"
+                 rendered="#{inventarioController.itemAltaInventario ne 'almacen'}">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+        <p:column sortBy="clave"  headerText="Clave" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="clave" >  
+           		 #{prod.clave}  
+        	</p:column> 
+        	
+        	<p:column headerText="Especificaciones" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="especificaciones" sortBy="especificaciones">  
+           		 #{prod.especificaciones}  
+        	</p:column> 
+        
+ 
+ 		    <p:column sortBy="producto"  headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="producto" >  
+           		 #{prod.producto}  
+        	</p:column> 
+       		  
+    	</p:dataTable> 
+    	
+    	
+    	
+    	 <p:dataTable id="lstAlmacenes" var="almacen" value="#{inventarioController.getAlmacenTableModel()}" paginator="true" rows="10"  widgetVar="bitacorasTable" emptyMessage="No hay solicitudes de alta registradas"
+                 rowKey="#{bit.id}"  selection="#{inventarioController.almacenSeleccionada}"  selectionMode="single"  paginatorPosition="bottom"  scrollable="true"   sortOrder="descending"
+                 rendered="#{inventarioController.itemAltaInventario eq 'almacen'}"
+                 onreset="#{inventarioController.updateListaAlmacenes()}">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+        <p:column headerText="Id"  filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id" width="5%"
+         >   #{almacen.idAlmacen}  
+           		
+        	</p:column> 
+        	
+        	<p:column headerText="Nombre" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{almacen.nombre}  
+        	</p:column> 
+     
+       		   <p:column headerText="Tipo de almacén" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{almacen.tipoAlmacen}  
+        	</p:column> 
+        
+         <p:column headerText="Encargado" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{almacen.nombreContacto}  
+        	</p:column> 
+        	
+        	<p:column headerText="Teléfono" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{almacen.telContacto}  
+        	</p:column> 
+        	
+        	<p:column headerText="Correo" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{almacen.correoContacto}  
+        	</p:column>
+        	
+        	<p:column headerText="Horario de atención" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{almacen.horarioAtencion}  
+        	</p:column>  
+      
+    	</p:dataTable> 
+    	
+    	
+    	
+    </p:panel>
+    
+
+    	
+    	
+    	</h:form>
+<!--      </p:tab>  -->
+        
+<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+ 
+
+          
+<!--          </p:tab>   -->
+         
+
+<!--      </p:tabView> -->
+
+                 
+ 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

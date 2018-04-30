@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/mx/org/banxico/dgie/ws/DgieWS.java=UTF-8
+encoding//src/mx/org/banxico/dgie/ws/DgieWSLocator.java=UTF-8
+encoding//src/mx/org/banxico/dgie/ws/DgieWSPort.java=UTF-8
+encoding//src/mx/org/banxico/dgie/ws/DgieWSPortSoapBindingStub.java=UTF-8

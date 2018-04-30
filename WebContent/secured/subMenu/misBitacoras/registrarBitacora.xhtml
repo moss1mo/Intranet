@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/appLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioBitacora" style=" font-size:12px;" onreset="#{bitacorasController.limpiarForm()}">
+      
+       
+       <p:tabMenu activeIndex="1">
+     <p:menuitem value="Lista de bitacoras" url="misBitacoras.xhtml"  icon="ui-icon-search"/>
+     <p:menuitem value="Crear bitacora"  url="registrarBitacora.xhtml" icon="ui-icon-document" />
+    </p:tabMenu>
+      <p:panel id="pnl" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;"> 
+       
+        <p:panelGrid  cellpadding="10" style="margin-left:60px;">
+		<p:row>
+			<p:column>
+		<h:outputText value="Autor: " style="font-weight:bold"/><h:outputText value="#{bitacorasController.creadorBitacora.getNombre()} #{bitacorasController.creadorBitacora.getApellidoPaterno()} #{bitacorasController.creadorBitacora.getApellidoMaterno()}" style="font-weight:bold"/>
+		
+		</p:column>
+		
+		</p:row>
+		
+		<p:row>
+			<p:column >
+				<p:inputMask id="folioSimb" value="#{bitacorasController.bitacora.folioSimbanet}"  mask="999999"   maxlength="6" validatorMessage="El folio debe ser de 6 digitos" requiredMessage="El folio es requerido" required="true" placeHolder="" > 
+				<f:validateLength minimum="6" for="folioSimb"/>  
+                <p:ajax update="msgFolioSimbanet" event="keyup" /> 
+                  <p:ajax update="folioSimb" event="change" /> 
+                </p:inputMask>
+				 <p:watermark for="folioSimb" value="Folio simbanet" />
+				  <p:message for="folioSimb" id="msgFolioSimbanet" display="text"/>  
+			
+		</p:column>
+		</p:row>
+		<p:row>
+		<p:column>
+				<p:inputText id="horaDelCambio" value="#{bitacorasController.bitacora.horaDelCambio}" placeholder="Hora del cambio" style="float:right;" size="35"/>  
+				  
+				  
+				  <h:outputScript library="js" name="calendar_es.js" />          
+     	<p:calendar value="#{bitacorasController.bitacora.fechaCambio}" navigator="true" id="fechaCambio" showOn="button" locale="es" placeholder="Fecha del cambio" required="true" requiredMessage="Fecha del cambio es requerido" onSelectUpdate="@form" style="float:left;"> 
+		 <p:ajax update="msgFechaCambio" event="dateSelect" />
+		 <f:ajax event="change" execute="@this" render="msgFechaCambio"/>
+		</p:calendar>
+		 <p:message for="fechaCambio" id="msgFechaCambio" display="text"/>   
+		 
+			</p:column>
+				</p:row>
+		
+		<p:row>	
+			<p:column>
+				<p:inputText id="personaAreaApoyoCambio" value="#{bitacorasController.bitacora.personaAreaApoyoCambio}"  requiredMessage="El nombre de quién te apoyo en el cambio es requerido" required="true" placeholder="¿Quién te apoyo a aplicar el cambio?" size="73"> 
+                <p:ajax update="msgPersonaApoyoCambio" event="keyup" /> 
+                  <p:ajax update="personaAreaApoyoCambio" event="change" /> 
+                </p:inputText>
+				  <p:message for="personaAreaApoyoCambio" id="msgPersonaApoyoCambio" display="text"/>  
+			</p:column>
+		</p:row>
+		<p:row>
+			<p:column>
+				<p:inputText id="areaCambios" value="#{bitacorasController.bitacora.areaCambios}"   requiredMessage="El area de cambios es requerido" required="true" placeholder="Area con la que se aplicó el cambio" size="73"> 
+                <p:ajax update="msgAreaCambios" event="keyup" /> 
+                  <p:ajax update="areaCambios" event="change" /> 
+                </p:inputText>
+				  <p:message for="areaCambios" id="msgAreaCambios" display="text"/>  
+			</p:column>
+		</p:row>
+
+<p:row>
+
+      <p:column>
+      <p:autoComplete id="quienAplicoCambio" value="#{bitacorasController.bitacora.personaAplicoCambio}"  completeMethod="#{bitacorasController.getIntegrantesAplicanCambios}"    placeholder="¿Quien aplicó el cambio?" size="25" forceSelection="true" required="true" requiredMessage="Nombre de quien aplico el cambio es requerido">
+ 	<p:ajax update="msgQuienAplico" event="keyup" /> 
+ 	<p:ajax update="msgQuienAplico" event="change" /> 
+ 	</p:autoComplete>
+ 	 <p:message for="quienAplicoCambio" id="msgQuienAplico" display="text"/> 
+      </p:column> 
+		 
+</p:row>
+ 
+        
+         <p:row>
+
+         </p:row>
+        
+        <p:row>
+
+      <p:column >      
+            <p:inputTextarea id="descripCambio" value="#{bitacorasController.bitacora.descripcionCambio}" scrollHeight="100" style="width:400px; resize: none;" rows="5" cols="30" counter="counter" maxlength="1000"       
+    counterTemplate="Tienes {0} caracteres restantes." autoResize="false" placeholder="Escribe una breve descripción del cambio realizado" required="true" requiredMessage="Descripción del cambio es requerido" validatorMessage="Mínimo debes escribir 5 letras">  
+    <p:ajax update="msgDesCambio" event="keyup" /> 
+  <f:validateLength minimum="5" />
+  </p:inputTextarea><br/>
+   <p:message for="descripCambio" id="msgDesCambio" display="text"/>  
+<h:outputText style="font-size:12px;" id="counter" />  
+</p:column>
+
+<p:column >
+<h:panelGroup id="tituloProblemas">
+<h:outputText value="¿Problemas?" /> <p:spacer  width="40px;"/>
+
+<h:panelGroup rendered="#{bitacorasController.bitacora.huboProblemas}"  > 
+ <h:outputText value="Tipo de problema" /><br/>
+ </h:panelGroup>
+ </h:panelGroup>
+<p:selectBooleanButton value="#{bitacorasController.bitacora.huboProblemas}" onLabel="Sí" offLabel="Sí" style="margin-top:15px; margin-bottom: 30px;" >
+  <p:ajax process="@this"   update="tipoProblemas,panelProblemas,btnSolucionoProblema,tituloProblemas,solucionoProblemas" partialSubmit="true"  />
+  
+  
+  </p:selectBooleanButton>
+<p:spacer  width="60px;"/>
+     <h:panelGroup id="tipoProblemas">
+     <h:panelGroup rendered="#{bitacorasController.bitacora.huboProblemas}" > 
+     
+     <p:selectOneMenu value="#{bitacorasController.bitacora.tipoCambio}"  >  
+            <f:selectItem itemLabel="Mal desarrollo en el cambio" itemValue="Mal desarrollo en el cambio" />  
+            <f:selectItems value="#{bitacorasController.getListaDeProblemas()}" var="problema" itemLabel="#{problema}" itemValue="#{problema}"/>  
+        	</p:selectOneMenu> 
+       </h:panelGroup>
+ </h:panelGroup>
+</p:column>
+  </p:row>
+  
+        <p:row>
+   
+       <p:column >
+       <h:panelGroup id="panelProblemas">
+     <h:panelGroup  rendered="#{bitacorasController.bitacora.huboProblemas}"  >
+            <p:inputTextarea id="descripProblemas" counter="contadorDescripProblemas" maxlength="1000" value="#{bitacorasController.bitacora.descripcionProblema}" 
+            required="true" requiredMessage="Descripción del error es requerido" validatorMessage="Mínimo debes escribir 5 letras" scrollHeight="100"  
+            rows="5" cols="30"    style=" width:400px; resize: none;"  counterTemplate="Tienes {0} caracteres restantes." autoResize="false" placeholder="Escribe un breve explicación de cuál fue el problema">
+            
+           	  <p:ajax update="msgDesProblem" event="keyup" /> 
+ 			  <f:validateLength minimum="5" />
+ 			 </p:inputTextarea>
+           <br/>
+            <p:message for="descripProblemas" id="msgDesProblem" display="text"/>  
+			<h:outputText style="font-size:12px;" id="contadorDescripProblemas" />  
+     </h:panelGroup>
+     </h:panelGroup>
+        </p:column>  
+          
+           <p:column >
+           <h:panelGroup id="btnSolucionoProblema">
+           <h:panelGroup rendered="#{bitacorasController.bitacora.huboProblemas}"  > 
+            <h:outputText value="¿Se solucionó?" />  <br />
+           <p:selectBooleanButton value="#{bitacorasController.bitacora.solucionoProblema}" onLabel="Sí" offLabel="Sí" style="margin-top:15px; margin-bottom: 30px;"> 
+             <p:ajax process="@this"   update="solucionoProblemas" partialSubmit="true"  />
+            </p:selectBooleanButton>
+           </h:panelGroup> 
+           </h:panelGroup>
+           </p:column>
+       
+          </p:row>   
+
+         <p:row>
+        
+           <p:column >
+            <h:panelGroup id="solucionoProblemas" >
+               <h:panelGroup rendered="#{bitacorasController.bitacora.huboProblemas and bitacorasController.bitacora.solucionoProblema}"  > 
+            <p:inputTextarea id="comoSoluciono" counter="contadorDescripSolucion" maxlength="1000" value="#{bitacorasController.bitacora.comoSoluciono}"
+             required="true" requiredMessage="Descripción de la solución es requerido" validatorMessage="Mínimo debes escribir 5 letras"  scrollHeight="100"  rows="5" cols="30"  label="comoSoluciono"  style=" width:400px; resize: none;"  
+             counterTemplate="Tienes {0} caracteres restantes." autoResize="false" placeholder="Escribe un breve explicación de como se solucionó el problema" >
+            <p:ajax update="msgDesSolProblem" event="keyup" /> 
+ 			  <f:validateLength minimum="5" />
+           </p:inputTextarea>
+           <br/>
+             <p:message for="comoSoluciono" id="msgDesSolProblem" display="text"/>  
+			<h:outputText style="font-size:12px;" id="contadorDescripSolucion" />  
+       	 	</h:panelGroup> 
+       	 	</h:panelGroup>
+        </p:column> 
+    
+         </p:row>  
+         <p:row>
+             <p:column >      
+            	<p:inputTextarea id="resultadoObtenido" value="#{bitacorasController.bitacora.resultadoObtenido}" scrollHeight="100" style="width:400px; resize: none;" rows="5" cols="30" counter="counterResultadoObt" maxlength="1000"       
+   				 	counterTemplate="Tienes {0} caracteres restantes." autoResize="false" placeholder="Escribe una breve explicación del resultado obtenido después de aplicar el cambio" required="true" requiredMessage="Explicación del resultado obtenido es requerido" validatorMessage="Mínimo debes escribir 5 letras">  
+    				<p:ajax update="msgResultObtenido" event="keyup" /> 
+  					<f:validateLength minimum="5" />
+  				</p:inputTextarea><br/>
+   				<p:message for="resultadoObtenido" id="msgResultObtenido" display="text"/>  
+				<h:outputText style="font-size:12px;" id="counterResultadoObt" />  
+			</p:column>
+          </p:row>
+          <br/><br/>
+          <p:row>
+          <p:column>
+               
+             <h:panelGroup>
+          <br />
+        <p:commandButton id="saveBtn" value="Registrar" icon="ui-icon-check" 
+        style="margin:0;" action="#{bitacorasController.guardarBitacora()}"   update="pnl" validateClient="true" />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

@@ -1,0 +1,99 @@
+
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="asignacionAplicaciones" onreset="#{usuarioController.limpiarCampoUsuarioAsignApps()}" style=" font-size:12px;" >
+      
+       
+       <p:tabMenu activeIndex="2" >
+     <p:menuitem value="Lista de aplicaciones"  url="listaAplicaciones.xhtml" icon="ui-icon-search"/>
+     <p:menuitem value="Crear aplicación"   icon="ui-icon-document" url="registrarAplicacion.xhtml" />
+     <p:menuitem value="Asignar aplicaciones"  />
+    </p:tabMenu>
+      <p:panel id="pnl" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px; ">
+      
+        <p:panelGrid  cellpadding="10" style="margin-left:60px;">
+        
+       <p:row>
+ 			<p:column>
+          		<p:autoComplete id="usuarioAsigApps" value="#{usuarioController.usrSelecAsigApps}"  completeMethod="#{usuarioController.recuperarListaTodosUsuario}"  placeholder="Escriba el nombre del usuario a quien desea asignar las aplicaciones" size="75" forceSelection="true" required="true" requiredMessage="Es necesario seleccionar un usuario para asignar le aplicaciones">
+     				<p:ajax update="msgUsrAsignApps" event="keyup" /> 
+		 		</p:autoComplete>
+				   <p:message id="msgUsrAsignApps" for="usuarioAsigApps" display="text"/>  
+     		</p:column>
+		 
+			</p:row>
+			<p:row>
+				<p:column>
+ 					<p:commandButton id="appCargar" value="Cargar Apps" icon="ui-icon-check" 
+        			style="margin:5px;" action="#{usuarioController.recuperarListaAppsAsignadas()}" update="pnl"/>
+        		</p:column>
+        	</p:row>
+        
+		<p:row>
+			<p:column>
+			
+		 		 <p:pickList id="pickList" value="#{usuarioController.apps}" var="app"  filterMatchMode="contains"
+                itemLabel="#{app}" itemValue="#{app}" >
+                 <f:facet name="sourceCaption">Aplicaciones no asignadas</f:facet>  
+        		 <f:facet name="targetCaption">Aplicaciones asignadas</f:facet>  
+        		</p:pickList>  
+			</p:column>
+		</p:row>
+		
+		
+			<p:growl id="messages" showDetail="true"/>  
+       
+          <p:row>
+          <p:column>
+               
+             <h:panelGroup>
+                  
+         
+        <p:commandButton id="appAisgnacionSubmit" value="Asignar" icon="ui-icon-check" 
+        style="margin:5px;" action="#{usuarioController.asignarAplicacionesUsuario()}" update="pnl" validateClient="true"/>
+        
+        
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+  <p:blockUI block="pnl" trigger="appAisgnacionSubmit" >
+                 Cargando<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>  
+      
+            </h:form>
+            
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>
+
+

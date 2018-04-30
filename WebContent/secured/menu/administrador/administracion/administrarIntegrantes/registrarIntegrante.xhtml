@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioIntegrante" onreset="#{usuarioController.limpiarForm()}" style=" font-size:12px;">
+       
+       <p:tabMenu activeIndex="1" >
+     <p:menuitem value="Lista completa de integrantes"   url="listaIntegrantes.xhtml" icon="ui-icon-search"/>
+     <p:menuitem value="Registrar integrante"  icon="ui-icon-document" />
+    </p:tabMenu>
+      <p:panel id="pnl" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px; ">
+      
+        <p:panelGrid  cellpadding="10" style="margin-left:60px;">
+        
+		<p:row>
+			<p:column>
+				<p:inputText id="nombreUsuario" value="#{usuarioController.usuarioRegistro.nombreUsuario}"  placeholder="Nombre de usuario" size="30" required="true" requiredMessage="El nombre de usuario es requerido" validatorMessage="El nombre de usuario ya existe o es invalido"> 
+				 <f:validateRegex for="nombreUsuario" pattern="^[a-zA-Z0-9]*$"/>
+				  <p:ajax update="msgNombreUsr" event="keyup" /> 
+				     <f:validator validatorId="com.ektdinero.bitacora.validators.UsuarioEnUsoValidator"/>
+				</p:inputText>
+				  <p:message for="nombreUsuario" id="msgNombreUsr" display="text"/>  
+				
+			</p:column>
+				<p:column>  
+            <p:password id="contr1" value="#{usuarioController.usuarioRegistro.contrasena}" placeholder="Escribe una contraseña"  label="contr1"  required="true"  feedback="true"  requiredMessage="La contraseña es requerida" 
+                        promptLabel="Escribe tu contraseña" weakLabel="Nivel de seguridad bajo"  
+                        goodLabel="Nivel de seguridad bueno" strongLabel="Nivel de seguridad optimo" size="30" 
+                        validatorMessage="La contraseña debe ser igual en ambos campos">  
+                     <p:ajax update="msgPass" event="keyup"/>
+                    </p:password> 
+                    <p:message id="msgPass" for="contr1" display="text"/>  
+                    
+                       
+         </p:column>
+<!--          <p:column>  -->
+<!-- 		  <p:password id="contr2" value="#{usuarioController.usuarioRegistro.contrasena}" placeholder="Repite tu contraseña" label="contr2" required="true" size="30" > -->
+<!-- 			   <p:ajax update="msgPass" event="keyup"/> -->
+<!-- 			   </p:password>   -->
+			
+<!-- 			 </p:column> -->
+		
+		</p:row>
+	
+		
+		<p:row>
+			<p:column>
+				<p:inputText id="nombre" value="#{usuarioController.usuarioRegistro.nombre}"  placeholder="Nombre(s)" size="30" required="true" requiredMessage="El nombre es requerido"> 
+					  <p:ajax update="msgNombre" event="keyup" /> 
+				 </p:inputText>
+				  <p:message id="msgNombre" for="nombre" display="text"/>  
+			</p:column>
+			<p:column>
+				<p:inputText id="apellidoPaterno" value="#{usuarioController.usuarioRegistro.apellidoPaterno}"  placeholder="Apellido paterno" size="30" required="true" requiredMessage="El apellido paterno es requerido"> 
+			    	  <p:ajax update="msgApPat" event="keyup" /> 
+				 </p:inputText>
+				  <p:message id="msgApPat" for="apellidoPaterno" display="text"/>  
+			</p:column>
+			<p:column>
+				<p:inputText id="apellidoMaterno" value="#{usuarioController.usuarioRegistro.apellidoMaterno}"  placeholder="Apellido materno" size="30" required="true" requiredMessage="El apellido materno es requerido"> 
+					  <p:ajax update="msgApMat" event="keyup" /> 
+				 </p:inputText>
+				  <p:message id="msgApMat" for="apellidoMaterno" display="text"/>  
+			</p:column>
+		</p:row>
+
+		
+		<p:row>
+		<p:column>
+				<p:inputText id="direccion" value="#{usuarioController.usuarioRegistro.direccion}"  placeholder="Dirección" size="30"/> 
+			</p:column>
+		<p:column >      
+  		<h:outputScript library="js" name="calendar_es.js" />          
+     	<p:calendar value="#{usuarioController.usuarioRegistro.fechaNacimiento}" navigator="true" id="fechaNacimiento" showOn="button" locale="es" placeholder="Fecha de nacimiento"/> 
+     </p:column> 
+     
+    
+  </p:row>
+
+		<p:row>
+			<p:column>
+				<p:inputText id="celular" value="#{usuarioController.usuarioRegistro.telCelular}"  placeholder="Teléfono celular" size="30" required="true" requiredMessage="El numero de celular es requerido">
+				   <p:ajax update="msgCel" event="keyup" /> 
+				 </p:inputText>
+				  <p:message id="msgCel" for="celular" display="text"/>  
+			</p:column>
+				<p:column>
+				<p:inputText id="telTrabajo" value="#{usuarioController.usuarioRegistro.telTrabajo}"  placeholder="Teléfono trabajo" size="30" required="true" requiredMessage="El telefono del trabajo es requerido"> 
+				  <p:ajax update="msgTelTra" event="keyup" /> 
+				 </p:inputText>
+				  <p:message id="msgTelTra" for="telTrabajo" display="text"/>  
+			</p:column>
+			
+			<p:column>
+				<p:inputText id="ext" value="#{usuarioController.usuarioRegistro.telExtension}"  placeholder="Extensión" size="7" required="true" requiredMessage="La extensión del trabajo es requerida"> 
+				  <p:ajax update="msgExt" event="keyup" /> 
+				 </p:inputText>
+				  <p:message id="msgExt" for="ext" display="text"/>  
+			</p:column>
+		</p:row>
+		
+		<p:row>
+		
+		</p:row>
+		
+		<p:row>
+			<p:column>
+				<p:inputText id="emailEmpresa" value="#{usuarioController.usuarioRegistro.emailEmpresa}"  placeholder="Email trabajo" size="30" required="true" requiredMessage="El email del trabajo es requerido">
+				  <p:ajax update="msgMailEmpre" event="keyup" /> 
+				 </p:inputText>
+				  <p:message id="msgMailEmpre" for="emailEmpresa" display="text" />   
+			</p:column>
+			
+			<p:column>
+				<p:inputText id="emailPersonal" value="#{usuarioController.usuarioRegistro.emailPersonal}"  placeholder="Email personal" size="30"/> 
+			</p:column>
+		</p:row>
+
+			<p:row>
+				<p:column>
+				<h:outputText value="Tipo de usuario" /><br/>
+			 <p:selectOneMenu value="#{usuarioController.usuarioRegistro.rolUsuario}" style="margin-top:15px; margin-bottom: 30px;" >  
+            <f:selectItem itemLabel="Básico" itemValue="1" />  
+            <f:selectItems value="#{usuarioController.getListaDeRoles()}" var="rol" itemLabel="#{rol}" itemValue="0"/>  
+        	</p:selectOneMenu> 
+        		</p:column>
+        		
+        		<p:column>
+				 <h:outputText value="Usuario de cambios" /><br/>
+				
+			<p:selectBooleanButton value="#{usuarioController.usuarioRegistro.usuarioDeCambios}" onLabel="Sí" offLabel="No" style="margin-top:15px; margin-bottom: 30px;" />
+  			 </p:column>
+  			 
+  			<p:column>
+  			<h:outputText value="Usuario desarrollador" /><br/>
+  			<p:selectBooleanButton value="#{usuarioController.usuarioRegistro.desarrollador}" onLabel="Sí" offLabel="No" style="margin-top:15px; margin-bottom: 30px;" />
+			</p:column>
+			</p:row>
+
+			<p:row>
+				
+			</p:row>
+          <p:row>
+          <p:column>
+               
+             <h:panelGroup>
+
+        <p:commandButton id="saveBtn" value="Registrar" icon="ui-icon-check" style="margin:0;" action="#{usuarioController.guardarIntegrante()}"  update="pnl" validateClient="true"  />
+     </h:panelGroup>
+          </p:column>
+          </p:row>  
+            </p:panelGrid>    
+   
+ </p:panel>
+            </h:form>
+            
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

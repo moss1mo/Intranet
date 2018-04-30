@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-reverse-engineering PUBLIC "-//Hibernate/Hibernate Reverse Engineering DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-reverse-engineering-3.0.dtd" >
+
+<hibernate-reverse-engineering>
+	<type-mapping>
+		<sql-type jdbc-type="VARCHAR" hibernate-type="string"></sql-type>
+		<sql-type jdbc-type="INTEGER" hibernate-type="int"
+			not-null="true">
+		</sql-type>
+		<sql-type jdbc-type="TIMESTAMP" hibernate-type="timestamp"
+			length="19" not-null="false">
+		</sql-type>
+	</type-mapping>
+	<table-filter match-name="inv_proveedor" match-catalog="shq"></table-filter>
+	<table catalog="shq" name="SEQUENCE">
+		<column name="SEQ_NAME"></column>
+		<column name="SEQ_COUNT"></column>
+	</table>
+	<table catalog="shq" name="SHQ_ALMACEN">
+		<column name="id"></column>
+		<column name="fecha_fin_almacen"></column>
+		<column name="tipo_almacen"></column>
+		<column name="horario_atencion"></column>
+		<column name="nombre_contacto"></column>
+		<column name="correo_contacto"></column>
+		<column name="direccion"></column>
+		<column name="tel_contacto"></column>
+		<column name="nombre"></column>
+	</table>
+	<table catalog="shq" name="SHQ_ARCHIVOS_EVIDENCIA">
+		<column name="id"></column>
+		<column name="extension"></column>
+		<column name="url"></column>
+		<column name="ID_MOV_INVENTARIO"></column>
+		<column name="nombre"></column>
+		<column name="tipo"></column>
+	</table>
+	<table catalog="shq" name="SHQ_EMPAQUE">
+		<column name="id"></column>
+		<column name="descripcion"></column>
+	</table>
+	<table catalog="shq" name="SHQ_INVENTARIO">
+		<column name="id"></column>
+		<column name="cantidad"></column>
+		<column name="COSTO_PROM"></column>
+		<column name="ID_PRODUCTO"></column>
+		<column name="PRECIO_PROM"></column>
+	</table>
+	<table catalog="shq" name="SHQ_MOTIVO_MOV">
+		<column name="id"></column>
+		<column name="descripcion"></column>
+	</table>
+	<table catalog="shq" name="SHQ_MOV_INVENTARIO">
+		<column name="id"></column>
+		<column name="dimensiones"></column>
+		<column name="tc"></column>
+		<column name="status"></column>
+		<column name="COSTO_MXM"></column>
+		<column name="motivo"></column>
+		<column name="cantidad"></column>
+		<column name="COSTO_USD"></column>
+		<column name="FECHA_SALIDA"></column>
+		<column name="PRTJ_IGI"></column>
+		<column name="ID_PEDIMENTO"></column>
+		<column name="ID_UNIDAD"></column>
+		<column name="ID_PRODUCTO"></column>
+		<column name="FECHA_CADUCIDAD"></column>
+		<column name="ID_PROVEEDOR"></column>
+		<column name="incoterms"></column>
+		<column name="ID_ALMACEN"></column>
+		<column name="hs"></column>
+		<column name="PRTJ_IVA"></column>
+		<column name="UNID_X_PRESENT"></column>
+		<column name="ID_MOTIVO_MOV"></column>
+		<column name="FECHA_INGRESO"></column>
+		<column name="lote"></column>
+		<column name="ID_EMPAQUE"></column>
+	</table>
+	<table catalog="shq" name="SHQ_PEDIMENTO">
+		<column name="id"></column>
+		<column name="FECHA_ENTRADA"></column>
+		<column name="pedimento"></column>
+		<column name="ciudad"></column>
+		<column name="aduana"></column>
+	</table>
+	<table catalog="shq" name="SHQ_PRODUCTO">
+		<column name="id"></column>
+		<column name="especificaciones"></column>
+		<column name="producto"></column>
+		<column name="clave"></column>
+	</table>
+	<table catalog="shq" name="SHQ_PROVEEDOR">
+		<column name="id"></column>
+		<column name="FECHA_ALTA"></column>
+		<column name="TEL_CONTACTO"></column>
+		<column name="clave"></column>
+		<column name="nombre"></column>
+		<column name="rfc"></column>
+		<column name="NOMBRE_CONTACTO"></column>
+		<column name="direccion"></column>
+		<column name="CORREO_CONTACTO"></column>
+	</table>
+	<table catalog="shq" name="SHQ_UNIDAD">
+		<column name="id"></column>
+		<column name="descripcion"></column>
+	</table>
+	<table catalog="shq" name="aplicaciones">
+		<column name="id_aplicacion"></column>
+		<column name="imagen"></column>
+		<column name="descripcion_app"></column>
+		<column name="nombre_aplicacion"></column>
+	</table>
+	<table catalog="shq" name="archivos">
+		<column name="id_archivo"></column>
+		<column name="id_aplicacion"></column>
+		<column name="nombre_app_asignado"></column>
+		<column name="nombre_archivo"></column>
+	</table>
+	<table catalog="shq" name="bitacoras">
+		<column name="id_bitacora"></column>
+		<column name="descripcion_cambio"></column>
+		<column name="soluciono_problema"></column>
+		<column name="descripcion_problema"></column>
+		<column name="hora_cambio"></column>
+		<column name="area_cambios"></column>
+		<column name="id_app"></column>
+		<column name="fecha_cambio"></column>
+		<column name="como_soluciono"></column>
+		<column name="persona_apoyo"></column>
+		<column name="id_usr_ult_modif"></column>
+		<column name="hubo_problemas"></column>
+		<column name="nombre_creador"></column>
+		<column name="tipo_cambio"></column>
+		<column name="persona_aplico_cambio"></column>
+		<column name="folio_simbanet"></column>
+		<column name="resultado_obtenido"></column>
+		<column name="id_usuario"></column>
+		<column name="fecha_creacion"></column>
+		<column name="fecha_ultima_modif"></column>
+	</table>
+	<table catalog="shq" name="hibernate_sequence">
+		<column name="next_val"></column>
+	</table>
+	<table catalog="shq" name="usuario_aplicacion">
+		<column name="id_usuario_aplicacion"></column>
+		<column name="id_aplicacion"></column>
+		<column name="id_usuario"></column>
+	</table>
+	<table catalog="shq" name="usuarios">
+		<column name="id_usuario"></column>
+		<column name="tel_ext"></column>
+		<column name="tel_casa"></column>
+		<column name="tel_celular"></column>
+		<column name="email_personal"></column>
+		<column name="nombre"></column>
+		<column name="password"></column>
+		<column name="is_cambios"></column>
+		<column name="direccion"></column>
+		<column name="tel_trabajo"></column>
+		<column name="id_rol"></column>
+		<column name="apellido_paterno"></column>
+		<column name="nombre_usuario"></column>
+		<column name="is_desarrollador"></column>
+		<column name="fecha_nacimiento"></column>
+		<column name="apellido_materno"></column>
+		<column name="email_empresa"></column>
+	</table>
+</hibernate-reverse-engineering>

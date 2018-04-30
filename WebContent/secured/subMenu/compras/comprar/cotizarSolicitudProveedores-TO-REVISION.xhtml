@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 
+
+	
+
+          <h:form id="cotizacionCompleta" style="font-size:12px;" onreset=""> 
+   
+    
+    
+    
+    
+    	 <p:panel id="pnlTablaAsignados"  style="margin-bottom:25px; max-height:900px; overflow:auto; font-size:12px;" >
+   	 
+  
+          <h2>Cotizar con proveedores</h2><br/>
+          
+
+    		  <br/>
+    		   <p:fieldset legend="Datos del solicitante">
+    <p:panel>
+    
+    	 <p:panelGrid columns="6">
+    		<p:outputLabel  for="nombre" style="font-weight: bold;font-size:14px;" value="Nombre del cliente:" />
+    		  	<p:outputLabel  id="nombre" style="width:100%" value="#{ventasController.solicitud.nombre} #{ventasController.solicitud.apellidoPaterno} #{ventasController.solicitud.apellidoMaterno}" />
+    		  	
+    		  	<p:outputLabel  for="tel" style="font-weight: bold;font-size:14px;" value="Télefono:" />
+    		  	<p:outputLabel  id="tel" style="width:100%" value="#{ventasController.solicitud.telefono}" />
+    		  	
+    		  	<p:outputLabel  for="correo" style="font-weight: bold;font-size:14px;" value="Correo:" />
+    		  	<p:outputLabel  id="correo" style="width:100%" value="#{ventasController.solicitud.correo}"/>
+    		  	
+
+        </p:panelGrid>
+    </p:panel>
+    </p:fieldset><br/>
+    
+    <p:fieldset legend="Datos del domicilio">
+    <p:panel>
+    	 <p:panelGrid columns="3">
+    	    <p:outputLabel for="dondeEntrega" value="Lugar de entrega:" style="font-weight: bold;font-size:14px;" />
+    	    <p:outputLabel id="dondeEntrega" value="#{ventasController.solicitud.dondeEntregar}" />
+            
+        
+        
+       		
+    	 	
+
+        </p:panelGrid>
+        
+        
+        <p:panelGrid columns="2" id="pnlDomicilioGlobal" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank">
+	  
+	  
+     <p:panelGrid columns="2" id="pnlDomicilio" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		
+      		<p:outputLabel for="pais" value="País:" style="font-weight: bold;font-size:14px;"/>      		
+
+        <p:outputLabel  id="pais" style="width:100%" value="#{ventasController.solicitud.pais}"/>
+        
+
+        <p:outputLabel   for="municipio" value="Municipio:" style="font-weight: bold;font-size:14px;" />      		
+      		
+       <p:outputLabel  id="municipio"  value="#{catalogosController.getMunicipio({ventasController.solicitud.municipio},{ventasController.solicitud.estado}).id.DMnpio}"/> 
+        
+        
+
+         <p:outputLabel  for="cp" value="Código Postal:" style="font-weight: bold;font-size:14px;" />      		        	    
+         <p:outputLabel  id="cp"  value="#{catalogosController.getUnicoCP({ventasController.solicitud.estado},{ventasController.solicitud.municipio},{ventasController.solicitud.colonia}).id.DCodigo}"/>  
+        
+        
+          </p:panelGrid>
+          
+               <p:panelGrid columns="2" id="pnlDomicilio2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+
+        	<p:outputLabel   for="estado" value="Estado:" style="font-weight: bold;font-size:14px;" />      		
+    
+                       <p:outputLabel  id="estado"  value="#{catalogosController.getEstado({ventasController.solicitud.estado}).id.DEstado}"/> 
+                
+                
+                  		
+                
+
+      		   <p:outputLabel   for="colonia" value="Colonia:" style="font-weight: bold;font-size:14px;" />      		
+      		
+        
+                               <p:outputLabel  id="colonia"  value="#{catalogosController.getColonia({ventasController.solicitud.colonia},{ventasController.solicitud.estado},{ventasController.solicitud.municipio}).id.DAsenta}"/> 
+        
+                
+        <p:outputLabel for="calle" value="Calle:" style="font-weight: bold;font-size:14px;" />    
+                            <p:outputLabel id="calle" size="35" value="#{ventasController.solicitud.calle}"/>
+                         
+        	 
+
+        	</p:panelGrid>
+        	               <p:panelGrid columns="2" id="pnlDomicilio3" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	   <p:outputLabel for="ref" value="Referencias:" style="font-weight: bold;font-size:14px;"/>    
+                            <p:outputLabel id="ref" size="35" value="#{ventasController.solicitud.referencias}"/>
+                         
+                         
+                         </p:panelGrid>
+                         
+                         
+                         
+                         
+
+                         <p:panelGrid columns="4" id="pnlDomicilio4" columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	  			<p:outputLabel for="numExt" value="Núm. Ext:" style="font-weight: bold;font-size:14px;" />    
+                            <p:outputLabel id="numExt" size="10" value="#{ventasController.solicitud.numExt}"/>
+                         
+                          <p:outputLabel  value="Núm. Int:" style="font-weight: bold;font-size:14px;" />    
+                           <p:outputLabel rendered="#{ventasController.solicitud.numInt != ''}" value="#{ventasController.solicitud.numInt}"/>
+                           <p:outputLabel rendered="#{ventasController.solicitud.numInt == ''}"  value="-"/>
+                           
+     
+                         </p:panelGrid>
+
+      	</p:panelGrid>
+      	
+    </p:panel>
+    </p:fieldset><br/>
+    
+    <p:fieldset legend="Datos de entrega">
+    <p:panel>
+    
+    	 <p:panelGrid columns="2" >
+    	 
+    	 
+    	 <p:outputLabel for="fecha" value="Fecha máxima de entrega:" style="font-weight: bold;font-size:14px;" />
+        
+           <p:outputLabel id="fecha"  value="#{ventasController.solicitud.fechaEntrega}"  />
+    	  </p:panelGrid>
+    	 
+    	 
+		<p:panelGrid columns="2" >    	 
+    	 <p:outputLabel for="nota" value="Notas adicionales sobre el pedido:" style="font-weight: bold;font-size:14px;" />
+    	 
+    	    <p:outputLabel id="nota" style="width:100%;"  value="#{ventasController.solicitud.nota}" />
+         
+        	 
+        </p:panelGrid>
+        
+       
+    </p:panel>
+    
+    
+    </p:fieldset>
+    
+    <br/>
+    <p:fieldset legend="Productos de la cotización">
+            
+             <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%" >
+                <f:facet name="header">
+                  <p:dataTable id="listaSolcitudesAsignadas" rendered="#{empty ventasController.solicitud.apartadosCotizacions}"  var="pro" value="#{ventasController.solicitud.productoSolCotizacions}" paginator="true" rows="10"  emptyMessage="No hay productos en esta cotización"
+                   paginatorPosition="bottom"  scrollable="true"  sortOrder="descending">  
+                  
+                  
+                   <p:column headerText="Identificador" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.producto.id}  
+        	</p:column> 
+        	
+        	   <p:column headerText="Clave" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.producto.clave}  
+        	</p:column> 
+        	
+                    <p:column headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.producto.producto}  
+        	</p:column> 
+        	
+        	 <p:column headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.cantidad}  
+        	</p:column> 
+        
+                   <p:column headerText="Clave" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.producto.clave}  
+        	</p:column> 
+        	
+        	 <p:column headerText="Acción" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		<p:commandButton id="btnSolCot" process="listaSolcitudesAsignadas" update="@form"  value="Buscar proveedores"  icon="fa fa-user" action="#{comprasController.seleccionarProductoCotizar(pro.producto.producto)}"/>
+ 
+        	</p:column> 
+                  
+                 
+        
+                  </p:dataTable>
+                   
+                   <p:dataTable id="listaSolcitudesAsignadas2" rendered="#{not empty ventasController.solicitud.apartadosCotizacions}"  var="pro" value="#{comprasController.obtenerListaApartadosCotizacion(ventasController.solicitud)}" paginator="true" rows="10"  emptyMessage="No hay productos en esta cotización"
+                   paginatorPosition="bottom"  scrollable="true"  sortOrder="descending">  
+                  
+                  
+                  <p:column headerText="Identificador" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.id.idProducto}  
+        	</p:column> 
+        	
+        	
+                   <p:column headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.id.producto}  
+        	</p:column> 
+        	
+        	
+        	 <p:column headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.id.cantidadCotizar}  
+        	</p:column> 
+        	
+        	 <p:column headerText="Acción" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		<p:commandButton id="btnSolCot" process="listaSolcitudesAsignadas2" update="@form"  value="Buscar proveedores"  icon="fa fa-user" action="#{comprasController.seleccionarProductoCotizar(pro.id.producto)}"/>
+ 
+        	</p:column> 
+        
+                  
+                  
+                 
+        
+                  </p:dataTable>
+                </f:facet>
+ 
+
+            </p:panelGrid>
+            
+    	
+    	
+    	
+    	
+    
+    </p:fieldset>
+	<br/>
+	
+	
+	    <p:fieldset  legend="Proveedores del producto">
+	
+	<p:panel id="pnlTablaProductos"  style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+    	
+    	
+    	<p:dataTable id="lstProductos" var="model" value="#{comprasController.getInvProductProvTableModel()}" paginator="true" rows="10"  widgetVar="proveedoresTable" emptyMessage="No hay proveedores para el producto seleccionado" 
+                 rowKey="#{model.id.producto}"   selectionMode="single"  paginatorPosition="bottom"  scrollable="true"   sortOrder="descending"
+                 
+                >  
+
+
+
+        	<f:facet name="header">
+             </f:facet>
+
+        	
+        	<p:column headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.producto}  </center>
+        	</p:column>
+     
+        
+        	
+        	<p:column headerText="Cantidad" width="50" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.cantidad}</center>
+        	</p:column> 
+        	
+        	
+        	  <p:column headerText="Precio"  width="50" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.precio}</center>
+        	</p:column> 
+        	
+        	 <p:column headerText="Proveedor" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.proveedor}</center>
+        	</p:column> 
+        	
+        	 <p:column headerText="Contacto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.nombreContacto}</center>
+        	</p:column> 
+        	
+        	 <p:column headerText="Teléfono contacto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.telContacto}</center>
+        	</p:column> 
+        	
+        	 <p:column headerText="Correo contacto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.correoContacto}</center>
+        	</p:column> 
+        
+        	
+        	
+        	<p:column headerText="Acción" width="140" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		<p:commandButton id="btnSolCot" process="lstProductos" update="@form" oncomplete="location.href='cotizarSolicitudProveedores.xhtml'"  value="Cotizar producto"  icon="fa fa-calculator" actionListener="#{ventasController.verDetalleSolicitud(sol)}" />
+ 
+        	</p:column> 
+        	
+      
+    	</p:dataTable> 
+    	
+    	
+    </p:panel>
+	</p:fieldset>
+	
+	
+	
+     
+    </p:panel>
+    
+    
+    
+    
+    
+    
+    
+    
+   
+    
+    <br/><br/>
+    
+
+    	
+    	
+    	</h:form>
+<!--      </p:tab>  -->
+        
+<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+ 
+
+          
+<!--          </p:tab>   -->
+         
+
+<!--      </p:tabView> -->
+
+                 
+ 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

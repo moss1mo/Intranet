@@ -1,0 +1,10 @@
+#mainFinder{
+	padding-left:120px;
+	padding-top:20px;
+    font-size: 14px;
+ 
+}
+
+.disabled{
+	background-color: gray;
+}

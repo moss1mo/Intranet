@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioIntegrante" style=" font-size:12px;" >
+      
+       
+       <p:tabMenu activeIndex="1" >
+     <p:menuitem value="Lista de integrantes"   url="listaIntegrantes.xhtml" icon="ui-icon-search"/>
+     <p:menuitem value="Modificar integrante"  icon="ui-icon-document" />
+    </p:tabMenu>
+      <p:panel id="pnl" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px; ">
+      
+        <p:panelGrid  cellpadding="10" style="margin-left:60px;">
+
+		<p:row>
+			<p:column>
+				<p:inputText id="nombreUsuario" value="#{usuarioController.usuarioSeleccionado.nombreUsuario}"  placeholder="Nombre de usuario" size="30"/> 
+			</p:column>
+
+		<p:column>  
+            <p:password id="contr1" value="#{usuarioController.usuarioSeleccionado.contrasena}" placeholder="Contraseña"  label="contr1"  feedback="true"   redisplay="true" required="true"
+                        promptLabel="Escribe tu contraseña" weakLabel="Nivel de seguridad bajo"  
+                        goodLabel="Nivel de seguridad bueno" strongLabel="Nivel de seguridad optimo" size="30" />  
+         </p:column>
+			</p:row> 
+		
+		<p:row>
+			<p:column>
+				<p:inputText id="nombre" value="#{usuarioController.usuarioSeleccionado.nombre}"  placeholder="Nombre(s)" size="30"/> 
+			</p:column>
+
+			<p:column>
+				<p:inputText id="apellidoPaterno" value="#{usuarioController.usuarioSeleccionado.apellidoPaterno}"  placeholder="Apellido paterno" size="30"/> 
+			</p:column>
+			<p:column>
+				<p:inputText id="apellidoMaterno" value="#{usuarioController.usuarioSeleccionado.apellidoMaterno}"  placeholder="Apellido materno" size="30"/> 
+			</p:column>
+		</p:row>
+		
+		<p:row>
+				<p:column>
+				<p:inputText id="direccion" value="#{usuarioController.usuarioSeleccionado.direccion}"  placeholder="direccion" size="30"/> 
+				</p:column>	
+				<p:column >      
+  				<h:outputScript library="js" name="calendar_es.js" />          
+     			<p:calendar value="#{usuarioController.usuarioSeleccionado.fechaNacimiento}" navigator="true" id="fechaNacimiento" showOn="button" locale="es" placeholder="Fecha Nacimiento"  /> 
+    			 </p:column> 
+ 		 </p:row>
+
+		<p:row>
+			<p:column>
+				<p:inputText id="celular" value="#{usuarioController.usuarioSeleccionado.telCelular}"  placeholder="Teléfono celular" size="30"/> 
+			</p:column>
+
+			<p:column>
+				<p:inputText id="telTrabajo" value="#{usuarioController.usuarioSeleccionado.telTrabajo}"  placeholder="Teléfono trabajo" size="30"/> 
+			</p:column>
+			
+			<p:column>
+				<p:inputText id="ext" value="#{usuarioController.usuarioSeleccionado.telExtension}"  placeholder="Extensión" size="10"/> 
+			</p:column>
+		</p:row>
+		
+		<p:row>
+			<p:column>
+				<p:inputText id="emailEmpresa" value="#{usuarioController.usuarioSeleccionado.emailEmpresa}"  placeholder="Email trabajo" size="30"/> 
+			</p:column>
+			
+			<p:column>
+				<p:inputText id="emailPersonal" value="#{usuarioController.usuarioSeleccionado.emailPersonal}"  placeholder="Email personal" size="30"/> 
+			</p:column>
+		</p:row>
+
+
+
+			<p:row>
+				<p:column>
+			 <p:selectOneMenu value="#{usuarioController.usuarioSeleccionado.rolUsuario}"  >  
+            <f:selectItem itemLabel="Básico" itemValue="1" />  
+            <f:selectItems value="#{usuarioController.getListaDeRoles()}" var="rol" itemLabel="#{rol}" itemValue="0"/>  
+        	</p:selectOneMenu> 
+        		</p:column>
+
+			
+				<p:column>
+				 <h:outputText value="Usuario de cambios" /><br/>
+				
+			<p:selectBooleanButton value="#{usuarioController.usuarioSeleccionado.usuarioDeCambios}" onLabel="Sí" offLabel="No" style="margin-top:15px; margin-bottom: 30px;" />
+  			 </p:column>
+  			 
+  			<p:column>
+  			<h:outputText value="Usuario desarrollador" /><br/>
+  			<p:selectBooleanButton value="#{usuarioController.usuarioSeleccionado.desarrollador}" onLabel="Sí" offLabel="No" style="margin-top:15px; margin-bottom: 30px;" />
+			</p:column>
+			</p:row>
+          <p:row>
+          <p:column>
+              
+             <h:panelGroup>
+               <p:commandButton id="modifInteBtn" value="Modificar" icon="ui-icon-check" 
+        style="margin:0;" actionListener="#{usuarioController.actualizarIntegrante()}"  />
+<!--  oncomplete="location.href='listaIntegrantes.xhtml'" -->
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

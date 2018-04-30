@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content" >
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioBitacora" style=" font-size:12px;">
+      
+      
+    <div class="ui-g">
+    <div class="ui-g-4"><h:outputText value="Solicitud de alta" style="font-size:1.5em;margin-left:0px" onreset="#{bitacorasController.updateTodasBitacorasApp(bitacorasController.appSeleccionada)}"/>  </div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2">	
+    
+    </div>
+</div>
+       		
+       				
+      
+  			
+				
+      <p:panel id="pnl" header="Registrar proveedor" style="margin-bottom:25px; overflow:auto; font-size:12px;"
+      >
+      <f:facet name="actions">
+       <p:commandLink
+            styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+            <h:outputText styleClass="ui-icon ui-icon-help" />
+        </p:commandLink>
+    </f:facet> 
+      
+       <div class="ui-fluid">
+       
+       
+       
+           
+ 
+    
+       
+       
+          <div class="ui-g-6" > 
+      <p:panel id="tipo">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Tipo de proveedor" />
+	  	</h:panelGrid>
+	  </f:facet>
+    
+        <p:panelGrid columns="2" id="pnlTipo" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	
+        	
+        <p:selectOneRadio id="tipo_proveedor" value="#{proveedoresController.tipoProveedor}">
+            <f:selectItem itemLabel="Nacional" itemValue="nacional" />
+            <f:selectItem itemLabel="Extranjero" itemValue="extranjero" />
+            <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+        </p:selectOneRadio>
+        
+        </p:panelGrid>
+
+    </p:panel>
+    </div>
+    
+    
+    
+               
+    <div class="ui-g-6" > 
+      <p:panel id="basic">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos del proveedor" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+	 
+        
+    
+        <p:panelGrid columns="2" id="pnlDatos" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	<p:outputLabel for="txtClave" value="Clave:"/>
+      		<p:inputText id="txtClave" value="#{proveedoresController.proveedor.clave}"/>
+      		
+        	<p:outputLabel for="txtNombreProveedor" value="Nombre / Razón Social:"/>
+      		<p:inputText id="txtNombreProveedor" value="#{proveedoresController.proveedor.nombre}"/>
+          
+
+      		<p:outputLabel for="txtRFC" value="R.F.C:"/>
+      		<p:inputText id="txtRFC" value="#{proveedoresController.proveedor.rfc}" />
+
+        </p:panelGrid>
+
+    </p:panel>
+
+    </div>
+    
+    
+     <div class="ui-g-12" > 
+    
+    <p:panel id="pnlDom">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Domicilio" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+	                 <p:panelGrid columns="2" id="pnlDomicilioGlobal" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank">
+	  
+	  
+     <p:panelGrid columns="2" id="pnlDomicilio" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		
+      		<p:outputLabel for="pais" value="País:"/>      		
+      		<p:selectOneMenu id="pais" value="#{proveedoresController.proveedor.paisCod}" panelStyle="width:180px"
+                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getPaises()}" var="pais" itemLabel="#{pais.id.nombre}" itemValue="#{pais.id.iso}" />
+       		            <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+        </p:selectOneMenu>
+   
+        
+        <p:outputLabel  rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" for="municipio" value="Municipio:"/>      		
+      		<p:selectOneMenu rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" id="municipio" value="#{proveedoresController.proveedor.munCod}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getMunicipios()}" var="mun" itemLabel="#{mun.id.DMnpio}" itemValue="#{mun.id.CMnpio}" />
+                    	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+            
+        </p:selectOneMenu>
+        
+           
+             
+         <p:outputLabel  rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" for="cp" value="Código Postal:"/>      		        	    
+        	    <p:selectOneMenu rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" id="cp" value="#{proveedoresController.proveedor.cp}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getCP()}" var="col" itemLabel="#{col.id.DCodigo}" itemValue="#{col.id.DCodigo}" />
+        </p:selectOneMenu> 
+        
+     
+        
+        
+          </p:panelGrid>
+          
+               <p:panelGrid columns="2" id="pnlDomicilio2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+       
+        
+        	<p:outputLabel  rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" for="estado" value="Estado:"/>      		
+      		<p:selectOneMenu rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" id="estado" value="#{proveedoresController.proveedor.estadoCod}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getEstados()}" var="estado" itemLabel="#{estado.id.DEstado}" itemValue="#{estado.id.CEstado}" />
+        	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+                </p:selectOneMenu>
+        
+        
+        
+      		   <p:outputLabel  rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" for="colonia" value="Colonia:"/>      		
+      		<p:selectOneMenu rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" id="colonia" value="#{proveedoresController.proveedor.coloniaCod}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getColonias()}" var="col" itemLabel="#{col.id.DAsenta}" itemValue="#{col.id.idAsentaCpcons}" />
+        	        	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+        	
+        </p:selectOneMenu>
+        
+                 
+        
+                      
+                          		        	    
+         		
+        	</p:panelGrid>
+        	               <p:panelGrid columns="2" id="pnlDomicilio3" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	  <p:outputLabel for="calle" value="Calle:"/>    
+                         <p:inputText id="calle" value="#{proveedoresController.proveedor.calle}"/>
+                         </p:panelGrid>
+                         
+                         
+                         
+                         <p:panelGrid columns="4" id="pnlDomicilio4" columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	  <p:outputLabel for="numExt" value="Número Exterior:"/>    
+                         <p:inputText id="numExt" value="#{proveedoresController.proveedor.numExt}"/>
+                         
+                          <p:outputLabel for="numInt" value="Número Interior:"/>    
+                         <p:inputText id="numInt" value="#{proveedoresController.proveedor.numInt}"/>
+                         
+                         
+                         </p:panelGrid>
+                         
+                         
+                         
+                         <p:panelGrid columns="2" id="pnlDomicilio5" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	 			 	<p:outputLabel for="referencias" value="Referencias:"/>    
+                         	<p:inputText id="referencias" value="#{proveedoresController.proveedor.referencias}"/>
+                         
+                         </p:panelGrid>
+                         
+                         <p:panelGrid columns="2" id="pnlDomicilio6" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                         
+                         
+                         <p:outputLabel for="entreCalles" value="Entre calles:"/>    
+                         	<p:inputText id="entreCalles" value="#{proveedoresController.proveedor.entreCalles}"/>
+                         </p:panelGrid>
+                         
+              
+          
+
+      	</p:panelGrid>
+
+      
+   
+   </p:panel>
+   
+   
+    </div>
+    
+    
+    
+         <div class="ui-g-12" > 
+    
+    <p:panel id="pnlDomRec">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Domicilio de recolección" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+	                 <p:panelGrid columns="2" id="pnlDomicilioRecGlobal"  layout="grid" styleClass="ui-panelgrid-blank">
+	  
+	  
+	  
+	   
+        
+	   <h:outputText value="¿El domicilio de recolección es distinto del fiscal?:" />
+        <p:inputSwitch onLabel="Sí" offLabel="No" value="#{proveedoresController.domDistinto}">
+        	<p:ajax process="@this"   update="domicilioRecoleccion" partialSubmit="true"  />
+       
+        </p:inputSwitch>
+        
+        	</p:panelGrid>
+       <p:panelGrid id="domicilioRecoleccion" columns="2" columnClasses="ui-grid-col-6,ui-grid-col-6" >
+     <p:panelGrid columns="2" id="pnlDomicilioRec" rendered="#{proveedoresController.domDistinto}" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		
+      		<p:outputLabel for="paisRec" value="País:"/>      		
+      		<p:selectOneMenu id="paisRec" value="#{proveedoresController.proveedor.paisCod}" panelStyle="width:180px"
+                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getPaises()}" var="pais" itemLabel="#{pais.id.nombre}" itemValue="#{pais.id.iso}" />
+       		            <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+        </p:selectOneMenu>
+   
+        
+        <p:outputLabel  rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" for="municipioRec" value="Municipio:"/>      		
+      		<p:selectOneMenu rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" id="municipioRec" value="#{proveedoresController.proveedor.munCod}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getMunicipios()}" var="mun" itemLabel="#{mun.id.DMnpio}" itemValue="#{mun.id.CMnpio}" />
+                    	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+            
+        </p:selectOneMenu>
+        
+           
+             
+         <p:outputLabel  rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" for="cpRec" value="Código Postal:"/>      		        	    
+        	    <p:selectOneMenu rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" id="cpRec" value="#{proveedoresController.proveedor.cp}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getCP()}" var="col" itemLabel="#{col.id.DCodigo}" itemValue="#{col.id.DCodigo}" />
+        </p:selectOneMenu> 
+        
+     
+        
+        
+          </p:panelGrid>
+          
+               <p:panelGrid columns="2" id="pnlDomicilioRec2" rendered="#{proveedoresController.domDistinto}" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+       
+        
+        	<p:outputLabel  rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" for="estadoRec" value="Estado:"/>      		
+      		<p:selectOneMenu rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" id="estadoRec" value="#{proveedoresController.proveedor.estadoCod}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getEstados()}" var="estado" itemLabel="#{estado.id.DEstado}" itemValue="#{estado.id.CEstado}" />
+        	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+                </p:selectOneMenu>
+        
+        
+        
+      		   <p:outputLabel  rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" for="coloniaRec" value="Colonia:"/>      		
+      		<p:selectOneMenu rendered="#{proveedoresController.tipoProveedor eq 'nacional'}" id="coloniaRec" value="#{proveedoresController.proveedor.coloniaCod}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getColonias()}" var="col" itemLabel="#{col.id.DAsenta}" itemValue="#{col.id.idAsentaCpcons}" />
+        	        	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+        	
+        </p:selectOneMenu>
+        
+                 
+        
+                      
+                          		        	    
+         		
+        	</p:panelGrid>
+        	               <p:panelGrid columns="2" id="pnlDomicilioRec3" rendered="#{proveedoresController.domDistinto}" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	  <p:outputLabel for="calleRec" value="Calle:"/>    
+                         <p:inputText id="calleRec" value="#{proveedoresController.proveedor.calle}"/>
+                         </p:panelGrid>
+                         
+                         
+                         
+                         <p:panelGrid columns="4" id="pnlDomicilioRec4" rendered="#{proveedoresController.domDistinto}" columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	  <p:outputLabel for="numExtRec" value="Número Exterior:"/>    
+                         <p:inputText id="numExtRec" value="#{proveedoresController.proveedor.numExt}"/>
+                         
+                          <p:outputLabel for="numIntRec" value="Número Interior:"/>    
+                         <p:inputText id="numIntRec" value="#{proveedoresController.proveedor.numInt}"/>
+                         
+                         
+                         </p:panelGrid>
+                         
+                         
+                         
+                         <p:panelGrid columns="2" id="pnlDomicilioRec5" rendered="#{proveedoresController.domDistinto}" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	 			 	<p:outputLabel for="referenciasRec" value="Referencias:"/>    
+                         	<p:inputText id="referenciasRec" value="#{proveedoresController.proveedor.referencias}"/>
+                         
+                         </p:panelGrid>
+                         
+                         <p:panelGrid columns="2" id="pnlDomicilioRec6" rendered="#{proveedoresController.domDistinto}" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                         
+                         
+                         <p:outputLabel for="entreCallesRec" value="Entre calles:"/>    
+                         	<p:inputText id="entreCallesRec" value="#{proveedoresController.proveedor.entreCalles}"/>
+                         </p:panelGrid>
+                         
+              </p:panelGrid>
+          
+
+      
+
+      
+   
+   </p:panel>
+   
+   
+    </div>
+    
+    
+    
+        <div class="ui-g-12"> 
+      <p:panel id="datosBancarios"  >
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos bancarios" />
+	  	</h:panelGrid>
+	  </f:facet>
+        
+        
+         <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	<p:outputLabel for="numCuenta" value="Número de cuenta:"/>
+      		<p:inputText id="numCuenta" value="#{proveedoresController.cuenta.numCuenta}" />
+      		
+      		<p:outputLabel for="clabe" value="CLABE:"/>
+      		<p:inputText id="clabe" value="#{proveedoresController.cuenta.clabe}" />
+      		
+      		<p:outputLabel for="bancos" value="Banco:"/>
+      		<p:selectOneMenu  id="bancos" value="#{proveedoresController.cuenta.idBanco}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{proveedoresController.getBancos()}" var="banco" itemLabel="#{banco.id.nombre}" itemValue="#{banco.id.codigo}" />
+        	        	       		<f:selectItem itemLabel="OTRO" itemValue="0" />
+        	        	       		 
+        	        	       		 <p:ajax process="@this"   update="otroBanco" partialSubmit="true"  />
+        	
+        </p:selectOneMenu>
+           </p:panelGrid>  
+        	<p:outputPanel id="otroBanco" >
+        	 <p:outputLabel for="otroEsp" rendered="#{proveedoresController.cuenta.idBanco == 0}" value="Específique otro:"/>
+        	
+      		<p:inputText id="otroEsp" rendered="#{proveedoresController.cuenta.idBanco == 0}"  value="#{proveedoresController.cuenta.otroBanco}" />
+      		</p:outputPanel>
+      		
+         
+    </p:panel>
+
+    </div>
+    
+
+    
+    
+     <div class="ui-g-6"> 
+      <p:panel id="datosContacto"  >
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos del contacto de pagos" />
+	  	</h:panelGrid>
+	  </f:facet>
+        
+        
+         <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	<p:outputLabel for="txtNomContact" value="Nombre del contacto"/>
+      		<p:inputText id="txtNomContact" value="#{proveedoresController.proveedor.nombreContacto}" />
+      		
+      		<p:outputLabel for="txtCorreoContacto" value="Correo del contacto"/>
+      		<p:inputText id="txtCorreoContacto" value="#{proveedoresController.proveedor.correoContacto}" />
+      		
+      		<p:outputLabel for="txtTelContacto" value="Teléfono del contacto"/>
+      		<p:inputText id="txtTelContacto" value="#{proveedoresController.proveedor.telContacto}" />
+        </p:panelGrid>
+    </p:panel>
+  
+    </div>
+    
+    
+    <div class="ui-g-6"> 
+      <p:panel id="datosContacto2"  >
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos del contacto de compras" />
+	  	</h:panelGrid>
+	  </f:facet>
+        
+        
+         <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	<p:outputLabel for="txtNomContact2" value="Nombre del contacto"/>
+      		<p:inputText id="txtNomContact2" value="#{proveedoresController.proveedor.nombreContacto}" />
+      		
+      		<p:outputLabel for="txtCorreoContacto2" value="Correo del contacto"/>
+      		<p:inputText id="txtCorreoContacto2" value="#{proveedoresController.proveedor.correoContacto}" />
+      		
+      		<p:outputLabel for="txtTelContacto2" value="Teléfono del contacto"/>
+      		<p:inputText id="txtTelContacto2" value="#{proveedoresController.proveedor.telContacto}" />
+        </p:panelGrid>
+    </p:panel>
+  
+    </div>
+    
+   
+    </div>
+
+      
+    
+       
+        <p:panelGrid  cellpadding="10" style="float:right;">
+        
+        
+        
+        
+
+        
+          <p:row>
+          
+          
+          
+          <p:column>
+               
+             <h:panelGroup>
+          <br />
+        <p:commandButton id="saveBtn" value="Registrar alta" icon="ui-icon-check" 
+         action="#{proveedoresController.guardarProveedor()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

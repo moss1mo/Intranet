@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	  
+          
+          <h:form style="font-size:12px;"> 
+          
+            <p:tabMenu activeIndex="0">
+     <p:menuitem value="Lista de almacenes"  icon="ui-icon-search"/>
+     <p:menuitem value="Crear almacen"  url="registrarAplicacion.xhtml" icon="ui-icon-document" />
+     <p:menuitem value="Asignar Almacenes"  url="asignarAplicacion.xhtml" icon="ui-icon-document" />
+
+    </p:tabMenu>   
+      
+          <p:contextMenu for="aplicaciones">  
+        <p:menuitem value="Ver" update="display" icon="ui-icon-search" oncomplete="PF('appDetalle').show()"/>  
+          <p:menuitem value="Eliminar" update="aplicaciones" icon="ui-icon-close" actionListener="#{aplicacionesController.borrarApp}"/>  
+   	 </p:contextMenu> 
+   	 
+   	 <p:panel style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;">
+          
+          <p:dataTable id="aplicaciones" var="app" value="#{aplicacionesController.getTodasAplicaciones()}" paginator="true" rows="10"  editable="true" editMode="cell"
+                 rowKey="#{app.idApp}"  selection="#{aplicacionesController.appTablaSeleccionada}"  selectionMode="single"  paginatorPosition="bottom" scrollable="true" >  
+  
+        <!-- 	<p:ajax event="rowSelect" listener="#{tableBean.onRowSelect}"   
+                    update=":form:display :form:growl" oncomplete="PF('carDialog').show()" />  
+        	<p:ajax event="rowUnselect" listener="#{tableBean.onRowUnselect}" update=":form:growl"/>   -->
+ 
+ 		 <p:column headerText="Id" style="width:40%">  
+           				 #{app.idApp}  
+        			</p:column>
+ 
+ 				  <p:ajax event="cellEdit" listener="#{aplicacionesController.actualizarBitacora()}" />  
+  
+  
+        <p:column headerText="Nombre del almacén" style="width:30%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{app.nombreApp}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="modelInput" value="#{app.nombreApp}" style="width:96%"/></f:facet>  
+               </p:cellEditor>  
+           </p:column>  
+           
+             <p:column headerText="Dirección del almacén" style="width:30%">  
+               <p:cellEditor>  
+                   <f:facet name="output"><h:outputText value="#{app.descripcionApp}" /></f:facet>  
+                   <f:facet name="input"><p:inputText id="appInput" value="#{app.descripcionApp}" style="width:96%"/></f:facet>  
+               </p:cellEditor>  
+           </p:column>  
+    
+    	</p:dataTable> 
+    	
+    </p:panel>
+    	<p:dialog header="Detalles del almacén" widgetVar="appDetalle" resizable="false"  
+              width="400" height="200" showEffect="clip" hideEffect="fold" id="dialog" draggable="false" modal="true" >  
+  
+        <h:panelGrid id="display"  cellpadding="4" >  
+            <p:row>
+			<p:column>
+  		  <h:outputText value="Nombre de la aplicación:" />  
+            <h:outputText value="#{aplicacionesController.appTablaSeleccionada.nombreApp}" style="font-weight:bold"/> 
+          </p:column>
+          </p:row>
+  		 
+  		 <p:row>
+			<p:column>
+         <h:outputText value="Descripción de la aplicación:" />  
+            <br /><h:outputText value="#{aplicacionesController.appTablaSeleccionada.descripcionApp}" style="font-weight:bold"/> 
+            </p:column>
+            </p:row>
+        </h:panelGrid>  
+    </p:dialog>  
+    	</h:form>
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

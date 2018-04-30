@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/appLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+          
+          <h:form id="cambiosEstApp" style="font-size:12px;" onreset="#{estadisticasController.resetEstadisticasPorApp()}"> 
+          
+            <p:tabMenu activeIndex="0">
+     <p:menuitem value="Estadisticas de cambios"  icon="ui-icon-search"/>
+     <p:menuitem value="Estadisticas de cambios por integrante"  url="estadistPorIntegrante.xhtml" icon="ui-icon-document" />
+    </p:tabMenu>   
+    
+     		<p:panel>
+
+<!--      		<p:row> -->
+<!-- 				<p:column> -->
+<!--  					<p:commandButton id="verEstadisticas" value="Ver estadisticas" icon="ui-icon-check"  -->
+<!--         			style="margin:5px;" action="#{estadisticasController.verEstadisticasUsuario()}" update="pnl"/> -->
+<!--         		</p:column> -->
+<!--         	</p:row> -->
+    
+      
+  		
+          <p:poll interval="10" update="numCambiosMes" /> 
+          <p:barChart id="numCambiosMes" value="#{estadisticasController.getEstadisticaNumCambiosMes()}" legendPosition="ne"  
+                title="Historial de cambios por mes exitosos y erroneos" min="0" max="10"  style="height:300px; margin-left:80px; font-weight:bold; color:gray;" seriesColors="18bc88,cb3b53" animate="true"  extender="ext1"/> 
+ 
+             <p:spacer height="80px"></p:spacer>
+            <p:poll interval="10" update="numCambiosCorrectosInco" /> 
+             <p:pieChart id="numCambiosCorrectosInco" value="#{estadisticasController.getCambiosPieModel()}" legendPosition="e" fill="true" showDataLabels="true"  
+                title="Cambios del mes actual, exitosos, erroneos resueltos y no resueltos" style="width:700px; height:300px; margin-left:150px; font-weight:bold; color:gray;" sliceMargin="15" diameter="220" shadow="true"  seriesColors="18bc88,e9a340,FF8181" />  
+                
+            <script type="text/javascript">
+    			function ext1() {
+
+    				this.cfg.axes.yaxis.numberTicks = 11;
+        			this.cfg.axes.yaxis.tickOptions = {
+           			 formatString : '%d'
+        			};
+        			
+   				 }
+			</script> 
+
+</p:panel> 
+    	
+    	
+    	</h:form>
+
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>   

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content" >
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioBitacora" style=" font-size:12px;">
+      
+      
+    <div class="ui-g">
+    <div class="ui-g-4"><h:outputText value="Perfil del usuario" style="font-size:1.5em;margin-left:0px" onreset="#{bitacorasController.updateTodasBitacorasApp(bitacorasController.appSeleccionada)}"/>  </div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2">	<p:button value="Regresar" href="../../menuPerfil.xhtml" icon="ui-icon-arrowthick-1-w">
+    				<f:param name="productId" value="10" />
+				</p:button></div>
+</div>
+       		
+       				
+      
+  			
+				
+      <p:panel id="pnl" header="Datos de acceso del empleado" style="margin-bottom:25px; overflow:auto; font-size:12px;"
+      >
+      <f:facet name="actions">
+       <p:commandLink
+            styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+            <h:outputText styleClass="ui-icon ui-icon-help" />
+        </p:commandLink>
+    </f:facet> 
+      
+       <div class="ui-fluid">
+       
+       
+       
+       <div class="ui-g-12" > 
+    
+    <p:panel id="pnlUsr">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos de usuario" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+	                 <p:panelGrid columns="2" id="pnlUsuarioGlobal" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank">
+	  
+	  
+     <p:panelGrid columns="2" id="pnlUsuario" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		
+     		<p:outputLabel for="usuario" value="Usuario:" />      		
+     		<p:inputText id="usuario" value="#{empleadosController.usuario.nombreUsuario}" required="true"/>
+ 			<h:outputLabel for="pwd1" value="Contraseña: *" />
+        	<p:password id="pwd1" value="#{empleadosController.usuario.password}" match="pwd2" label="Password 1" required="true" />
+			        <h:outputLabel for="pwd2" value="Confirmar contraseña: *" />
+			        <p:password id="pwd2" value="#{empleadosController.usuario.password}" label="Password 2" required="true" /> 
+        	
+        	    		
+
+          </p:panelGrid>
+          
+
+                         
+              
+          
+
+      	</p:panelGrid>
+
+      
+   
+   </p:panel>
+   
+   
+    </div>
+    
+  
+   
+    </div>
+
+        <p:panelGrid  cellpadding="10" style="float:right;">
+
+          <p:row>
+
+          <p:column>
+               
+             <h:panelGroup>
+          <br />
+        <p:commandButton id="saveBtn" value="Guardar cambios" icon="ui-icon-disk" 
+         action="#{empleadosController.actualizarEmpleado()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

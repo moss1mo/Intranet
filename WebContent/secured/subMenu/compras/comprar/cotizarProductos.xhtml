@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 
+
+	
+
+          <h:form style="font-size:12px;" onreset=""> 
+          
+          
+   
+   	 
+   	 
+    
+   	 <h3>Lista de productos agotados para cotizar</h3>
+   	 <p:panel id="pnlTablaProductos"  style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+    	
+    	
+    	<p:dataTable id="lstProductos" var="model" value="#{comprasController.getProductoCotizarTableModel()}" paginator="true" rows="10"  widgetVar="bitacorasTable" emptyMessage="No hay productos para cotizar"
+                 rowKey="#{model.id.producto}"  selection="#{comprasController.productoSeleccionado}"  selectionMode="single"  paginatorPosition="bottom"  scrollable="true"   sortOrder="descending"
+                 
+                 onreset="#{comprasController.updateListaProductos()}">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        	
+
+        	
+        	<p:column headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.producto}  </center>
+        	</p:column>
+     
+        
+        	
+        	<p:column headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.cantidad}</center>
+        	</p:column> 
+        	
+        	
+        	   <p:column headerText="Status" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		<center style="color:red;">AGOTADO </center>
+        	</p:column> 
+        	
+        
+        	
+        	<p:column headerText="Acción" filterMatchMode="contains"
+        filterStyle="display:none">   <center style="font-size:14px;font-weight:bold;">       
+           		<p:commandLink type="button" action="#{comprasController.seleccionarProductoCotizar(model.id.producto)}" oncomplete="location.href='listaProveedoresCotizar.xhtml'"  value="Cotizar"  icon="ui-icon-pencil" /></center>
+        	</p:column>
+      
+    	</p:dataTable> 
+    	
+    	
+    </p:panel>
+    
+    
+   	 <p:panel id="pnlTablaAsignados"  style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+   	 
+  
+          <h3>Lista de solicitudes asignadas</h3><br/>
+          
+          
+          <p:dataTable id="listaAsignadas" scrollHeight="300" rowKey="#{sol.id}" var="sol" value="#{comprasController.obtenerSolicitudesAsignadas(loginController.usuarioLogeado)}" paginator="true" rows="10"  emptyMessage="No hay solicitudes de alta registradas"
+                  paginatorPosition="bottom" style="text-align:center"  scrollable="true"  sortOrder="descending">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+       
+         
+        
+         <p:column  style="width:16px">
+            <p:rowToggler />
+        </p:column>
+        
+        <p:column  headerText="Nombre del solicitante" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{sol.usuarioByIdVendedor.empleado.nombre}  #{sol.usuarioByIdVendedor.empleado.apellidoPaterno}  #{sol.usuarioByIdVendedor.empleado.apellidoMaterno}
+        	</p:column> 
+        
+        
+        
+  
+        	
+        <p:column headerText="Nota" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{sol.nota}  
+        	</p:column> 
+        	
+        	 <p:column headerText="Status" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{sol.status}  
+        	</p:column> 
+        	
+        	
+        	 <p:column headerText="Fecha de solicitud" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{sol.fechaSol}  
+        	</p:column> 
+        	
+        	
+        	 <p:column headerText="Acción" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		<p:commandButton id="btnSolCot" process="listaAsignadas" update="@form" oncomplete="location.href='revisarSolRequerimiento.xhtml'" rendered="#{sol.codStatus == 0}"  value="Solicitar requisición"  icon="fa fa-calculator" actionListener="#{ventasController.verDetalleSolicitud(sol)}" />
+                <p:commandButton id="btnVerReq" process="listaAsignadas" update="@form" oncomplete="location.href='revisarSolRequerimiento.xhtml'" rendered="#{sol.codStatus == 5 || sol.codStatus == 4}"  value="Ver requisición"  icon="fa fa-calculator" actionListener="#{ventasController.verDetalleSolicitud(sol)}" />
+ 
+        	</p:column> 
+        	
+        	
+        	
+        	
+        	<p:rowExpansion>
+            <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
+                <f:facet name="header">
+                  <p:dataTable id="listaSolcitudesAsignadas" rendered="#{empty sol.apartadosCotizacions}"  var="pro" value="#{sol.productoSolCotizacions}" paginator="true" rows="10"  emptyMessage="No hay productos en esta cotización"
+                   paginatorPosition="bottom"  scrollable="true"  sortOrder="descending">  
+                  
+                  
+                   <p:column headerText="Identificador" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.producto.id}  
+        	</p:column> 
+        	
+                    <p:column headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.producto.producto}  
+        	</p:column> 
+        	
+        	 <p:column headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.cantidad}  
+        	</p:column> 
+        
+                  
+                  
+                 
+        
+                  </p:dataTable>
+                   
+                   <p:dataTable id="listaSolcitudesAsignadas2" rendered="#{not empty sol.apartadosCotizacions}"  var="pro" value="#{comprasController.obtenerListaApartadosCotizacion(sol)}" paginator="true" rows="10"  emptyMessage="No hay productos en esta cotización"
+                   paginatorPosition="bottom"  scrollable="true"  sortOrder="descending">  
+                  
+                  
+                  <p:column headerText="Identificador" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.id.idProducto}  
+        	</p:column> 
+        	
+                   <p:column headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.id.producto}  
+        	</p:column> 
+        	
+        	
+        	 <p:column headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.id.cantidadCotizar}  
+        	</p:column> 
+        
+                  
+                  
+                 
+        
+                  </p:dataTable>
+                </f:facet>
+ 
+
+            </p:panelGrid>
+        </p:rowExpansion>
+       		  
+       		   <f:facet name="footer">
+       		   
+       		   
+       		  
+       		  
+       		  
+       		  
+       		
+
+       		 
+        
+    
+        
+        </f:facet>
+    	</p:dataTable> 
+    	
+    	
+    	
+   
+    	
+    </p:panel>
+    	
+    	
+    	</h:form>
+<!--      </p:tab>  -->
+        
+<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+ 
+
+          
+<!--          </p:tab>   -->
+         
+
+<!--      </p:tabView> -->
+
+                 
+ 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+ <h:head>
+ </h:head>
+ <h:body>
+ <ui:composition template="../../template/loginLayout.xhtml">
+  <div id="header">
+   <ui:define  name="header">
+  <div>
+  
+   <div class="ui-g">
+  
+  <div class="ui-g-2 ui-md-4 ui-lg-4"></div>
+    <div class="ui-g-8 ui-md-4 ui-lg-4">
+  		<img src="${facesContext.externalContext.requestContextPath}/resources/images/default/logo_shq.png"  width="240" height="75" style="cursor: pointer;" />
+    </div>
+    <div class="ui-g-2 ui-md-4 ui-lg-4"></div>
+    
+   		 </div>
+   		 </div>
+  
+   </ui:define>
+  </div>
+ 
+  <div id="content">
+	 <ui:define  name="content">
+	 
+	 
+	 <div class="ui-g" style="font-size:13px;">
+    <div class="ui-g-12 ui-md-4 ui-lg-4"></div>
+    <div class="ui-g-12 ui-md-4 ui-lg-4"><p >Acceso al sistema de compras para clientes nuevos o ya registrados</p>
+	 </div>
+    <div class="ui-g-12 ui-md-4 ui-lg-4"></div>
+</div>
+	 
+	 
+	 
+	 <h:form id="form" >
+	 
+    <p:panel id="pnlLogin"  onreset="#{loginController.limpiarForm()}">
+        <p:panelGrid columns="2" layout="grid">
+             <p:inputText style="width:100%;" id="txtUsuario" value="#{loginController.username}"  placeholder="Usuario" required="true" requiredMessage="El usuario es requerido">
+                    <p:ajax update="msgUsuario" event="change" /> 
+                    <p:ajax update="form" event="change" /> 
+                     <p:message id="msgUsuario" for="txtUsuario" display="text"/>  
+			 </p:inputText>
+				
+             
+            <p:password style="width:100%;" id="passPassword" value="#{loginController.password}" placeholder="Contraseña" autocomplete="off" redisplay="true" required="true" requiredMessage="La contraseña es requerida" >
+                      <p:ajax update="msgPass" event="change" />
+                     <p:message id="msgPass" for="passPassword" display="text"/> 
+                     </p:password>
+   </p:panelGrid>
+   <br/><br/> 
+
+	 	 <p:commandButton style="width:45%;font-size:12px;" id="btnEntrar" value="Entrar" actionListener="#{loginController.doLogin}" update="@form"  validateClient="true" />
+    	 <p:commandButton style="width:45%;margin-left:8%;color:green;font-size:12px;" id="btnContinuarInvitado" value="Continuar como invitado"  onclick="closeIframe();" />																																							
+    </p:panel>
+
+</h:form>
+
+	¿Aún no está registrado? Regístrese y goce de los beneficios de pertenecer a nuestra cartera de clientes.
+<!--  	 	 <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" rendered="true" redisplay="true"/>  -->
+ 
+	 </ui:define>
+  </div>
+    	
+</ui:composition>
+ </h:body>
+</html>

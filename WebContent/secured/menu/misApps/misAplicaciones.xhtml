@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 <h:form id="formAplicaciones"  style="font-size:12px;">
+
+    <p:tabView effect="#{tabBean.effect}" effectDuration="normal" >
+
+        <p:tab title="Lista de almacenes">
+            <h:panelGrid columns="1" cellpadding="10">
+                    
+                    <p:dataGrid  paginatorPosition="bottom" emptyMessage="Estimado usuario, no tienes almacenes asignadas." var="app" value="#{aplicacionesController.getAplicacionesUsuario(loginController.usuarioLogeado.idUsuario)}" columns="4"  
+        rows="4" paginator="true"  
+        paginatorTemplate="{CurrentPageReport}  {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"  
+        rowsPerPageTemplate="4,8,12">  
+        <p:panel header="#{app.nombreApp}" style="text-align:center" >  
+            <h:panelGrid columns="1" style="width:100%; height:100%;" >  
+               <div onclick="#{aplicacionesController.seleccionarApp()}" >
+                <p:commandLink  action="#{aplicacionesController.seleccionarApp}" title="Seleccionar aplicación">  
+                <p:graphicImage width="120"  height="60" value="#{app.rutaImgApp}"/>   
+                 <f:setPropertyActionListener value="#{app.nombreApp}"   
+                            target="#{aplicacionesController.nombreAppSelect}" />  
+                  <f:setPropertyActionListener value="#{app.idApp}"   
+                            target="#{bitacorasController.appSeleccionada}" />  
+                  <f:setPropertyActionListener value="#{app.rutaImgApp}"   
+                            target="#{aplicacionesController.imgAppSeleccionada}" /> 
+                  </p:commandLink>  
+                  </div>
+            </h:panelGrid>  
+        </p:panel>  
+  
+    </p:dataGrid>
+    
+                    
+            </h:panelGrid>
+        </p:tab>
+        
+
+    </p:tabView>
+
+</h:form>
+                    
+	 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

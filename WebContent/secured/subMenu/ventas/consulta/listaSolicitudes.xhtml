@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 
+
+	
+
+          <h:form style="font-size:12px;" onreset=""> 
+   
+   	  	 
+   
+   	 
+   	 <p:panel id="pnlTablaEntradas"  style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+   	 
+  
+          <h3>Solicitudes de cotización</h3><br/>
+          <p:dataTable id="listaSolcitudes" scrollHeight="300" rowKey="#{sol.id}" var="sol" disabledSelection="#{sol.usuarioByIdVendedor != null}" value="#{ventasController.obtenerSolicitudes()}" paginator="true" rows="10"  emptyMessage="No hay solicitudes de alta registradas"
+                  paginatorPosition="bottom" selection="#{ventasController.solicitudesSeleccionadas}" style="text-align:center"  scrollable="true"  sortOrder="descending">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+                 <p:column  selectionMode="multiple" rendered="#{sol.usuarioByIdVendedor == null}"   style="width:16px;text-align:center"/>
+                 <p:column id="checkInactivo" rendered="#{sol.usuarioByIdVendedor != null}"   selectionMode="multiple"  style="width:16px;text-align:center;background-color:gray;" />
+                 
+        
+        
+         <p:column style="width:16px">
+            <p:rowToggler />
+        </p:column>
+        
+         <p:column headerText="Número de solicitud" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{sol.id}  
+        	</p:column>
+        
+        <p:column  headerText="Nombre del Cliente" filterMatchMode="contains"
+        filterStyle="display:none"  rendered="#{sol.usuarioByIdExterno != null}">  
+           		 #{sol.usuarioByIdExterno.externo.nombre}
+        	</p:column> 
+        	
+        	<p:column  headerText="Nombre del Cliente" filterMatchMode="contains"
+        filterStyle="display:none"  rendered="#{sol.usuarioByIdExterno == null}">  
+           		Invitado
+        	</p:column> 
+        
+        
+        
+          <p:column  headerText="Usuario del Cliente" filterMatchMode="contains"
+        filterStyle="display:none"  rendered="#{sol.usuarioByIdExterno != null}">  
+           		 #{sol.usuarioByIdExterno.nombreUsuario}
+        	</p:column> 
+        	
+        	<p:column  headerText="Usuario del Cliente" filterMatchMode="contains"
+        filterStyle="display:none"  rendered="#{sol.usuarioByIdExterno == null}">  
+           		-
+        	</p:column> 
+        	
+        
+        	
+        	 <p:column headerText="Status" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{sol.status}  
+        	</p:column> 
+        	
+        	
+        	 <p:column headerText="Fecha de solicitud" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{sol.fechaSol}  
+        	</p:column> 
+        	
+        
+        	
+        	 <p:column  headerText="Vendedor" filterMatchMode="contains"
+        filterStyle="display:none"  rendered="#{sol.usuarioByIdVendedor != null}">  
+           		  #{sol.usuarioByIdVendedor.nombreUsuario} 
+        	</p:column> 
+        	
+        	<p:column  headerText="Vendedor" filterMatchMode="contains"
+        filterStyle="display:none"  rendered="#{sol.usuarioByIdVendedor == null}">  
+           		Sin asignar
+        	</p:column> 
+        	
+        	
+        	
+        	
+        	
+        	<p:rowExpansion>
+            <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
+                <f:facet name="header">
+                  <p:dataTable id="listaSolcitudes"  var="pro" value="#{sol.productoSolCotizacions}" paginator="true" rows="10"  emptyMessage="No hay productos en esta cotización"
+                   paginatorPosition="bottom"  scrollable="true"  sortOrder="descending">  
+                  
+                  
+                   <p:column headerText="Clave" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.producto.clave}  
+        	</p:column> 
+        	
+                    <p:column headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.producto.producto}  
+        	</p:column> 
+        	
+        	 <p:column headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{pro.cantidad}  
+        	</p:column> 
+        
+                  
+                  
+                 
+        
+                  </p:dataTable>
+                   
+                </f:facet>
+ 
+
+            </p:panelGrid>
+        </p:rowExpansion>
+       		  
+       		   <f:facet name="footer">
+            <p:commandButton id="btnSolCot" process="listaSolcitudes" update="@form"   value="Tomar solicitudes"  icon="fa fa-check" actionListener="#{ventasController.guardarAsignacionCotizacion(loginController.usuarioLogeado)}" />
+        
+        </f:facet>
+    	</p:dataTable> 
+    	
+    	
+    	
+   
+    	
+    </p:panel>
+    
+    
+    
+    
+    	 
+    
+    <br/><br/>
+    
+
+    	
+    	
+    	</h:form>
+<!--      </p:tab>  -->
+        
+<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+ 
+
+          
+<!--          </p:tab>   -->
+         
+
+<!--      </p:tabView> -->
+
+                 
+ 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioBitacora" style=" font-size:12px;" onreset="#{bitacorasController.limpiarForm()}">
+      
+      
+    <div class="ui-g">
+    <div class="ui-g-4"><h:outputText value="Solicitud de alta" style="font-size:1.5em;margin-left:0px"/>  </div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2">	<p:button outcome="listarAltasInventario" value="Regresar" icon="ui-icon-arrowthick-1-w">
+    				<f:param name="productId" value="10" />
+				</p:button></div>
+</div>
+       		
+       				
+      
+  			
+				
+      <p:panel id="pnl" header="Registro" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;">
+      <f:facet name="actions">
+        <p:commandLink
+            styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+            <h:outputText styleClass="ui-icon ui-icon-help" />
+        </p:commandLink>
+        
+
+    </f:facet> 
+      
+      <div class="ui-g">
+    <div class="ui-g-12">
+    
+    
+            <h:panelGrid columns="1">
+          
+          <p:dataTable id="lstProductos" var="prod" value="#{inventarioController.getListaProductos()}" resizableColumns="true" scrollWidth="900px" paginator="true" rows="10" emptyMessage="No hay solicitudes de alta registradas"
+                 rowKey="#{prod.clave}"   selectionMode="single"  paginatorPosition="bottom"  scrollable="true"  sortOrder="descending">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+        <p:column   headerText="Clave"  filterMatchMode="contains"
+        filterStyle="display:none;"  style="width:4%;">  
+           		 #{prod.clave}  
+        	</p:column> 
+        	
+        	<p:column headerText="Producto"  width="60" filterMatchMode="contains"
+        filterStyle="display:none">  
+           		 #{prod.producto}  
+        	</p:column> 
+        
+ 
+ 		    <p:column   width="100"  headerText="Especificaciones" 
+        filterStyle="display:none"  >  
+           		 #{prod.especificaciones}  
+        	</p:column> 
+       		   
+    	</p:dataTable> 
+        
+         <p:commandButton id="addBtn" value="Agregar producto" icon="ui-icon ui-icon-plus" 
+        style="margin:0;" onclick="PF('dlg2').show();"  validateClient="true"  
+        styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" >
+        
+        </p:commandButton>
+        
+        
+        </h:panelGrid>
+    
+      <p:dialog header="Datos del producto" id="dlgProducto" widgetVar="dlg2" modal="true" resizable="false">
+        <h:panelGrid columns="2" cellpadding="5">
+        
+        
+          <p:outputLabel for="txtProdClav" value="Clave:"/>
+      		<p:inputText id="txtProdClav" value="#{inventarioController.producto.clave}"/>
+
+
+     <p:outputLabel for="txtProducto" value="Producto:"/>
+      		<p:inputText id="txtProducto" value="#{inventarioController.producto.producto}" label="txtProducto" />
+      		
+     <p:outputLabel for="txtProdEsp" value="Especificaciones"/>
+      		<p:inputTextarea id="txtProdEsp" rows="10" cols="50" value="#{inventarioController.producto.especificaciones}"  label="txtProdEsp" />
+ 
+            <f:facet name="footer" >
+                <p:commandButton value="Agregar" style="float:right;"  update="lstProductos,pnl,dlgProducto" actionListener="#{inventarioController.agregarProducto}"/>
+            </f:facet>  
+        </h:panelGrid>
+        
+    </p:dialog>
+    
+    </div>
+    </div>
+
+      
+      
+    
+       
+        <p:panelGrid  cellpadding="10" style="margin-left:60px;">
+        
+        
+        
+        
+
+          <br/><br/>
+          <p:row>
+          
+          
+          
+          <p:column>
+               
+             <h:panelGroup>
+          <br />
+        <p:commandButton id="saveBtn" value="Registrar" icon="ui-icon-check" 
+        style="margin:0;" action="#{inventarioController.registrarListaProductos()}"   update="pnl" validateClient="true" />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+ 
+ 
+ 			
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

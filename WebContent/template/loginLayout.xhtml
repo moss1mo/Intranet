@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+ 
+    <h:head>
+    <!--  <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>-->
+
+    <script src="${facesContext.externalContext.requestContextPath}/resources/js/itemSliderMenu/modernizr.custom.63321.js"></script>
+    <script src="${facesContext.externalContext.requestContextPath}/resources/js/itemSliderMenu/jquery.catslider.js"></script>
+      <h:outputStylesheet name="customPanelGrid.css" library="css"/>
+    <h:outputStylesheet name="styleItemSlider.css" library="css"/>
+    <h:outputStylesheet name="styleFontItemSlider.css" library="css"/>
+	<h:outputStylesheet name="layout-style.css" library="css"/>
+ 	<h:outputStylesheet name="layoutHeader.css" library="css"/>
+ 	<h:outputStylesheet name="index.css" library="css"/>
+    </h:head>
+ 
+    <h:body>
+ 
+	<div class="ui-g">
+
+ <div class="ui-g-12 ui-g-nopad">
+	    <div class="ui-g-12">
+		<ui:insert name="header" >
+		  <ui:include src="common/templateHeader.xhtml" />
+		</ui:insert>
+	    </div>
+ 
+	   <div class="ui-g-12 ">
+	  	<ui:insert name="content" >
+	 	  <ui:include src="common/templateContent.xhtml" />
+	   	</ui:insert>
+	    </div>
+ 
+	  
+ </div>
+       </div>
+ 
+    </h:body>
+</html>

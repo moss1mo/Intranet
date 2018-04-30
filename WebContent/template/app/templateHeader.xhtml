@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"   
+      xmlns:ui="http://java.sun.com/jsf/facelets"  
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core" xml:lang="en" lang="en">
+      
+    <body>
+	    <ui:composition>
+	    
+ 		<div id="logo">
+ 		<!--  	
+ 		<h:panelGroup rendered="#{aplicacionesController.imgAppSeleccionada != null}"  style="margin-bottom:50px;"> 
+ 		 <a href="/ElektraDineroBit/secured/menuApp.xhtml">
+	      <p:graphicImage width="150"  height="40" style="cursor: pointer;" value="../../../../ElektraDineroBit/#{aplicacionesController.imgAppSeleccionada}"/>    
+	    </a>
+	    </h:panelGroup> 
+	    -->
+	  <!--  <h:panelGroup rendered="#{aplicacionesController.imgAppSeleccionada == null}"  style="margin-bottom:50px;">  --> 
+ 		 <a href="/Intranet/secured/menu.xhtml">
+	    <img src="${facesContext.externalContext.requestContextPath}/resources/images/default/logo_shq.png"   width="160" height="50" style="cursor: pointer;" />
+	    </a>
+	  <!--   </h:panelGroup> -->
+	  <br /><br />
+	  	<div id="appName">
+   	 
+		 <!-- <h3> Aplicación </h3> <p style="color:blue">#{aplicacionesController.nombreAppSelect}</p>-->
+	</div>
+	  
+   		 </div>
+	<h:panelGroup>
+
+	
+	</h:panelGroup>
+
+   <h:panelGroup rendered="#{loginController.username!=null}"  style="margin-bottom:50px;">  
+
+	
+   
+    <div id="loginUserName">
+	<h3>Bienvenido    <p:commandLink   action="#{usuarioController.recuperarDatosUsuario(loginController.usuarioLogeado.idUsuario)}" oncomplete="location.href='menu/miPerfil/misDatos.xhtml'"  style="color:blue">#{loginController.nombreUsuarioLogeado}</p:commandLink></h3><br/>
+	
+	<h:form>
+
+	<div>
+	  <h:commandLink action="#{loginController.doLogout}"><img src="${facesContext.externalContext.requestContextPath}/resources/images/layout/header/cerrarSesionRed_32x32.png" height="16" width="16" alt="Cerrar sesión" style="float:left;"/><p style="font-size:14px; display:inline; padding-left:3px; float:right;">Cerrar sesión</p></h:commandLink>
+	</div>
+<br />
+	<div >
+	 <a href="/Intranet/secured/menuApp.xhtml"><img src="${facesContext.externalContext.requestContextPath}/resources/images/layout/header/backMenu_32x32.png" height="16" width="16" alt="Cerrar sesión" style="float:left;"/><p style="font-size:14px; display:inline; padding-left:3px; float:right;">Menu App</p></a>
+	</div>
+		
+	
+	</h:form>
+	
+	
+	</div>
+	
+	
+
+</h:panelGroup>
+   		 
+   		 
+	
+	 
+ 
+	    </ui:composition>
+    </body>
+</html>

@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content" >
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioBitacora" style=" font-size:12px;">
+      
+      
+    <div class="ui-g">
+    <div class="ui-g-4"><h:outputText value="Solicitud de alta" style="font-size:1.5em;margin-left:0px" onreset="#{bitacorasController.updateTodasBitacorasApp(bitacorasController.appSeleccionada)}"/>  </div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2">	<p:button outcome="empleados" value="Regresar" icon="ui-icon-arrowthick-1-w">
+    				<f:param name="productId" value="10" />
+				</p:button></div>
+</div>
+       		
+       				
+      
+  			
+				
+      <p:panel id="pnl" header="Registrar empleado" style="margin-bottom:25px; overflow:auto; font-size:12px;"
+      >
+      <f:facet name="actions">
+       <p:commandLink
+            styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+            <h:outputText styleClass="ui-icon ui-icon-help" />
+        </p:commandLink>
+    </f:facet> 
+      
+       <div class="ui-fluid">
+       
+       
+       
+       <div class="ui-g-12" > 
+    
+    <p:panel id="pnlUsr">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos de usuario" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+	                 <p:panelGrid columns="2" id="pnlUsuarioGlobal" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank">
+	  
+	  
+     <p:panelGrid columns="2" id="pnlUsuario" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		
+     		<p:outputLabel for="usuario" value="Usuario:" />      		
+     		<p:inputText id="usuario" value="#{empleadosController.usuario.nombreUsuario}" required="true"/>
+ 			<h:outputLabel for="pwd1" value="Contraseña: *" />
+        	<p:password id="pwd1" value="#{empleadosController.usuario.password}" match="pwd2" label="Password 1" required="true" />
+			        <h:outputLabel for="pwd2" value="Confirmar contraseña: *" />
+			        <p:password id="pwd2" value="#{empleadosController.usuario.password}" label="Password 2" required="true" /> 
+        	
+        	    		
+
+          </p:panelGrid>
+          
+
+                         
+              
+          
+
+      	</p:panelGrid>
+
+      
+   
+   </p:panel>
+   
+   
+    </div>
+    
+       
+       
+       
+       
+           
+ 
+    
+       
+       
+          <div class="ui-g-6" > 
+      <p:panel id="tipo">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Tipo de empleado" />
+	  	</h:panelGrid>
+	  </f:facet>
+    
+        <p:panelGrid columns="2" id="pnlTipo" columnClasses="ui-grid-col-8,ui-grid-col-4" layout="grid" styleClass="ui-panelgrid-blank">
+ 
+        <p:selectOneRadio id="tipo_empleado" value="#{empleadosController.usuario.usuarioRol.idRol}">
+            <f:selectItem itemLabel="Compras" itemValue="2" />
+            <f:selectItem itemLabel="Ventas" itemValue="3" />
+        </p:selectOneRadio>
+        
+        </p:panelGrid>
+
+    </p:panel>
+    
+    
+    <p:panelGrid columns="2" id="pnlPuesto"  columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Puesto" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+	  <p:outputLabel for="puestos" value="Puesto:"/>  
+	      		
+      		<p:selectOneMenu id="puestos" value="#{empleadosController.empleado.puesto}" panelStyle="width:180px"
+                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+       		             <f:selectItem itemLabel="Vendedor" itemValue="Vendedor" />
+       		             <f:selectItem itemLabel="Almacenista" itemValue="Almacenista" />
+       		             <f:selectItem itemLabel="Recursos humanos" itemValue="Recursos humanos" />
+       		             <f:selectItem itemLabel="Contador" itemValue="Contador" />
+        </p:selectOneMenu>
+    
+        
+
+    </p:panelGrid>
+    </div>
+    
+    
+    
+               
+    <div class="ui-g-6" > 
+      <p:panel id="basic">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos del empleado" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+	 
+        
+    
+        <p:panelGrid columns="2" id="pnlDatos" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	<p:outputLabel for="txtClave" value="Nombre:"/>
+      		<p:inputText id="txtClave" value="#{empleadosController.empleado.nombre}"/>
+      		
+        	<p:outputLabel for="txtNombreProveedor" value="Apellido paterno:"/>
+      		<p:inputText id="txtNombreProveedor" value="#{empleadosController.empleado.apellidoPaterno}"/>
+          
+
+      		<p:outputLabel for="txtRFC" value="Apellido materno:"/>
+      		<p:inputText id="txtRFC" value="#{empleadosController.empleado.apellidoMaterno}" />
+      		
+      		<p:outputLabel for="calFechaNac" value="Fecha de nacimiento:"/>
+      		<p:calendar id="calFechaNac" value="#{empleadosController.empleado.fechaNacimiento}" lang="es" navigator="true" mindate="1/1/50" maxdate="31/12/05"  showOn="button" />
+      		
+      		
+        </p:panelGrid>
+
+    </p:panel>
+
+    </div>
+    
+    
+     <div class="ui-g-12" > 
+    
+    <p:panel id="pnlDom">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Domicilio" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+	                 <p:panelGrid columns="2" id="pnlDomicilioGlobal" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank">
+	  
+	  
+     <p:panelGrid columns="2" id="pnlDomicilio" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		
+      		<p:outputLabel for="pais" value="País:"/>      		
+      		<p:selectOneMenu id="pais" value="#{empleadosController.empleado.domicilio.codPais}" panelStyle="width:180px"
+                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+       		             <f:selectItem itemLabel="México" itemValue="MX" />
+        </p:selectOneMenu>
+        
+
+        <p:outputLabel   for="municipio" value="Municipio:"/>      		
+      		<p:selectOneMenu id="municipio" value="#{empleadosController.empleado.domicilio.codMunicipio}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{catalogosController.getMunicipios({empleadosController.empleado.domicilio.codEstado})}" var="mun" itemLabel="#{mun.id.DMnpio}" itemValue="#{mun.id.CMnpio}" />
+                    	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+        </p:selectOneMenu>
+
+         <p:outputLabel  for="cp" value="Código Postal:"/>      		        	    
+        	    <p:selectOneMenu  id="cp" value="#{empleadosController.empleado.domicilio.cp}" readOnly="true"  panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith" >
+            <f:selectItems value="#{catalogosController.getCP({empleadosController.empleado.domicilio.codEstado},{empleadosController.empleado.domicilio.codMunicipio},{empleadosController.empleado.domicilio.codColonia})}" var="col"  itemLabel="#{col.id.DCodigo}" itemValue="#{col.id.DCodigo}" />
+        </p:selectOneMenu> 
+        
+          </p:panelGrid>
+          
+               <p:panelGrid columns="2" id="pnlDomicilio2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+
+        	<p:outputLabel   for="estado" value="Estado:"/>      		
+      		<p:selectOneMenu id="estado" value="#{empleadosController.empleado.domicilio.codEstado}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{catalogosController.getEstados()}" var="estado" itemLabel="#{estado.id.DEstado}" itemValue="#{estado.id.CEstado}" />
+        	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+                </p:selectOneMenu>
+
+      		   <p:outputLabel   for="colonia" value="Colonia:"/>      		
+      		<p:selectOneMenu  id="colonia" value="#{empleadosController.empleado.domicilio.codColonia}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{catalogosController.getColonias({empleadosController.empleado.domicilio.codEstado},{empleadosController.empleado.domicilio.codMunicipio})}" var="col" itemLabel="#{col.id.DAsenta}" itemValue="#{col.id.idAsentaCpcons}" />
+        	        	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+        	
+        </p:selectOneMenu>
+        
+
+        	</p:panelGrid>
+        	               <p:panelGrid columns="2" id="pnlDomicilio3" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	  <p:outputLabel for="calle" value="Calle:"/>    
+                         <p:inputText id="calle" value="#{empleadosController.empleado.domicilio.calle}"/>
+                         </p:panelGrid>
+
+                         <p:panelGrid columns="4" id="pnlDomicilio4" columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	  <p:outputLabel for="numExt" value="Número Exterior:"/>    
+                         <p:inputText id="numExt" value="#{empleadosController.empleado.domicilio.numExt}"/>
+                         
+                          <p:outputLabel for="numInt" value="Número Interior:"/>    
+                         <p:inputText id="numInt" value="#{empleadosController.empleado.domicilio.numInt}"/>
+     
+                         </p:panelGrid>
+                         <p:panelGrid columns="2" id="pnlDomicilio5" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	 			 	<p:outputLabel for="referencias" value="Referencias:"/>    
+                         	<p:inputText id="referencias" value="#{empleadosController.empleado.domicilio.referencias}"/>
+                         
+                         </p:panelGrid>
+                         
+                         <p:panelGrid columns="2" id="pnlDomicilio6" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+                         
+                         
+                         <p:outputLabel for="entreCalles" value="Entre calles:"/>    
+                         	<p:inputText id="entreCalles" value="#{empleadosController.empleado.domicilio.entreCalles}"/>
+                         </p:panelGrid>
+                         
+              
+          
+
+      	</p:panelGrid>
+
+      
+   
+   </p:panel>
+   
+   
+    </div>
+    
+    
+     <div class="ui-g-6"> 
+      <p:panel id="datosContacto"  >
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos de contacto personal" />
+	  	</h:panelGrid>
+	  </f:facet>
+        
+        
+         <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		<p:outputLabel for="txtCorreoContacto" value="Correo personal:"/>
+      		<p:inputText id="txtCorreoContacto" value="#{empleadosController.empleado.emailPersonal}" />
+      		
+      		<p:outputLabel for="txtTelContacto" value="Teléfono de casa:"/>
+      		<p:inputText id="txtTelContacto" value="#{empleadosController.empleado.telCasa}" />
+      		
+      		<p:outputLabel for="txtNomContact" value="Teléfono celular:"/>
+      		<p:inputText id="txtNomContact" value="#{empleadosController.empleado.telCelular}" />
+        </p:panelGrid>
+    </p:panel>
+  
+    </div>
+    
+    
+    <div class="ui-g-6"> 
+      <p:panel id="datosContacto2"  >
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos de contacto de trabajo" />
+	  	</h:panelGrid>
+	  </f:facet>
+        
+        
+         <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		<p:outputLabel for="txtCorreoContacto2" value="Correo del trabajo:"/>
+      		<p:inputText id="txtCorreoContacto2" value="#{empleadosController.empleado.emailEmpresa}" />
+      		<p:outputLabel for="txtTelContacto2" value="Teléfono del trabajo:"/>
+      		<p:inputText id="txtTelContacto2" value="#{empleadosController.empleado.telTrabajo}" />
+      		<p:outputLabel for="txtNomContact2" value="Extensión:"/>
+      		<p:inputText id="txtNomContact2" value="#{empleadosController.empleado.telExt}" />
+        </p:panelGrid>
+    </p:panel>
+  
+    </div>
+    
+   
+    </div>
+
+        <p:panelGrid  cellpadding="10" style="float:right;">
+
+          <p:row>
+
+          <p:column>
+               
+             <h:panelGroup>
+          <br />
+        <p:commandButton id="saveBtn" value="Registrar alta" icon="ui-icon-check" 
+         action="#{empleadosController.guardarEmpleado()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

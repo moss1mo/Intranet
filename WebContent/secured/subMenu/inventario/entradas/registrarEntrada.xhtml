@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioBitacora" style=" font-size:12px;" onreset="#{bitacorasController.limpiarForm()}">
+      
+      
+    <div class="ui-g">
+    <div class="ui-g-4"><h:outputText value="Solicitud de alta" style="font-size:1.5em;margin-left:0px"/>  </div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2">	<p:button outcome="listarEntradasInventario" value="Regresar" icon="ui-icon-arrowthick-1-w">
+    				<f:param name="productId" value="10" />
+				</p:button></div>
+</div>
+       		
+       				
+      
+  			
+				
+      <p:panel id="pnl" header="Registro" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;">
+      <f:facet name="actions">
+        <p:commandLink
+            styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+            <h:outputText styleClass="ui-icon ui-icon-help" />
+        </p:commandLink>
+        
+
+    </f:facet> 
+      
+       <div class="ui-g">
+    <div class="ui-g-8"> 
+      <p:panel id="basic"  >
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Detalle de la solicitud" />
+	  	</h:panelGrid>
+	  </f:facet>
+    
+        <h:panelGrid columns="2" cellpadding="10">
+           
+            <p:outputLabel for="button" value="Fecha de ingreso:"  />
+             <p:outputLabel for="cbAlmacen" value="Almacen:" style="margin-left:100px"/>
+            
+        <p:calendar id="button" value="#{movimientosInventarioController.movimiento.fechaIngreso}"/>
+        
+         <p:selectOneMenu id="cbAlmacen" value="#{movimientosInventarioController.movimiento.almacen}" style="width:200px;margin-left:100px" converter="almacenConverter">
+		            <f:selectItem itemLabel="Selecciona" />
+            		<f:selectItems value="#{movimientosInventarioController.obtenerAlmacenes()}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen}" />
+		        </p:selectOneMenu>
+        </h:panelGrid>
+    </p:panel>
+    
+   
+   
+   
+    </div>
+    <div class="ui-g-4">
+      <p:panel id="basic2" style="margin-bottom:20px">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon  ui-icon-document" />
+	    	<h:outputText value="Documentos de soporte" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+        <h:panelGrid columns="2" cellpadding="10">
+           
+    <p:fileUpload label="Agregar documento de soporte" uploadLabel="Subir" cancelLabel="Cancelar" fileUploadListener="#{fileUploadView.handleFileUpload}" mode="advanced" skinSimple="true" dragDropSupport="true"
+                          update="messages" sizeLimit="10000000" allowTypes="/(\.|\/)(gif|jpe?g|png)$/" />
+ 
+    <p:growl id="messages" showDetail="true" />
+    
+    
+    
+
+        </h:panelGrid>
+        </p:panel>
+
+    </div>
+    </div>
+      <div class="ui-g">
+    <div class="ui-g-12">
+    
+    
+            <h:panelGrid columns="1">
+          
+          <p:dataTable id="lstEntradas" var="entrada"  value="#{movimientosInventarioController.getListaMovimientos()}" resizableColumns="true" scrollWidth="900px" paginator="true" rows="10"  emptyMessage="No hay entradas registradas"
+                 rowKey="#{entrada.producto.id}"  selectionMode="single"  paginatorPosition="bottom"  scrollable="true"   sortOrder="descending">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+        <p:column sortBy="clave"  headerText="Clave" width="40" filterMatchMode="contains"
+        filterStyle="display:none" >  
+           		 #{entrada.producto.clave}  
+        	</p:column> 
+        	
+        	<p:column headerText="Producto"  width="60" filterMatchMode="contains"
+        filterStyle="display:none">  
+           		 #{entrada.producto.producto}  
+        	</p:column> 
+        
+ 
+ 		    <p:column sortBy="producto.clave"  width="100"  headerText="Especificaciones" filterMatchMode="contains"
+        filterStyle="display:none"  >  
+           		 #{entrada.producto.especificaciones}  
+        	</p:column> 
+       		   
+        	<p:column headerText="Cantidad"  width="60" >  
+            	#{entrada.cantidad}  
+            	
+        	</p:column>  
+        
+        <p:column headerText="Lote"  width="40" >  
+            	#{entrada.lote}  
+            	
+        	</p:column> 
+        	 <p:column headerText="Costo(USD/Unidad)"  >  
+            	#{entrada.costoUsd}  
+            	
+        	</p:column> 
+        	<p:column headerText="Costo(MXN/Unidad)">  
+            	#{entrada.costoMxm}  
+            	
+        	</p:column>
+        	<p:column headerText="Fecha de ingreso" >  
+            	#{entrada.fechaIngreso}  
+            	
+        	</p:column>
+        	<p:column headerText="IVA(%)" width="60" >  
+            	#{entrada.prtjIva}  
+            	
+        	</p:column>
+        	<p:column headerText="IGI(%)" width="60" >  
+            	#{entrada.prtjIgi}  
+            	
+        	</p:column>
+        	<p:column headerText="Unidad" width="60" >  
+            	#{entrada.unidad.descripcion}  
+            	
+        	</p:column>
+        	<p:column headerText="Empaque" width="60">  
+            	#{entrada.empaque.descripcion}  
+            	
+        	</p:column>
+        	<p:column headerText="Presentación(Unidad)" width="140">  
+            	#{entrada.unidXPresent}  
+            	
+        	</p:column>
+        	<p:column headerText="Dimensiones(m)" width="100" >  
+            	#{entrada.dimensiones}  
+            	
+        	</p:column>
+        	        	<p:column headerText="HS" width="40" >  
+            	#{entrada.hs}  
+            	
+        	</p:column>
+        	        	<p:column headerText="TC" width="40" >  
+            	#{entrada.tc}  
+            	
+        	</p:column>
+        	
+        	<p:column headerText="Almacen" width="80" >  
+            	#{entrada.almacen.nombre}  
+            	
+        	</p:column>
+        	<p:column headerText="Proveedor" width="80">  
+            	#{entrada.proveedor.nombre}  
+            	
+        	</p:column>
+        	<p:column headerText="Pedimento" width="80" >  
+            	#{entrada.pedimento.pedimento}  
+            	
+        	</p:column>
+    	</p:dataTable> 
+        
+         <p:commandButton id="addBtn" value="Agregar entrada" icon="ui-icon ui-icon-plus" 
+        style="margin:0;" onclick="PF('dlgEntradaW').show();"
+        styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default" />
+        
+        </h:panelGrid>
+        
+        
+        
+          <p:dialog header="Datos de la entrada" id="dlgEntrada" widgetVar="dlgEntradaW" modal="true" resizable="false">
+         
+        
+    
+        	 <p:panelGrid columns="4" cellpadding="0">
+        
+        
+     
+      		
+      	<p:outputLabel value="Producto:" for="producto" />
+        <p:autoComplete id="producto" forceSelection="true" 
+        value="#{movimientosInventarioController.movimiento.producto}" 
+        completeMethod="#{movimientosInventarioController.completeProductos}" 
+        var="producto" itemLabel="#{producto.producto}" itemValue="#{producto}" converter="ProductoConverter"/>
+
+     	<p:outputLabel for="txtCantidad" value="Cantidad:"/>
+     	<p:spinner id="txtCantidad" value="#{movimientosInventarioController.movimiento.cantidad}" min="1" max="1000000" />
+
+		<p:outputLabel for="txtcostoMXN" value="Costo(MXN):"/>
+		
+            <p:inputNumber  id="txtcostoMXN"
+             decimalSeparator="." thousandSeparator="," value="#{movimientosInventarioController.movimiento.costoMxm}" />   
+      
+			<p:outputLabel for="txtcostoUSD" value="Costo(USD):"/>
+		
+            <p:inputNumber  id="txtcostoUSD"
+             decimalSeparator="." thousandSeparator="," value="#{movimientosInventarioController.movimiento.costoUsd}" />   
+      
+		
+		<p:outputLabel for="dteFechaCaducidad" value="Fecha de caducidad:"  />            
+        <p:calendar id="dteFechaCaducidad" value="#{movimientosInventarioController.movimiento.fechaCaducidad}"/>
+		
+		<p:outputLabel for="txtDimensiones" value="Dimensiones:"/>
+		 <p:inputNumber decimalSeparator="." thousandSeparator="," id="txtDimensiones" 
+		 value="#{movimientosInventarioController.movimiento.dimensiones}"/>
+		
+		
+		<p:outputLabel for="txtHS" value="HS:"/>
+		<p:inputText id="txtHS" value="#{movimientosInventarioController.movimiento.hs}"/>
+		
+	
+		<p:outputLabel for="txtLote" value="Lote:"/>
+		<p:inputText id="txtLote" value="#{movimientosInventarioController.movimiento.lote}"/>
+		
+		<p:outputLabel for="txtPrtjIgi" value="Porcentaje IGI:"/>
+		 <p:inputNumber decimalSeparator="." thousandSeparator="," id="txtPrtjIgi" 
+		 symbol="%" symbolPosition="s" emptyValue="zero" value="#{movimientosInventarioController.movimiento.prtjIgi}"/>
+		
+		<p:outputLabel for="txtPrtjIva" value="Porcentaje IVA:"/>
+		 <p:inputNumber decimalSeparator="." thousandSeparator="," id="txtPrtjIva" 
+		 symbol="%" symbolPosition="s" emptyValue="zero" value="#{movimientosInventarioController.movimiento.prtjIva}"/>
+		
+		<p:outputLabel for="cbUnidad" value="Unidad:"/>
+		<p:selectOneMenu id="cbUnidad" value="#{movimientosInventarioController.movimiento.unidad}" converter="unidadConverter" >
+		    <f:selectItem itemLabel="Selecciona" />
+          	<f:selectItems value="#{movimientosInventarioController.obtenerUnidades()}" var="unidad" itemLabel="#{unidad.descripcion}" itemValue="#{unidad}" />
+		</p:selectOneMenu>
+		        
+		
+		<p:outputLabel for="txtUnidXPresent" value="Presentación(Unidad):"/>
+		<p:inputText id="txtUnidXPresent" value="#{movimientosInventarioController.movimiento.unidXPresent}"/>
+		
+		
+			<p:outputLabel for="cbEmpaque" value="Empaque:"/>			
+			<p:selectOneMenu id="cbEmpaque" value="#{movimientosInventarioController.movimiento.empaque}" converter="empaqueConverter">
+		            <f:selectItem itemLabel="Selecciona" />
+            		<f:selectItems value="#{movimientosInventarioController.obtenerEmpaques()}" var="empaque" itemLabel="#{empaque.descripcion}" itemValue="#{empaque}" />
+		        </p:selectOneMenu>
+		        
+		
+			
+		      
+		      <p:outputLabel for="cbMotivo" value="Motivo de entrada:"/>
+			<p:selectOneMenu id="cbMotivo" value="#{movimientosInventarioController.movimiento.motivoMov}" converter="motivoConverter">
+		            <f:selectItem itemLabel="Selecciona"  />
+            		<f:selectItems value="#{movimientosInventarioController.obtenerMotivos()}" var="motivo" itemLabel="#{motivo.descripcion}" itemValue="#{motivo}" />
+		        </p:selectOneMenu>
+		        
+			
+			 	<p:outputLabel for="cbProveedor" value="Proveedor:"/>
+			<p:selectOneMenu id="cbProveedor" value="#{movimientosInventarioController.movimiento.proveedor}" converter="proveedorConverter">
+		            <f:selectItem itemLabel="Selecciona"/>
+            		<f:selectItems value="#{movimientosInventarioController.obtenerProveedores()}" var="proveedor" itemLabel="#{proveedor.nombre}" itemValue="#{proveedor}" />
+		        </p:selectOneMenu>
+		        
+		        <!--  PREGUNTAR DONDE SE CAPTURA LOS DATOS DEL PEDIMENTO<p:outputLabel for="cbPedimento" value="Pedimento:"/>
+			<p:selectOneMenu id="cbPedimento" value="#{movimientosInventarioController.movimiento.pedimento.id}" style="width:200px;margin-left:100px">
+		            <f:selectItem itemLabel="Selecciona" />
+            		<f:selectItems value="#{movimientosInventarioController.obtenerPedimentos()}" var="pedAduanal" itemLabel="#{pedAduanal.id}" itemValue="#{pedAduanal.id}" />
+		        </p:selectOneMenu>-->
+        </p:panelGrid>
+ 
+      
+		<p:commandButton value="Agregar" style="float:right;"  update="lstEntradas,pnl,dlgEntrada" actionListener="#{movimientosInventarioController.agregarMovimientoEntrada}"/>
+
+    </p:dialog>
+    
+    
+    </div>
+    </div>
+
+      
+    
+       
+        <p:panelGrid  cellpadding="10" style="margin-left:60px;">
+        
+        
+        
+        
+
+          <br/><br/>
+          <p:row>
+          
+          
+          
+          <p:column>
+               
+             <h:panelGroup>
+          <br />
+        <p:commandButton id="saveBtn" value="Registrar alta" icon="ui-icon-check" 
+        style="margin:0;" action="#{movimientosInventarioController.guardarEntrada()}"   update="pnl" validateClient="true" />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 
+
+	
+
+          <h:form style="font-size:12px;" onreset=""> 
+          
+          
+   
+   	 
+   	 
+   	  	 
+   	  <div  style="clear:both;" >
+                <h:panelGrid columns="7" style="margin-bottom:10px" cellpadding="5">
+                <p:selectOneMenu id="cbAlmacen" value="#{movimientosInventarioController.movimiento.almacen.id}" style="width:200px;margin-left:100px">
+		            <f:selectItem itemLabel="Selecciona"  />
+            		<f:selectItems value="#{movimientosInventarioController.obtenerAlmacenes()}" var="almacen" itemLabel="#{almacen.nombre}" itemValue="#{almacen.id}" />
+		        </p:selectOneMenu>
+          
+
+				
+				<p:remoteCommand name="redirigirRegistrarMovimientoSalida" actionListener="#{movimientosInventarioController.mostrarPantallaRegistroSalida}" />
+ 
+    			<p:growl id="msgs" showDetail="true" />
+    			<p:commandButton type="button" onclick="redirigirRegistrarMovimientoSalida()" value="Registrar salida"  icon="ui-icon-circle-plus" />
+    
+           </h:panelGrid>
+              
+            </div>
+    
+   	 
+   	 <p:panel id="pnlTablaSalidas"  onreset="#{inventarioController.updateListas()}"   style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+   	 
+  
+          
+          <p:dataTable id="lstSalidas" var="salida" value="#{movimientosInventarioController.getMovimientoTableModelSalida()}" paginator="true" rows="10"  widgetVar="bitacorasTable" emptyMessage="No hay solicitudes de alta registradas"
+                 rowKey="#{salida.id}"    selection="#{movimientosInventarioController.movimientoSeleccionado}"  selectionMode="single"  paginatorPosition="bottom"  scrollable="true"  sortOrder="descending"
+                 >  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+        
+        
+          <p:column sortBy="producto.producto"  headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="producto.producto" >  
+           		 #{salida.producto.producto}  
+        	</p:column> 
+         
+        <p:column sortBy="cantidad"  headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="cantidad" >  
+           		 #{salida.cantidad}  
+        	</p:column> 
+        	
+        	<p:column headerText="Costo MXN" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="costoMxm" sortBy="costoMxm">  
+           		 #{salida.costoMxm}  
+        	</p:column> 
+        
+ 
+ 		    <p:column sortBy="costoUsd"  headerText="Costo USD" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="costoUsd" >  
+           		 #{salida.costoUsd}  
+        	</p:column> 
+       		  
+    	</p:dataTable> 
+    	
+    	
+    	
+   
+    	
+    </p:panel>
+    
+
+    	
+    	
+    	</h:form>
+<!--      </p:tab>  -->
+        
+<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+ 
+
+          
+<!--          </p:tab>   -->
+         
+
+<!--      </p:tabView> -->
+
+                 
+ 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

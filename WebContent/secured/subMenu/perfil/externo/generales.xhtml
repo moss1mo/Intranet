@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content" >
+   
+	 <ui:define  name="content" >
+	 
+	     
+      <h:form id="formularioEmpleados" style=" font-size:12px;" >
+      
+      
+    <div class="ui-g">
+    <div class="ui-g-4"><h:outputText value="Datos generales" style="font-size:1.5em;margin-left:0px" />  </div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2">	
+    <p:button value="Regresar" href="../../menuPerfil.xhtml" icon="ui-icon-arrowthick-1-w"/>
+    
+    				
+				</div>
+</div>
+       		
+       				
+      
+  			
+				
+      <p:panel id="pnl"  header="Datos del proveedor" style="margin-bottom:25px; overflow:auto; font-size:12px;"
+      >
+      <f:facet name="actions">
+       <p:commandLink
+            styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+            <h:outputText styleClass="ui-icon ui-icon-help" />
+        </p:commandLink>
+    </f:facet> 
+      
+       <div class="ui-fluid">
+       
+       
+       
+  
+
+      
+    
+    <div class="ui-g-6">
+    	<p:panelGrid columns="2" id="pnlNombre"  columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid">
+    
+    <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Generales del proveedor" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+    <p:outputLabel for="txtClave" value="Nombre:"/>
+      		<p:inputText id="txtClave" value="#{proveedoresController.proveedor.nombre}"/>
+      		
+        	<p:outputLabel for="txtNombreProveedor" value="Clave:"/>
+      		<p:inputText id="txtNombreProveedor" value="#{proveedoresController.proveedor.clave}"/>
+          
+      		
+      		</p:panelGrid>
+    </div>
+    
+
+     <div class="ui-g-6"> 
+      <p:panel id="datosContacto"  >
+      
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos de contacto" />
+	  	</h:panelGrid>
+	  </f:facet>
+        
+        
+         <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		<p:outputLabel for="txtCorreoContacto" value="Correo :"/>
+      		<p:inputText id="txtCorreoContacto" value="#{proveedoresController.proveedor.correoContacto}" />
+      		
+      		<p:outputLabel for="txtTelContacto" value="Teléfono:"/>
+      		<p:inputText id="txtTelContacto" value="#{proveedoresController.proveedor.telContacto}" />
+      		
+
+        </p:panelGrid>
+    </p:panel>
+  
+    </div>
+    
+   
+    
+   
+    </div>
+
+        <p:panelGrid  cellpadding="10" style="float:right;">
+
+          <p:row>
+
+          <p:column>
+               
+             <h:panelGroup>
+          <br />
+        <p:commandButton id="saveBtn" value="Guardar cambios" icon="ui-icon-disk" 
+         action="#{proveedoresController.actualizarProveedor()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+        </ui:define>
+
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 
+
+	
+
+          <h:form style="font-size:12px;" onreset=""> 
+          
+          
+   
+   	 
+   	 
+   	  	 
+   	  <div  style="clear:both;" >
+                <h:panelGrid columns="7" style="margin-bottom:10px" cellpadding="5">
+                
+ 
+
+				
+				<p:remoteCommand name="rc" actionListener="#{empleadosController.mostrarPantallaRegistro}" />
+ 
+    			<p:growl id="msgs" showDetail="true" />
+    			<p:commandButton type="button" onclick="rc()" value="Solicitud de alta"  icon="ui-icon-circle-plus" />
+    
+           </h:panelGrid>
+              
+            </div>
+    
+   	 
+   	 <p:panel id="pnlTablaProductos"  style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+    	
+    	
+    	<p:dataTable id="lstEmpleados" var="empleado" value="#{empleadosController.getEmpleadoTableModel()}" paginator="true" rows="10"  widgetVar="bitacorasTable" emptyMessage="No hay solicitudes de alta registradas"
+                 rowKey="#{empleado.idEmpleado}"  selection="#{empleadosController.empleadoSeleccionado}"  selectionMode="single"  paginatorPosition="bottom"  scrollable="true"   sortOrder="descending"
+                 
+                 onreset="#{empleadosController.updateListaEmpleados()}">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+     
+     
+        	
+        	<p:column headerText="Nombre" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{empleado.nombre}  
+        	</p:column>
+     
+       		
+        
+        	
+        	<p:column headerText="Apellido paterno" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{empleado.apellidoPaterno}  
+        	</p:column> 
+        	
+        	
+        	
+        	<p:column headerText="Apellido materno" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{empleado.apellidoMaterno}  
+        	</p:column>  
+        	
+        	<p:column headerText="Puesto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{empleado.puesto}  
+        	</p:column>
+        	
+        	   <p:column headerText="Correo personal" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{empleado.emailPersonal}  
+        	</p:column> 
+        	
+        	<p:column headerText="Teléfono personal" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 #{empleado.telCelular}  
+        	</p:column>
+      
+    	</p:dataTable> 
+    	
+    	
+    </p:panel>
+    
+
+    	
+    	
+    	</h:form>
+<!--      </p:tab>  -->
+        
+<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+ 
+
+          
+<!--          </p:tab>   -->
+         
+
+<!--      </p:tabView> -->
+
+                 
+ 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

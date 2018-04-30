@@ -1,0 +1,248 @@
+<html class="html" lang="es-ES"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+	 
+	 
+	 <h:head>
+      <h:outputStylesheet name="customPanelGrid.css" library="css"/>
+    <h:outputStylesheet name="styleItemSlider.css" library="css"/>
+    <h:outputStylesheet name="styleFontItemSlider.css" library="css"/>
+	<h:outputStylesheet name="layout-style.css" library="css"/>
+ 	<h:outputStylesheet name="layoutHeader.css" library="css"/>
+ 	<h:outputStylesheet name="../../resources/css/index.css" library="css"/>
+    </h:head>
+
+	
+ <h:body>
+ <ui:composition template="/template/mainLayout.xhtml">
+ 		
+		 <ui:define  name="content" >
+		
+		
+		          <h:form id="solicitudCotizacion" style="font-size:12px;" onreset=""> 
+   
+   	  	 
+   
+   	 <p:fieldset legend="Lista de Productos">
+   	 <p:panel id="pnlTablaEntradas"  style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+   	 
+  
+          
+          <p:dataTable id="lstProductos" editable="true" editMode="cell" var="inventario"  rowKey="#{inventario.producto.id}" value="#{inventarioController.geProductoSolCotDataModel()}" paginator="true" rows="10"  widgetVar="lstProductos" emptyMessage="No hay solicitudes de alta registradas"
+                  selection="#{inventarioController.listaProductosCotizarSeleccionados}"  style="text-align:center"  paginatorPosition="bottom"  scrollable="true"  sortOrder="descending">  
+
+
+
+        	 <f:facet name="header">  
+       		
+        </f:facet> 
+        
+        
+         <p:column  selectionMode="multiple"  style="width:16px;text-align:center"/>
+         
+        <p:column style="width:16px">
+            <p:rowToggler />
+        </p:column>
+        
+        
+        
+          <p:column sortBy="#{inventario.producto.producto}"  headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="#{inventario.producto.producto}"  >  
+           		 #{inventario.producto.producto}  
+        	</p:column> 
+        <p:column sortBy="#{inventario.producto.especificaciones}"  headerText="Especificaciones" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="#{inventario.producto.especificaciones}" >  
+           		 #{inventario.producto.especificaciones}
+        	</p:column>
+        	
+        	<p:column  headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none"  >  
+        
+        	<p:cellEditor>
+               <f:facet name="output"><h:outputText value="#{inventario.cantidad}" /></f:facet>
+               <f:facet name="input">
+                                  <f:facet name="input">
+                                   <p:inputText id="cantidad"  value="#{inventario.cantidad}" />
+                                  </f:facet>
+                   
+               </f:facet>
+           </p:cellEditor>
+  
+        	</p:column>
+        	
+        	
+        	
+        	<p:rowExpansion>
+            <p:panelGrid  columns="2" columnClasses="label,value" style="width:100%">
+                <f:facet name="header">
+                    <p:graphicImage name="images/default/sinImagen.png"/> 
+                </f:facet>
+ 
+            </p:panelGrid>
+        </p:rowExpansion>
+
+    	</p:dataTable> 
+
+    </p:panel>
+    </p:fieldset><br/>
+    
+    <p:fieldset legend="Datos del solicitante">
+    <p:panel>
+    
+    	 <p:panelGrid columns="6">
+    	 	<p:outputLabel for="nombre" value="Nombre:" />
+    	 	<p:inputText  required="true" id="nombre" value="#{inventarioController.solCotizacion.nombre}" />
+    	 	
+    	 	<p:outputLabel for="apPaterno" value="Apellido paterno:" />
+    	 	<p:inputText  required="true" id="apPaterno"  value="#{inventarioController.solCotizacion.apellidoPaterno}"/>
+    	 	
+    	 	<p:outputLabel for="apMaterno" value="Apellido materno:" />
+    	 	<p:inputText  required="true" id="apMaterno"  value="#{inventarioController.solCotizacion.apellidoMaterno}"/>
+    	 	
+    	 	<p:outputLabel for="tel" value="Télefono:" />
+    	 	<p:inputText  required="true" id="tel"  value="#{inventarioController.solCotizacion.telefono}"/>
+    	 	
+    	 	<p:outputLabel for="email" value="Correo eléctronico:" />
+    	 	<p:inputText  required="true" id="email"  value="#{inventarioController.solCotizacion.correo}"/>
+
+        </p:panelGrid>
+    </p:panel>
+    </p:fieldset><br/>
+    
+    <p:fieldset legend="Datos del domicilio">
+    <p:panel>
+    	 <p:panelGrid columns="3">
+    	    <p:outputLabel for="dondeEntrega" value="¿Dónde quiere que se le entregue el producto?" />
+    	    <p:selectOneMenu  required="true" id="dondeEntrega" value="#{inventarioController.solCotizacion.dondeEntregar}" style="width:125px">
+            <f:selectItem itemLabel="- Seleccione -" itemValue="" />
+            <f:selectItem itemLabel="Dirección de envío" itemValue="Domicilio" />
+            <f:selectItem itemLabel="Recolección en bodega" itemValue="Bodega" />
+            <f:selectItem itemLabel="Recolección en fletera (Ocurre)" itemValue="Oficina de envío ó Fletera" />
+        </p:selectOneMenu>
+        
+        
+       		
+    	 	
+
+        </p:panelGrid>
+        
+        
+        <p:panelGrid columns="2" id="pnlDomicilioGlobal" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank">
+	  
+	  
+     <p:panelGrid columns="2" id="pnlDomicilio" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		
+      		<p:outputLabel for="pais" value="País:"/>      		
+      		<p:selectOneMenu  required="true" id="pais" value="#{inventarioController.solCotizacion.pais}" panelStyle="width:180px"
+                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+       		             <f:selectItem itemLabel="México" itemValue="México" />
+        </p:selectOneMenu>
+        
+
+        <p:outputLabel   for="municipio" value="Municipio:"/>      		
+      		<p:selectOneMenu  required="true" id="municipio" value="#{inventarioController.solCotizacion.municipio}"  panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{catalogosController.getMunicipios({inventarioController.solCotizacion.estado})}" var="mun" itemLabel="#{mun.id.DMnpio}" itemValue="#{mun.id.CMnpio}" />
+                    	       		 <p:ajax process="@this"   update="pnlDomicilio,pnlDomicilio2" partialSubmit="true"  />
+        </p:selectOneMenu>
+
+         <p:outputLabel  for="cp" value="Código Postal:"/>      		        	    
+        	    <p:selectOneMenu  required="true"  id="cp" value="#{inventarioController.solCotizacion.cp}" readOnly="true"  panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith" >
+            <f:selectItems value="#{catalogosController.getCP({inventarioController.solCotizacion.estado},{inventarioController.solCotizacion.municipio},{inventarioController.solCotizacion.colonia})}" var="col"  itemLabel="#{col.id.DCodigo}" itemValue="#{col.id.DCodigo}" />
+        </p:selectOneMenu> 
+        
+          </p:panelGrid>
+          
+               <p:panelGrid columns="2" id="pnlDomicilio2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+
+        	<p:outputLabel   for="estado" value="Estado:"/>      		
+      		<p:selectOneMenu  required="true" id="estado" value="#{inventarioController.solCotizacion.estado}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{catalogosController.getEstados()}" var="estado" itemLabel="#{estado.id.DEstado}" itemValue="#{estado.id.CEstado}" />
+        	       		 <p:ajax process="@this"   update="pnlDomicilio" partialSubmit="true"  />
+                </p:selectOneMenu>
+
+      		   <p:outputLabel   for="colonia" value="Colonia:"/>      		
+      		<p:selectOneMenu  required="true"  id="colonia" value="#{inventarioController.solCotizacion.colonia}" panelStyle="width:180px"
+                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
+            <f:selectItems value="#{catalogosController.getColonias({inventarioController.solCotizacion.estado},{inventarioController.solCotizacion.municipio})}" var="col" itemLabel="#{col.id.DAsenta}" itemValue="#{col.id.idAsentaCpcons}" />
+        	        	       		 <p:ajax process="@this"   update="pnlDomicilio" partialSubmit="true"  />
+        	
+        </p:selectOneMenu>
+        
+        <p:outputLabel for="calle" value="Calle:"/>    
+                         <p:inputText id="calle" size="35" value="#{inventarioController.solCotizacion.calle}"/>
+                         
+        	 
+
+        	</p:panelGrid>
+        	               <p:panelGrid columns="2" id="pnlDomicilio3" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	   <p:outputLabel for="ref" value="Referencias:"/>    
+                         <p:inputText id="ref" size="35" value="#{inventarioController.solCotizacion.referencias}"/>
+                         
+                         
+                         </p:panelGrid>
+                         
+                         
+                         
+                         
+
+                         <p:panelGrid columns="4" id="pnlDomicilio4" columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+        	
+        	  			<p:outputLabel for="numExt" value="Núm. Ext:"/>    
+                         <p:inputText id="numExt" size="10" value="#{inventarioController.solCotizacion.numExt}"/>
+                         
+                          <p:outputLabel for="numInt" value="Núm. Int:"/>    
+                         <p:inputText id="numInt" size="10" value="#{inventarioController.solCotizacion.numInt}"/>
+     
+                         </p:panelGrid>
+
+      	</p:panelGrid>
+      	
+    </p:panel>
+    </p:fieldset><br/>
+    
+    <p:fieldset legend="Datos de entrega">
+    <p:panel>
+    
+    	 <p:panelGrid columns="2" >
+    	 
+    	 
+    	 <p:outputLabel for="fecha" value="¿Para cuando necesita la entrega?" />
+        
+        <p:calendar id="fecha" required="true" value="#{inventarioController.solCotizacion.fechaEntrega}" showOn="button" />
+    	  </p:panelGrid>
+    	 
+    	 
+		<p:panelGrid columns="2" >    	 
+    	 <p:outputLabel for="nota" value="Notas adicionales sobre el pedido:"/>
+    	 
+    	 <p:inputTextarea id="nota" style="width:100%;"  value="#{inventarioController.solCotizacion.nota}" rows="6" cols="33" />
+         
+        	 
+        </p:panelGrid>
+        
+        <br/>
+                    <p:commandButton id="btnSolCot" style="float:right;" process="solicitudCotizacion" update="solicitudCotizacion"  icon="fa fa-paper-plane-o"  value="Cotizar" actionListener="#{inventarioController.guardarSolCotizacion(loginController.usuarioLogeado)}" />
+         <br/> <br/>
+    </p:panel>
+    </p:fieldset>
+    
+    
+    
+
+    	
+    	
+    	</h:form>
+    	
+    	</ui:define>
+		
+			</ui:composition>
+		
+	</h:body>
+</html>

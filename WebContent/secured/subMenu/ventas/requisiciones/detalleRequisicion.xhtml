@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core">
+
+<h:body>
+
+
+	<ui:composition template="/template/mainLayout.xhtml">
+
+		<div id="content">
+
+			<ui:define name="content">
+
+
+
+
+				<h:form id="cotizacionCompleta" style="font-size:12px;" onreset="">
+
+
+
+
+
+					<p:panel id="pnlTablaAsignados"
+						style="border:0px; margin-bottom:25px; overflow:auto; font-size:12px;">
+
+
+						<h2>Solicitud de requerimiento</h2>
+						<br />
+
+						<h3>
+							Tipo de cambio DOF:
+							<p:outputLabel style="color:red;" id="tc"
+								value="#{inventarioController.tc}" />
+						</h3>
+
+
+						<p:fieldset legend="Responsable de compras"
+							rendered="#{ventasController.cotizacionProveedor.solCotizacion.usuarioByIdComprador != null}">
+
+							<p:panelGrid columns="3">
+								<p:outputLabel for="asignado"
+									value="Usuario de compras asignado:"
+									style="font-weight: bold;font-size:14px;" />
+								<p:outputLabel id="asignado"
+									value="#{ventasController.cotizacionProveedor.solCotizacion.usuarioByIdComprador.empleado.nombre} #{ventasController.cotizacionProveedor.solCotizacion.usuarioByIdComprador.empleado.apellidoMaterno} #{ventasController.cotizacionProveedor.solCotizacion.usuarioByIdComprador.empleado.apellidoPaterno}" />
+							</p:panelGrid>
+
+						</p:fieldset>
+						<br />
+
+						<p:fieldset legend="Datos de la empresa">
+							<p:panel>
+
+								<p:panelGrid columns="1">
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="Suministros Herbolarios y Químicos, S.A. de C.V." />
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="Pino 18, Las Rosas, CP 54069, Tlalnepantla de Baz, Estado de México, México" />
+								</p:panelGrid>
+								<p:panelGrid columns="3">
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="SHQ1403107G5" />
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="Tel: 6648 9495" />
+									<p:outputLabel style="font-weight: bold;font-size:14px;"
+										value="Email: ventas@shq.com.mx" />
+								</p:panelGrid>
+							</p:panel>
+						</p:fieldset>
+						<br />
+
+						<p:fieldset legend="Datos del requerimiento">
+							<p:panel>
+
+								<p:panelGrid columns="2">
+									<p:outputLabel for="fechaReq"
+										style="font-weight: bold;font-size:14px;"
+										value="Fecha solicitud:" />
+									<p:outputLabel id="fechaReq" style="width:100%"
+										value="#{ventasController.cotizacionProveedor.solCotizacion.fechaSol}" />
+									<p:outputLabel for="folio"
+										style="font-weight: bold;font-size:14px;"
+										value="Requerimiento:" />
+									<p:outputLabel id="folio" style="width:100%"
+										value="#{ventasController.cotizacionProveedor.solCotizacion.id}" />
+								</p:panelGrid>
+
+							</p:panel>
+						</p:fieldset>
+						<br />
+
+						<p:fieldset legend="Datos del proveedor">
+							<p:panel>
+
+								<p:panelGrid columns="6">
+									<p:outputLabel for="clave"
+										style="font-weight: bold;font-size:14px;"
+										value="Clave del proveedor" />
+									<p:outputLabel id="clave" style="width:100%"
+										value="#{loginController.usuarioLogeado.externo.idExterno}" />
+									<p:outputLabel for="nombre"
+										style="font-weight: bold;font-size:14px;" value="Proveedor:" />
+									<p:outputLabel id="nombre" style="width:100%"
+										value="#{loginController.usuarioLogeado.externo.nombre}" />
+									<p:outputLabel for="rfc"
+										style="font-weight: bold;font-size:14px;" value="RFC:" />
+									<p:outputLabel id="rfc" style="width:100%"
+										value="#{loginController.usuarioLogeado.externo.rfc}" />
+
+									<p:outputLabel for="tel"
+										style="font-weight: bold;font-size:14px;" value="Télefono:" />
+									<p:outputLabel id="tel" style="width:100%"
+										value="#{loginController.usuarioLogeado.externo.telContacto}" />
+
+									<p:outputLabel for="correo"
+										style="font-weight: bold;font-size:14px;" value="Correo:" />
+									<p:outputLabel id="correo" style="width:100%"
+										value="#{loginController.usuarioLogeado.externo.correoContacto}" />
+
+
+								</p:panelGrid>
+							</p:panel>
+						</p:fieldset>
+						<br />
+
+						<p:fieldset legend="Datos del domicilio">
+							<p:panel>
+
+								<p:panelGrid columns="2">
+									<p:outputLabel for="dirFiscal"
+										style="font-weight: bold;font-size:14px;"
+										value="Dirección fiscal:" />
+									<p:outputLabel id="dirFiscal" style="width:100%"
+										value="#{loginController.usuarioLogeado.externo.direccionFiscal}" />
+
+									<p:outputLabel for="dirEntrega"
+										style="font-weight: bold;font-size:14px;"
+										value="Dirección recolección:" />
+									<p:outputLabel id="dirEntrega" style="width:100%"
+										value="#{loginController.usuarioLogeado.externo.direccionRecoleccion}" />
+
+
+
+								</p:panelGrid>
+
+								<ui:remove>
+									<p:panelGrid columns="2" id="pnlDomicilioGlobal"
+										columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid"
+										styleClass="ui-panelgrid-blank">
+
+
+										<p:panelGrid columns="2" id="pnlDomicilio"
+											columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+											styleClass="ui-panelgrid-blank">
+
+											<p:outputLabel for="pais" value="País:"
+												style="font-weight: bold;font-size:14px;" />
+
+											<p:outputLabel id="pais" style="width:100%"
+												value="#{ventasController.cotizacionProveedor.solCotizacion.pais}" />
+
+
+											<p:outputLabel for="municipio" value="Municipio:"
+												style="font-weight: bold;font-size:14px;" />
+
+											<p:outputLabel id="municipio"
+												value="#{catalogosController.getMunicipio({ventasController.cotizacionProveedor.solCotizacion.municipio},{ventasController.cotizacionProveedor.solCotizacion.estado}).id.DMnpio}" />
+
+
+
+											<p:outputLabel for="cp" value="Código Postal:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel id="cp"
+												value="#{catalogosController.getUnicoCP({ventasController.cotizacionProveedor.solCotizacion.estado},{ventasController.cotizacionProveedor.solCotizacion.municipio},{ventasController.cotizacionProveedor.solCotizacion.colonia}).id.DCodigo}" />
+
+
+										</p:panelGrid>
+
+										<p:panelGrid columns="2" id="pnlDomicilio2"
+											columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+											styleClass="ui-panelgrid-blank">
+
+											<p:outputLabel for="estado" value="Estado:"
+												style="font-weight: bold;font-size:14px;" />
+
+											<p:outputLabel id="estado"
+												value="#{catalogosController.getEstado({ventasController.cotizacionProveedor.solCotizacion.estado}).id.DEstado}" />
+
+
+
+
+
+											<p:outputLabel for="colonia" value="Colonia:"
+												style="font-weight: bold;font-size:14px;" />
+
+
+											<p:outputLabel id="colonia"
+												value="#{catalogosController.getColonia({ventasController.cotizacionProveedor.solCotizacion.colonia},{ventasController.cotizacionProveedor.solCotizacion.estado},{ventasController.cotizacionProveedor.solCotizacion.municipio}).id.DAsenta}" />
+
+
+											<p:outputLabel for="calle" value="Calle:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel id="calle" size="35"
+												value="#{ventasController.cotizacionProveedor.solCotizacion.calle}" />
+
+
+
+										</p:panelGrid>
+										<p:panelGrid columns="2" id="pnlDomicilio3"
+											columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid"
+											styleClass="ui-panelgrid-blank">
+
+											<p:outputLabel for="ref" value="Referencias:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel id="ref" size="35"
+												value="#{ventasController.cotizacionProveedor.solCotizacion.referencias}" />
+
+
+										</p:panelGrid>
+
+
+
+
+
+										<p:panelGrid columns="4" id="pnlDomicilio4"
+											columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid"
+											styleClass="ui-panelgrid-blank">
+
+											<p:outputLabel for="numExt" value="Núm. Ext:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel id="numExt" size="10"
+												value="#{ventasController.cotizacionProveedor.solCotizacion.numExt}" />
+
+											<p:outputLabel value="Núm. Int:"
+												style="font-weight: bold;font-size:14px;" />
+											<p:outputLabel
+												rendered="#{ventasController.cotizacionProveedor.solCotizacion.numInt != ''}"
+												value="#{ventasController.cotizacionProveedor.solCotizacion.numInt}" />
+											<p:outputLabel
+												rendered="#{ventasController.cotizacionProveedor.solCotizacion.numInt == ''}"
+												value="-" />
+
+
+										</p:panelGrid>
+
+									</p:panelGrid>
+								</ui:remove>
+
+							</p:panel>
+						</p:fieldset>
+						<br />
+
+
+						<br />
+						<p:fieldset legend="Productos de la cotización">
+							<p:panelGrid columns="2" columnClasses="label,value"
+								style="width:100%">
+								<f:facet name="header">
+									<p:dataTable id="listaSolcitudesAsignadas" var="pro"
+										value="#{ventasController.cotizacionProveedor.productoCotProveedors}"
+										paginator="true" rows="10"
+										emptyMessage="No hay productos en esta cotización"
+										paginatorPosition="bottom" scrollable="true" editable="true"
+										editMode="cell" sortOrder="descending">
+
+
+										<p:column headerText="Clave" filterMatchMode="contains"
+											filterStyle="display:none">  
+           		 #{pro.producto.clave}  
+        	</p:column>
+
+										<p:column headerText="Producto" filterMatchMode="contains"
+											filterStyle="display:none">  
+           		 #{pro.producto.producto}  
+        	</p:column>
+
+										<p:column headerText="Cantidad (kg)"
+											filterMatchMode="contains" filterStyle="display:none">  
+           		 #{pro.cantidad}  
+        	</p:column>
+
+										<p:column headerText="IVA/IEPS" filterMatchMode="contains"
+											filterStyle="display:none">  
+           		 #{pro.producto.impuesto}%  
+        	</p:column>
+        	
+        					<p:column headerText="Moneda"
+											filterMatchMode="contains" filterStyle="display:none">
+
+											<p:cellEditor>
+												<f:facet name="output" >
+													<h:outputText value="#{pro.moneda}" rendered="#{pro.moneda != null}" />
+													<h:outputText value="USD" rendered="#{pro.moneda == null}" />
+												</f:facet>
+												<f:facet name="input">
+														
+														 <p:selectOneMenu  required="true" id="moneda" value="#{pro.moneda}" style="width:40px">
+												            <f:selectItem itemLabel="USD" itemValue="USD" />
+												            <f:selectItem itemLabel="MXN" itemValue="MXN" />
+												        </p:selectOneMenu>
+        
+													
+
+												</f:facet>
+											</p:cellEditor>
+
+										</p:column>
+        	
+        								
+        
+
+										<p:column headerText="Costo unitario"
+											filterMatchMode="contains" filterStyle="display:none">
+
+											<p:cellEditor>
+												<f:facet name="output">
+													<h:outputText value="#{pro.costo}" />
+												</f:facet>
+												<f:facet name="input">
+													<f:facet name="input">
+														<p:inputText id="cantidad" value="#{pro.costo}" />
+													</f:facet>
+
+												</f:facet>
+											</p:cellEditor>
+
+										</p:column>
+
+										<p:column headerText="Tiempo de entrega (Días hábiles)"
+											filterMatchMode="contains" filterStyle="display:none">
+
+											<p:cellEditor>
+												<f:facet name="output">
+													<h:outputText value="#{pro.tiempoEntrega}" />
+												</f:facet>
+												<f:facet name="input">
+													<f:facet name="input">
+														<p:inputText id="tiempoEntrega"
+															value="#{pro.tiempoEntrega}" />
+													</f:facet>
+
+												</f:facet>
+											</p:cellEditor>
+
+										</p:column>
+
+										<p:column headerText="Disponibilidad mensual (kg)"
+											filterMatchMode="contains" filterStyle="display:none">
+
+											<p:cellEditor>
+												<f:facet name="output">
+													<h:outputText value="#{pro.dispMensual}" />
+												</f:facet>
+												<f:facet name="input">
+													<f:facet name="input">
+														<p:inputText id="disponibilidad"
+															value="#{pro.dispMensual}" />
+													</f:facet>
+
+												</f:facet>
+											</p:cellEditor>
+
+										</p:column>
+
+
+
+
+
+									</p:dataTable>
+
+								</f:facet>
+
+
+							</p:panelGrid>
+
+
+						</p:fieldset>
+						<br />
+
+
+
+					</p:panel>
+				<p:panelGrid>
+				<p:outputLabel>
+					Términos y condiciones de entrega	<br />						
+En caso de que el pedido requiera incurrir en gastos logísticos y que éstos no estén incluídos en la cotización, y se tenga que embarcar el material, favor de tomar en cuenta los siguientes puntos:	<br />						
+							
+1. Favor de confirmar fecha y hora en que el producto estará listo para su recolección. Esto en caso de que SHQ genere de manera interna la guía de embarque correspondiente del material.	<br />						
+							
+2. En caso de SHQ le proporcione  guía de embarque del material, favor de acudir a la fletera o paquetería correspondiente y entregar el material en cuestión. En caso contrario, favor de confirmar fecha y hora en que el producto estará listo para su recolección por la fletera.	<br />						
+							
+3. En caso de que SHQ no le proporcione guía de embarque, favor de embarcar el material con las siguientes características:		<br />					
+a) A domicilio (ver dirección de envío)				<br />			
+b) Por cobrar			<br />				
+c) Con valor	<br />						
+4. Favor de empacar el material en contenedores sólidos o del tal forma que el material no se vea comprometido durante el viaje a nuestras instalaciones.	<br />						
+							
+				</p:outputLabel>
+				</p:panelGrid>
+ 				<br />	<br />	
+				<p:panelGrid columns="3">
+				  
+					<p:outputLabel for="dondeEntrega" value="El pedido se entrega en instalaciones de SHQ:" />
+    	    <p:selectOneMenu  required="true" id="dondeEntrega" value="#{ventasController.cotizacionProveedor.entregaDomicilio}" style="width:200px">
+            <f:selectItem itemLabel="- Seleccione -" itemValue="" />
+            <f:selectItem itemLabel="Sí" itemValue="Sí" />
+            <f:selectItem itemLabel="No" itemValue="No" />
+        </p:selectOneMenu>
+				<p:commandButton id="btnAsignCot" process="cotizacionCompleta"
+							style="margin-left:10%;width:100%" update="cotizacionCompleta"
+							value="Guardar" icon="fa fa-floppy-o"
+							actionListener="#{ventasController.guardarRequisicionProveedor()}" />
+				</p:panelGrid>
+
+
+
+
+
+
+
+					<br />
+					<br />
+
+
+
+
+				</h:form>
+				<!--      </p:tab>  -->
+
+				<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+
+
+
+				<!--          </p:tab>   -->
+
+
+				<!--      </p:tabView> -->
+
+
+
+
+
+			</ui:define>
+		</div>
+
+
+	</ui:composition>
+</h:body>
+</html>

@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+
+ <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content">
+	 
+
+	
+
+          <h:form style="font-size:12px;" onreset=""> 
+          
+          
+   
+   	 
+   	 
+    
+   	 <h3>Lista de proveedores para cotizar productos</h3>
+   	 <p:panel id="pnlTablaProductos"  style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;" >
+    	
+    	
+    	<p:dataTable id="lstProductos" var="model" value="#{comprasController.getInvProductProvTableModel()}" paginator="true" rows="10"  widgetVar="proveedoresTable" emptyMessage="No hay productos para cotizar"
+                 rowKey="#{model.id.producto}"   selectionMode="single"  paginatorPosition="bottom"  scrollable="true"   sortOrder="descending"
+                 
+                 onreset="#{comprasController.updateListaProveedoresCotizar()}">  
+
+
+
+        	<f:facet name="header">
+             </f:facet>
+
+        	
+        	<p:column headerText="Producto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.producto}  </center>
+        	</p:column>
+     
+        
+        	
+        	<p:column headerText="Cantidad" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.cantidad}</center>
+        	</p:column> 
+        	
+        	
+        	  <p:column headerText="Precio" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.precio}</center>
+        	</p:column> 
+        	
+        	 <p:column headerText="Proveedor" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.proveedor}</center>
+        	</p:column> 
+        	
+        	 <p:column headerText="Contacto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.nombreContacto}</center>
+        	</p:column> 
+        	
+        	 <p:column headerText="Teléfono contacto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.telContacto}</center>
+        	</p:column> 
+        	
+        	 <p:column headerText="Correo contacto" filterMatchMode="contains"
+        filterStyle="display:none" filterBy="id" sortBy="id">  
+           		 <center>#{model.id.correoContacto}</center>
+        	</p:column> 
+        	
+        
+        	
+        	<p:column headerText="Acción" filterMatchMode="contains"
+        filterStyle="display:none">   <center style="font-size:14px;font-weight:bold;">    
+           		<p:commandLink type="button"  value="Solicitar cotización"  icon="ui-icon-pencil" /></center>
+        	</p:column>
+      
+    	</p:dataTable> 
+    	
+    	
+    </p:panel>
+    
+
+    	
+    	
+    	</h:form>
+<!--      </p:tab>  -->
+        
+<!--          <p:tab title="Crear bitacora" style="max-height:800px; overflow:auto;">     -->
+ 
+
+          
+<!--          </p:tab>   -->
+         
+
+<!--      </p:tabView> -->
+
+                 
+ 
+	 
+ 
+	 </ui:define>
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>

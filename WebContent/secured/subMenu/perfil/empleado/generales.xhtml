@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content" >
+   
+	 <ui:define  name="content" >
+	 
+	     
+      <h:form id="formularioEmpleados" style=" font-size:12px;" >
+      
+      
+    <div class="ui-g">
+    <div class="ui-g-4"><h:outputText value="Datos generales" style="font-size:1.5em;margin-left:0px" />  </div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2">	
+    	<p:button value="Regresar" href="../../menuPerfil.xhtml" icon="ui-icon-arrowthick-1-w"/>
+	</div>
+</div>
+       		
+       				
+      
+  			
+				
+      <p:panel id="pnl"  header="Datos del empleado" style="margin-bottom:25px; overflow:auto; font-size:12px;"
+      >
+      <f:facet name="actions">
+       <p:commandLink
+            styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+            <h:outputText styleClass="ui-icon ui-icon-help" />
+        </p:commandLink>
+    </f:facet> 
+      
+       <div class="ui-fluid">
+       
+       
+       
+  
+
+       
+          <div class="ui-g-6" > 
+    
+    
+    <p:panelGrid columns="2" id="pnlPuesto"  columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid">
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos personales" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+	  <p:outputLabel for="puestos" value="Puesto:"/>  
+	      		
+      		<p:selectOneMenu id="puestos" value="#{empleadosController.empleado.puesto}" panelStyle="width:180px"
+                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
+       		             <f:selectItem itemLabel="Vendedor" itemValue="Vendedor" />
+       		             <f:selectItem itemLabel="Almacenista" itemValue="Almacenista" />
+       		             <f:selectItem itemLabel="Recursos humanos" itemValue="Recursos humanos" />
+       		             <f:selectItem itemLabel="Contador" itemValue="Contador" />
+        </p:selectOneMenu>
+        
+        
+        <p:outputLabel for="calFechaNac" value="Fecha de nacimiento:"/>
+      		<p:calendar id="calFechaNac" value="#{empleadosController.empleado.fechaNacimiento}" lang="es" navigator="true" mindate="1/1/50" maxdate="31/12/05"  showOn="button" />
+      		
+    
+        	
+        	
+      		
+      		
+      		
+        
+
+    </p:panelGrid>
+    
+    
+    
+    
+    </div>
+    
+    <div class="ui-g-6">
+    	<p:panelGrid columns="2" id="pnlNombre"  columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid">
+    
+    <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Nombre completo" />
+	  	</h:panelGrid>
+	  </f:facet>
+	  
+    <p:outputLabel for="txtClave" value="Nombre:"/>
+      		<p:inputText id="txtClave" value="#{empleadosController.empleado.nombre}"/>
+      		
+        	<p:outputLabel for="txtNombreProveedor" value="Apellido paterno:"/>
+      		<p:inputText id="txtNombreProveedor" value="#{empleadosController.empleado.apellidoPaterno}"/>
+          
+
+      		<p:outputLabel for="txtRFC" value="Apellido materno:"/>
+      		<p:inputText id="txtRFC" value="#{empleadosController.empleado.apellidoMaterno}" />
+      		
+      		</p:panelGrid>
+    </div>
+    
+
+     <div class="ui-g-6"> 
+      <p:panel id="datosContacto"  >
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos de contacto personal" />
+	  	</h:panelGrid>
+	  </f:facet>
+        
+        
+         <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		<p:outputLabel for="txtCorreoContacto" value="Correo personal:"/>
+      		<p:inputText id="txtCorreoContacto" value="#{empleadosController.empleado.emailPersonal}" />
+      		
+      		<p:outputLabel for="txtTelContacto" value="Teléfono de casa:"/>
+      		<p:inputText id="txtTelContacto" value="#{empleadosController.empleado.telCasa}" />
+      		
+      		<p:outputLabel for="txtNomContact" value="Teléfono celular:"/>
+      		<p:inputText id="txtNomContact" value="#{empleadosController.empleado.telCelular}" />
+        </p:panelGrid>
+    </p:panel>
+  
+    </div>
+    
+    
+    <div class="ui-g-6"> 
+      <p:panel id="datosContacto2"  >
+      <f:facet name="header">
+	  	<h:panelGrid columns="2">
+	    	<span class="ui-icon ui-icon-pencil" />
+	    	<h:outputText value="Datos de contacto de trabajo" />
+	  	</h:panelGrid>
+	  </f:facet>
+        
+        
+         <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+      		<p:outputLabel for="txtCorreoContacto2" value="Correo del trabajo:"/>
+      		<p:inputText id="txtCorreoContacto2" value="#{empleadosController.empleado.emailEmpresa}" />
+      		<p:outputLabel for="txtTelContacto2" value="Teléfono del trabajo:"/>
+      		<p:inputText id="txtTelContacto2" value="#{empleadosController.empleado.telTrabajo}" />
+      		<p:outputLabel for="txtNomContact2" value="Extensión:"/>
+      		<p:inputText id="txtNomContact2" value="#{empleadosController.empleado.telExt}" />
+        </p:panelGrid>
+    </p:panel>
+  
+    </div>
+    
+   
+    </div>
+
+        <p:panelGrid  cellpadding="10" style="float:right;">
+
+          <p:row>
+
+          <p:column>
+               
+             <h:panelGroup>
+          <br />
+        <p:commandButton id="saveBtn" value="Guardar cambios" icon="ui-icon-disk" 
+         action="#{empleadosController.guardarEmpleado()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+        </ui:define>
+
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>
