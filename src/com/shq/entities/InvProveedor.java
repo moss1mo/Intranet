@@ -20,7 +20,7 @@ public class InvProveedor implements java.io.Serializable {
 	private Integer cantidad;
 	private Integer precio;
 	private Producto producto;
-	private Externo proveedor;
+	private Externo externo;
 
 	public InvProveedor() {
 	}
@@ -30,12 +30,12 @@ public class InvProveedor implements java.io.Serializable {
 		this.cantidad = cantidad;
 	}
 
-	public InvProveedor(Integer id, Integer cantidad, Integer precio, Producto producto, Externo proveedor) {
+	public InvProveedor(Integer id, Integer cantidad, Integer precio, Producto producto, Externo externo) {
 		this.id = id;
 		this.cantidad = cantidad;
 		this.precio = precio;
 		this.producto = producto;
-		this.proveedor = proveedor;
+		this.externo = externo;
 	}
 
 	@Id
@@ -79,12 +79,12 @@ public class InvProveedor implements java.io.Serializable {
 
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_externo")
-	public Externo getProveedor() {
-		return this.proveedor;
+	public Externo getExterno() {
+		return this.externo;
 	}
 
-	public void setProveedor(Externo proveedor) {
-		this.proveedor = proveedor;
+	public void setExterno(Externo externo) {
+		this.externo = externo;
 	}
 
 }

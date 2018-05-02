@@ -2,8 +2,10 @@ package com.shq.entities;
 // Generated 17-abr-2018 11:49:46 by Hibernate Tools 5.2.3.Final
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -48,7 +50,6 @@ public class Externo implements java.io.Serializable {
 	private String numExt;
 	private String referencias;
 	private String entreCalles;
-	private CuentaBanco cuentaBanco;
 	private Boolean activo;
 	private String direccionFiscal;
 	private String direccionRecoleccion;
@@ -56,6 +57,7 @@ public class Externo implements java.io.Serializable {
 	private Set<CotizacionProveedor> cotizacionProveedors = new HashSet<CotizacionProveedor>(0);
 	private Set<InvProveedor> invProveedors = new HashSet<InvProveedor>(0);
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
+	private Set<CuentaBanco> cuentasBanco = new HashSet<CuentaBanco>(0);
 
 	public Externo() {
 	}
@@ -69,9 +71,9 @@ public class Externo implements java.io.Serializable {
 			String nombre, String nombreContacto, String rfc, String telContacto, String pais, String paisCod,
 			String estado, String estadoCod, String municipio, String munCod, String colonia, String coloniaCod,
 			String cp, String calle, String numInt, String numExt, String referencias, String entreCalles,
-			CuentaBanco cuentaBanco, Boolean activo, String direccionFiscal, String direccionRecoleccion, Boolean isCliente,
+		    Boolean activo, String direccionFiscal, String direccionRecoleccion, Boolean isCliente,
 			Boolean isProveedor, Set<MovInventario> movInventarios, Set<CotizacionProveedor> cotizacionProveedors,
-			Set<InvProveedor> invProveedors, Set<Usuario> usuarios) {
+			Set<InvProveedor> invProveedors, Set<Usuario> usuarios, Set<CuentaBanco> cuentasBanco) {
 		this.idExterno = idExterno;
 		this.domicilio = domicilio;
 		this.clave = clave;
@@ -95,7 +97,7 @@ public class Externo implements java.io.Serializable {
 		this.numExt = numExt;
 		this.referencias = referencias;
 		this.entreCalles = entreCalles;
-		this.cuentaBanco = cuentaBanco;
+		this.cuentasBanco = cuentasBanco;
 		this.activo = activo;
 		this.direccionFiscal = direccionFiscal;
 		this.direccionRecoleccion = direccionRecoleccion;
@@ -316,16 +318,6 @@ public class Externo implements java.io.Serializable {
 		this.entreCalles = entreCalles;
 	}
 
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_cuenta")
-	public CuentaBanco getCuentaBanco() {
-		return this.cuentaBanco;
-	}
-
-	public void setCuentaBanco(CuentaBanco cuentaBanco) {
-		this.cuentaBanco = cuentaBanco;
-	}
-
 	@Column(name = "activo", nullable = false)
 	public Boolean getActivo() {
 		return this.activo;
@@ -353,7 +345,7 @@ public class Externo implements java.io.Serializable {
 		this.direccionRecoleccion = direccionRecoleccion;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proveedor")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "externo")
 	public Set<MovInventario> getMovInventarios() {
 		return this.movInventarios;
 	}
@@ -362,7 +354,7 @@ public class Externo implements java.io.Serializable {
 		this.movInventarios = movInventarios;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proveedor")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "externo")
 	public Set<CotizacionProveedor> getCotizacionProveedors() {
 		return this.cotizacionProveedors;
 	}
@@ -371,7 +363,7 @@ public class Externo implements java.io.Serializable {
 		this.cotizacionProveedors = cotizacionProveedors;
 	}
 
-	@OneToMany(fetch = FetchType.EAGER, mappedBy = "proveedor")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "externo")
 	public Set<InvProveedor> getInvProveedors() {
 		return this.invProveedors;
 	}
@@ -387,6 +379,15 @@ public class Externo implements java.io.Serializable {
 
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "externo")
+	public Set<CuentaBanco> getCuentasBanco() {
+		return cuentasBanco;
+	}
+
+	public void setCuentasBanco(Set<CuentaBanco> cuentasBanco) {
+		this.cuentasBanco = cuentasBanco;
 	}
 
 }

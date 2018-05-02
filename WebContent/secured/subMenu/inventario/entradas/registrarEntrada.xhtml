@@ -140,7 +140,7 @@
             	
         	</p:column> 
         	<p:column headerText="Costo(MXN/Unidad)">  
-            	#{entrada.costoMxm}  
+            	#{entrada.costoMxn}  
             	
         	</p:column>
         	<p:column headerText="Fecha de ingreso" >  
@@ -223,7 +223,7 @@
 		<p:outputLabel for="txtcostoMXN" value="Costo(MXN):"/>
 		
             <p:inputNumber  id="txtcostoMXN"
-             decimalSeparator="." thousandSeparator="," value="#{movimientosInventarioController.movimiento.costoMxm}" />   
+             decimalSeparator="." thousandSeparator="," value="#{movimientosInventarioController.movimiento.costoMxn}" />   
       
 			<p:outputLabel for="txtcostoUSD" value="Costo(USD):"/>
 		

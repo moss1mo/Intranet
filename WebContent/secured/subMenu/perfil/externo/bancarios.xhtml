@@ -19,7 +19,7 @@
       
       
     <div class="ui-g">
-    <div class="ui-g-4"><h:outputText value="Datos de cliente" style="font-size:1.5em;margin-left:0px" onreset="#{bitacorasController.updateTodasBitacorasApp(bitacorasController.appSeleccionada)}"/>  </div>
+    <div class="ui-g-4"><h:outputText value="Datos bancarios" style="font-size:1.5em;margin-left:0px" onreset="#{bitacorasController.updateTodasBitacorasApp(bitacorasController.appSeleccionada)}"/>  </div>
     <div class="ui-g-1"></div>
     <div class="ui-g-1"></div>
     <div class="ui-g-2"></div>
@@ -33,7 +33,7 @@
       
   			
 				
-      <p:panel id="pnl" header="Datos bancarios" style="margin-bottom:25px; overflow:auto; font-size:12px;"
+      <p:panel id="pnl" header="Registrar cuenta bancaria" style="margin-bottom:25px; overflow:auto; font-size:12px;"
       >
       <f:facet name="actions">
        <p:commandLink
@@ -50,22 +50,22 @@
       <f:facet name="header">
 	  	<h:panelGrid columns="2">
 	    	<span class="ui-icon ui-icon-pencil" />
-	    	<h:outputText value="Datos bancarios" />
+	    	<h:outputText value="Datos de la cuenta" />
 	  	</h:panelGrid>
 	  </f:facet>
         
         
          <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
         	<p:outputLabel for="numCuenta" value="Número de cuenta:"/>
-      		<p:inputText id="numCuenta" value="#{proveedoresController.proveedor.cuentaBanco.numCuenta}" />
+      		<p:inputText id="numCuenta" value="#{externosController.cuenta.numCuenta}" />
       		
       		<p:outputLabel for="clabe" value="CLABE:"/>
-      		<p:inputText id="clabe" value="#{proveedoresController.proveedor.cuentaBanco.clabe}" />
+      		<p:inputText id="clabe" value="#{externosController.cuenta.clabe}" />
       		
       		<p:outputLabel for="bancos" value="Banco:"/>
-      		<p:selectOneMenu  id="bancos" value="#{proveedoresController.proveedor.cuentaBanco.idBanco}" panelStyle="width:180px"
+      		<p:selectOneMenu  id="bancos" value="#{externosController.cuenta.banco}" panelStyle="width:180px"
                          effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
-            <f:selectItems value="#{proveedoresController.getBancos()}" var="banco" itemLabel="#{banco.id.nombre}" itemValue="#{banco.id.codigo}" />
+            <f:selectItems value="#{externosController.getBancos()}" var="banco" itemLabel="#{banco.id.nombre}" itemValue="#{banco.id.nombre}" />
         	        	       		<f:selectItem itemLabel="OTRO" itemValue="0" />
         	        	       		 
         	        	       		 <p:ajax process="@this"   update="otroBanco" partialSubmit="true"  />
@@ -73,9 +73,9 @@
         </p:selectOneMenu>
            </p:panelGrid>  
         	<p:outputPanel id="otroBanco" >
-        	 <p:outputLabel for="otroEsp" rendered="#{proveedoresController.proveedor.cuentaBanco.idBanco == 0}" value="Específique otro:"/>
+        	 <p:outputLabel for="otroEsp" rendered="#{externosController.cuenta.id == 0}" value="Específique otro:"/>
         	
-      		<p:inputText id="otroEsp" rendered="#{proveedoresController.proveedor.cuentaBanco.idBanco == 0}"  value="#{proveedoresController.proveedor.cuentaBanco.otroBanco}" />
+      		<p:inputText id="otroEsp" rendered="#{externosController.cuenta.id == 0}"  value="#{externosController.cuenta.otroBanco}" />
       		</p:outputPanel>
       		
          
@@ -95,8 +95,8 @@
                
              <h:panelGroup>
           <br />
-         <p:commandButton id="saveBtn" value="Guardar cambios" icon="ui-icon-disk" 
-         action="#{proveedoresController.actualizarProveedor()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
+         <p:commandButton id="saveBtn" value="Agregar"   icon="fa fa-plus"
+         action="#{externosController.actualizarProveedor()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
      </h:panelGroup>
           </p:column>
           </p:row>
@@ -107,10 +107,57 @@
    
  </p:panel>
             </h:form>
-            
-           
-               
-      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+
+
+				<p:dataTable id="listaCuentas" scrollHeight="300" rowKey="#{sol.id}"
+					var="sol" value="#{externosController.proveedor.cuentasBanco}"
+					paginator="true" rows="10"
+					emptyMessage="No hay solicitudes de alta registradas"
+					paginatorPosition="bottom" style="text-align:center"
+					scrollable="true" sortOrder="descending">
+
+
+
+					<f:facet name="header">
+
+					</f:facet>
+
+
+					<p:column headerText="# ID" filterMatchMode="contains"
+						filterStyle="display:none">  
+           		 #{sol.id}  
+        	</p:column>
+
+
+						<p:column headerText="CLABE" filterMatchMode="contains"
+							filterStyle="display:none">  
+           		 #{sol.clabe}  
+        	</p:column>
+
+					<p:column headerText="Banco"
+						filterMatchMode="contains" filterStyle="display:none">  
+           		 #{sol.banco}  
+        	</p:column>
+
+
+					<p:column headerText="Acción" filterMatchMode="contains"
+						filterStyle="display:none">
+						<p:commandButton process="listaCuentas" style="width:80%"
+							update="listaCuentas" value="Elimnar" icon="fa fa-trash"
+							actionListener="#{ventasController.verDetalleSolicitud(sol)}" />
+						
+
+					</p:column>
+
+
+					<f:facet name="footer">
+
+					</f:facet>
+				</p:dataTable>
+
+
+
+				<!--       <p:blockUI block="pnl" trigger="saveBtn" >
                  LOADING<br />  
         <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
       </p:blockUI>   --> 

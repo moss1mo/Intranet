@@ -4,6 +4,8 @@ package com.shq.entities;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -16,38 +18,38 @@ import javax.persistence.Table;
 @Table(name = "CUENTA_BANCO", catalog = "shq")
 public class CuentaBanco implements java.io.Serializable {
 
-	private int id;
+	private Integer id;
 	private String numCuenta;
 	private String clabe;
-	private Integer idBanco;
+	private String banco;
 	private String otroBanco;
 	private Externo externo;
 
 	public CuentaBanco() {
 	}
 
-	public CuentaBanco(int id) {
+	public CuentaBanco(Integer id) {
 		this.id = id;
 	}
 
-	public CuentaBanco(int id, String numCuenta, String clabe, Integer idBanco, String otroBanco,
+	public CuentaBanco(Integer id, String numCuenta, String clabe, String banco, String otroBanco,
 			Externo externo) {
 		this.id = id;
 		this.numCuenta = numCuenta;
 		this.clabe = clabe;
-		this.idBanco = idBanco;
+		this.banco = banco;
 		this.otroBanco = otroBanco;
 		this.externo = externo;
 	}
 
 	@Id
-
+    @GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "ID", unique = true, nullable = false)
-	public int getId() {
+	public Integer getId() {
 		return this.id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -69,13 +71,13 @@ public class CuentaBanco implements java.io.Serializable {
 		this.clabe = clabe;
 	}
 
-	@Column(name = "ID_BANCO")
-	public Integer getIdBanco() {
-		return this.idBanco;
+	@Column(name = "BANCO", length = 45)
+	public String getBanco() {
+		return this.banco;
 	}
 
-	public void setIdBanco(Integer idBanco) {
-		this.idBanco = idBanco;
+	public void setBanco(String banco) {
+		this.banco = banco;
 	}
 
 	@Column(name = "OTRO_BANCO", length = 45)
@@ -89,7 +91,7 @@ public class CuentaBanco implements java.io.Serializable {
 
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_externo", nullable = false)
+	@JoinColumn(name = "id_externo")
 	public Externo getExterno() {
 		return this.externo;
 	}

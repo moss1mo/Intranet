@@ -27,7 +27,7 @@ import javax.persistence.Table;
 public class CotizacionProveedor implements java.io.Serializable {
 
 	private BigDecimal id;
-	private Externo proveedor;
+	private Externo externo;
 	private SolCotizacion solCotizacion;
 	private String entregaDomicilio;
 	private Set<ProductoCotProveedor> productoCotProveedors = new HashSet<ProductoCotProveedor>(0);
@@ -39,17 +39,17 @@ public class CotizacionProveedor implements java.io.Serializable {
 	public CotizacionProveedor() {
 	}
 
-	public CotizacionProveedor(BigDecimal id, Externo proveedor, SolCotizacion solCotizacion,String entregaDomicilio) {
+	public CotizacionProveedor(BigDecimal id, Externo externo, SolCotizacion solCotizacion,String entregaDomicilio) {
 		this.id = id;
-		this.proveedor = proveedor;
+		this.externo = externo;
 		this.solCotizacion = solCotizacion;
 		this.entregaDomicilio = entregaDomicilio;
 	}
 
-	public CotizacionProveedor(BigDecimal id, Externo proveedor, SolCotizacion solCotizacion,
+	public CotizacionProveedor(BigDecimal id, Externo externo, SolCotizacion solCotizacion,
 			Set<ProductoCotProveedor> productoCotProveedors, String entregaDomicilio) {
 		this.id = id;
-		this.proveedor = proveedor;
+		this.externo = externo;
 		this.solCotizacion = solCotizacion;
 		this.productoCotProveedors = productoCotProveedors;
 		this.entregaDomicilio = entregaDomicilio;
@@ -69,12 +69,12 @@ public class CotizacionProveedor implements java.io.Serializable {
 	
 	@ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE})
 	@JoinColumn(name = "id_externo", nullable = false)
-	public Externo getProveedor() {
-		return this.proveedor;
+	public Externo getExterno() {
+		return this.externo;
 	}
 
-	public void setProveedor(Externo proveedor) {
-		this.proveedor = proveedor;
+	public void setExterno(Externo externo) {
+		this.externo = externo;
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER,cascade = {CascadeType.MERGE})

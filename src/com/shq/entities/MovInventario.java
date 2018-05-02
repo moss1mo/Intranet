@@ -24,7 +24,7 @@ import javax.persistence.UniqueConstraint;
 public class MovInventario implements java.io.Serializable {
 
 	private Integer id;
-	private Externo proveedor;
+	private Externo externo;
 	private int cantidad;
 	private BigDecimal costoMxn;
 	private BigDecimal costoUsd;
@@ -33,7 +33,7 @@ public class MovInventario implements java.io.Serializable {
 	private Date fechaIngreso;
 	private Date fechaSalida;
 	private BigDecimal hs;
-	private Integer idUnidad;
+	private Unidad unidad;
 	private String incoterms;
 	private String lote;
 	private String motivo;
@@ -56,13 +56,13 @@ public class MovInventario implements java.io.Serializable {
 		this.cantidad = cantidad;
 	}
 
-	public MovInventario(int id, Externo proveedor, int cantidad, BigDecimal costoMxn, BigDecimal costoUsd,
+	public MovInventario(int id, Externo externo, int cantidad, BigDecimal costoMxn, BigDecimal costoUsd,
 			BigDecimal dimensiones, Date fechaCaducidad, Date fechaIngreso, Date fechaSalida, BigDecimal hs,
-			Integer idUnidad, String incoterms, String lote, String motivo, BigDecimal prtjIgi, BigDecimal prtjIva,
+			Unidad unidad, String incoterms, String lote, String motivo, BigDecimal prtjIgi, BigDecimal prtjIva,
 			String status, BigDecimal tc, BigDecimal unidXPresent, Almacen almacen,Empaque empaque,
 			MotivoMov motivoMov, Pedimento pedimento, Producto producto) {
 		this.id = id;
-		this.proveedor = proveedor;
+		this.externo = externo;
 		this.cantidad = cantidad;
 		this.costoMxn = costoMxn;
 		this.costoUsd = costoUsd;
@@ -71,7 +71,7 @@ public class MovInventario implements java.io.Serializable {
 		this.fechaIngreso = fechaIngreso;
 		this.fechaSalida = fechaSalida;
 		this.hs = hs;
-		this.idUnidad = idUnidad;
+		this.unidad = unidad;
 		this.incoterms = incoterms;
 		this.lote = lote;
 		this.motivo = motivo;
@@ -99,13 +99,13 @@ public class MovInventario implements java.io.Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_externo", unique = true)
-	public Externo getProveedor() {
-		return this.proveedor;
+	@JoinColumn(name = "id_externo")
+	public Externo getExterno() {
+		return this.externo;
 	}
 
-	public void setProveedor(Externo proveedor) {
-		this.proveedor = proveedor;
+	public void setExterno(Externo externo) {
+		this.externo = externo;
 	}
 
 	@Column(name = "cantidad", nullable = false)
@@ -183,13 +183,14 @@ public class MovInventario implements java.io.Serializable {
 		this.hs = hs;
 	}
 
-	@Column(name = "id_unidad")
-	public Integer getIdUnidad() {
-		return this.idUnidad;
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_unidad")
+	public Unidad getUnidad() {
+		return this.unidad;
 	}
 
-	public void setIdUnidad(Integer idUnidad) {
-		this.idUnidad = idUnidad;
+	public void setUnidad(Unidad unidad) {
+		this.unidad = unidad;
 	}
 
 	@Column(name = "incoterms")
@@ -264,7 +265,8 @@ public class MovInventario implements java.io.Serializable {
 		this.unidXPresent = unidXPresent;
 	}
 
-	@Column(name = "id_almacen")
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_almacen")
 	public Almacen getAlmacen() {
 		return this.almacen;
 	}
@@ -273,7 +275,8 @@ public class MovInventario implements java.io.Serializable {
 		this.almacen = almacen;
 	}
 
-	@Column(name = "id_empaque")
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_empaque")
 	public Empaque getEmpaque() {
 		return this.empaque;
 	}
@@ -282,7 +285,8 @@ public class MovInventario implements java.io.Serializable {
 		this.empaque = empaque;
 	}
 
-	@Column(name = "id_motivo_mov")
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_motivo_mov")
 	public MotivoMov getMotivoMov() {
 		return this.motivoMov;
 	}
@@ -291,7 +295,8 @@ public class MovInventario implements java.io.Serializable {
 		this.motivoMov = motivoMov;
 	}
 
-	@Column(name = "id_pedimento")
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_pedimento")
 	public Pedimento getPedimento() {
 		return this.pedimento;
 	}
@@ -300,7 +305,8 @@ public class MovInventario implements java.io.Serializable {
 		this.pedimento = pedimento;
 	}
 
-	@Column(name = "id_producto")
+	@ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_producto")
 	public Producto getProducto() {
 		return this.producto;
 	}

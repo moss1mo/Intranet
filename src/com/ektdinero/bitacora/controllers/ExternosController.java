@@ -86,11 +86,6 @@ public class ExternosController implements Serializable{
 	public void cargarDatosUsuario(Usuario usuario){
 		this.usuario = usuario;
 		proveedor = usuario.getExterno();
-		//this.usuario = usuariosDAO.find(usuario.getIdUsuario());
-		if(proveedor.getCuentaBanco() == null){
-			CuentaBanco cuentaBanco = new CuentaBanco();
-			proveedor.setCuentaBanco(cuentaBanco);
-		}
 	}
 	
 	public void cargarDatosDomicilio(Usuario usuario){

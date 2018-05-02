@@ -128,7 +128,7 @@ public class ComprasController implements Serializable{
 
 			for(Usuario usuario:listaProveedoresSeleccionados){
 				CotizacionProveedor cotProveedor = new CotizacionProveedor();
-				cotProveedor.setProveedor(usuario.getExterno());
+				cotProveedor.setExterno(usuario.getExterno());
 				cotProveedor.setSolCotizacion(solicitud);
 				cotProveedor = cotProvDAO.guardarSolicitud(cotProveedor);
 				
@@ -175,10 +175,7 @@ public class ComprasController implements Serializable{
 		this.usuario = usuario;
 		externo = usuario.getExterno();
 		//this.usuario = usuariosDAO.find(usuario.getIdUsuario());
-		if(externo.getCuentaBanco() == null){
-			CuentaBanco cuentaBanco = new CuentaBanco();
-			externo.setCuentaBanco(cuentaBanco);
-		}
+
 	}
 	
 	public void cargarDatosDomicilio(Usuario usuario){

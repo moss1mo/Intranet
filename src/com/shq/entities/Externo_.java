@@ -7,7 +7,7 @@ import javax.persistence.metamodel.SetAttribute;
 import javax.persistence.metamodel.SingularAttribute;
 import javax.persistence.metamodel.StaticMetamodel;
 
-@Generated(value="Dali", date="2018-04-20T10:51:37.897-0500")
+@Generated(value="Dali", date="2018-04-30T23:42:11.651-0500")
 @StaticMetamodel(Externo.class)
 public class Externo_ {
 	public static volatile SingularAttribute<Externo, BigDecimal> idExterno;
@@ -33,7 +33,6 @@ public class Externo_ {
 	public static volatile SingularAttribute<Externo, String> numExt;
 	public static volatile SingularAttribute<Externo, String> referencias;
 	public static volatile SingularAttribute<Externo, String> entreCalles;
-	public static volatile SingularAttribute<Externo, CuentaBanco> cuentaBanco;
 	public static volatile SingularAttribute<Externo, Boolean> activo;
 	public static volatile SingularAttribute<Externo, String> direccionFiscal;
 	public static volatile SingularAttribute<Externo, String> direccionRecoleccion;
@@ -41,4 +40,5 @@ public class Externo_ {
 	public static volatile SetAttribute<Externo, CotizacionProveedor> cotizacionProveedors;
 	public static volatile SetAttribute<Externo, InvProveedor> invProveedors;
 	public static volatile SetAttribute<Externo, Usuario> usuarios;
+	public static volatile SetAttribute<Externo, CuentaBanco> cuentasBanco;
 }

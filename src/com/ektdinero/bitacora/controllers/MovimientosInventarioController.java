@@ -384,8 +384,8 @@ public class MovimientosInventarioController implements Serializable{
 			movimiento.setUnidad(new Unidad());
 		}**/
 		
-		if(movimiento.getProveedor() == null){
-			movimiento.setProveedor(new Externo());
+		if(movimiento.getExterno() == null){
+			movimiento.setExterno(new Externo());
 		}
 
 		
