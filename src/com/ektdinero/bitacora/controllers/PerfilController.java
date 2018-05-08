@@ -41,9 +41,6 @@ public class PerfilController implements Serializable{
 
 	public PerfilController(){
 		UsuarioRol role = new UsuarioRol();
-		Domicilio domicilio = new Domicilio();
-		domicilio.setPrincipal(true);
-		empleado.setDomicilio(domicilio);
 		usuario.setUsuarioRol(role);
 	}
 	

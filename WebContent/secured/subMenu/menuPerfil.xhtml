@@ -117,14 +117,14 @@
 			
 			<p:commandLink rendered="#{loginController.rol.idRol != 6}"  action="#{empleadosController.cargarDatosDomicilio(loginController.usuarioLogeado)}" oncomplete="location.href='./perfil/empleado/direcciones.xhtml'"  >
 			  <div class="btn-menu gi-2x">
-  				<br/><span style="color:#6624FB">Dirección</span> <br/>
+  				<br/><span style="color:#6624FB">Domicilios</span> <br/>
   				    <i style="color:green"  class="fa fa-map"/> 
   			</div>
 			</p:commandLink>
 			
 			<p:commandLink rendered="#{loginController.rol.idRol == 6}"  action="#{externosController.cargarDatosDomicilio(loginController.usuarioLogeado)}" oncomplete="location.href='./perfil/externo/direcciones.xhtml'"  >
 			  <div class="btn-menu gi-2x">
-  				<br/><span style="color:#6624FB">Dirección</span> <br/>
+  				<br/><span style="color:#6624FB">Domicilios</span> <br/>
   				    <i style="color:green"  class="fa fa-map"/> 
   			</div>
 			</p:commandLink>

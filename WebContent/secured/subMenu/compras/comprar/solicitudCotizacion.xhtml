@@ -89,7 +89,12 @@
     </p:panel>
     </p:fieldset><br/>
     
+        <p:commandButton id="btnPrellenado"  process="solicitudCotizacion" update="solicitudCotizacion"  icon="fa fa-user"  value="Cargar datos de usuario" actionListener="#{inventarioController.guardarSolCotizacion(loginController.usuarioLogeado)}" />
+    <br/><br/>
+    
     <p:fieldset legend="Datos del solicitante">
+    
+    
     <p:panel>
     
     	 <p:panelGrid columns="6">

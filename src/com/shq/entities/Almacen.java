@@ -2,11 +2,16 @@ package com.shq.entities;
 // Generated 10-feb-2018 21:58:23 by Hibernate Tools 5.2.3.Final
 
 import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,7 +24,6 @@ import javax.persistence.TemporalType;
 public class Almacen implements java.io.Serializable {
 
 	private int idAlmacen;
-	private String direccion;
 	private String nombre;
 	private String tipoAlmacen;
 	private Date fechaFinAlmacen;
@@ -27,6 +31,7 @@ public class Almacen implements java.io.Serializable {
 	private String telContacto;
 	private String correoContacto;
 	private String horarioAtencion;
+	private Domicilio domicilio;
 
 	public Almacen() {
 	}
@@ -35,10 +40,9 @@ public class Almacen implements java.io.Serializable {
 		this.idAlmacen = idAlmacen;
 	}
 
-	public Almacen(int idAlmacen, String direccion, String nombre, String tipoAlmacen, Date fechaFinAlmacen,
-			String nombreContacto, String telContacto, String correoContacto, String horarioAtencion) {
+	public Almacen(int idAlmacen, String nombre, String tipoAlmacen, Date fechaFinAlmacen,
+			String nombreContacto, String telContacto, String correoContacto, String horarioAtencion, Domicilio domicilio) {
 		this.idAlmacen = idAlmacen;
-		this.direccion = direccion;
 		this.nombre = nombre;
 		this.tipoAlmacen = tipoAlmacen;
 		this.fechaFinAlmacen = fechaFinAlmacen;
@@ -46,6 +50,8 @@ public class Almacen implements java.io.Serializable {
 		this.telContacto = telContacto;
 		this.correoContacto = correoContacto;
 		this.horarioAtencion = horarioAtencion;
+		this.domicilio = domicilio;
+
 	}
 
 	@Id
@@ -57,15 +63,6 @@ public class Almacen implements java.io.Serializable {
 
 	public void setIdAlmacen(int idAlmacen) {
 		this.idAlmacen = idAlmacen;
-	}
-
-	@Column(name = "direccion")
-	public String getDireccion() {
-		return this.direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
 	}
 
 	@Column(name = "nombre")
@@ -130,6 +127,17 @@ public class Almacen implements java.io.Serializable {
 
 	public void setHorarioAtencion(String horarioAtencion) {
 		this.horarioAtencion = horarioAtencion;
+	}
+
+
+	 @OneToOne(fetch=FetchType.EAGER)
+	 @JoinColumn(name="id_domicilio", unique=true)
+	public Domicilio getDomicilio() {
+		return domicilio;
+	}
+
+	public void setDomicilio(Domicilio domicilio) {
+		this.domicilio = domicilio;
 	}
 
 }

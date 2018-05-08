@@ -64,10 +64,10 @@
 	  </f:facet>
 	  
     <p:outputLabel for="txtClave" value="Nombre:"/>
-      		<p:inputText id="txtClave" value="#{proveedoresController.proveedor.nombre}"/>
+      		<p:inputText id="txtClave" value="#{externosController.proveedor.nombre}"/>
       		
         	<p:outputLabel for="txtNombreProveedor" value="Clave:"/>
-      		<p:inputText id="txtNombreProveedor" value="#{proveedoresController.proveedor.clave}"/>
+      		<p:inputText id="txtNombreProveedor" value="#{externosController.proveedor.clave}"/>
           
       		
       		</p:panelGrid>
@@ -87,10 +87,10 @@
         
          <p:panelGrid columns="2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
       		<p:outputLabel for="txtCorreoContacto" value="Correo :"/>
-      		<p:inputText id="txtCorreoContacto" value="#{proveedoresController.proveedor.correoContacto}" />
+      		<p:inputText id="txtCorreoContacto" value="#{externosController.proveedor.correoContacto}" />
       		
       		<p:outputLabel for="txtTelContacto" value="Teléfono:"/>
-      		<p:inputText id="txtTelContacto" value="#{proveedoresController.proveedor.telContacto}" />
+      		<p:inputText id="txtTelContacto" value="#{externosController.proveedor.telContacto}" />
       		
 
         </p:panelGrid>
@@ -112,7 +112,7 @@
              <h:panelGroup>
           <br />
         <p:commandButton id="saveBtn" value="Guardar cambios" icon="ui-icon-disk" 
-         action="#{proveedoresController.actualizarProveedor()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
+         action="#{externosController.actualizarProveedor()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
      </h:panelGroup>
           </p:column>
           </p:row>

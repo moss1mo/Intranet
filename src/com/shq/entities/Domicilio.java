@@ -12,7 +12,10 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -27,26 +30,33 @@ public class Domicilio  implements Serializable {
 
      private BigDecimal idDomicilio;
      private String codPais;
+     private String pais;
      private String codEstado;
+     private String estado;
      private String codMunicipio;
+     private String municipio;
      private String codColonia;
+     private String colonia;
      private String cp;
      private String calle;
      private String numExt;
      private String numInt;
-     private Boolean principal;
      private String referencias;
      private String entreCalles;
-     private Integer idAlmacen;
-     private BigDecimal idExterno;
-     private Set<Empleado> empleados = new HashSet<Empleado>(0);
-     private Set<Externo> externos = new HashSet<Externo>(0);
+     private Externo externo;
+     private Empleado empleado;
+     private boolean activo;
+     private boolean fiscal;
+     private boolean entrega;
+     private boolean secundaria;
+
+
 
     public Domicilio() {
     }
 
 	
-    public Domicilio(BigDecimal idDomicilio, String codPais, String codEstado, String codMunicipio,String codColonia, String cp, String calle, String numExt, Boolean principal, String referencias, BigDecimal idExterno) {
+    public Domicilio(BigDecimal idDomicilio, String codPais, String codEstado, String codMunicipio,String codColonia, String cp, String calle, String numExt, String referencias, Externo externo) {
         this.idDomicilio = idDomicilio;
         this.codPais = codPais;
         this.codEstado = codEstado;
@@ -55,11 +65,10 @@ public class Domicilio  implements Serializable {
         this.cp = cp;
         this.calle = calle;
         this.numExt = numExt;
-        this.principal = principal;
         this.referencias = referencias;
-        this.idExterno = idExterno;
+        this.externo = externo;
     }
-    public Domicilio(BigDecimal idDomicilio, String codPais, String codEstado, String codMunicipio, String codColonia, String cp, String calle, String numExt, String numInt, Boolean principal, String referencias, String entreCalles, Integer idAlmacen, BigDecimal idExterno, Set<Empleado> empleados, Set<Externo> externos) {
+    public Domicilio(BigDecimal idDomicilio, String codPais, String codEstado, String codMunicipio, String codColonia, String cp, String calle, String numExt, String numInt, Boolean principal, String referencias, String entreCalles, Externo externo,Empleado empleado) {
        this.idDomicilio = idDomicilio;
        this.codPais = codPais;
        this.codEstado = codEstado;
@@ -69,13 +78,10 @@ public class Domicilio  implements Serializable {
        this.calle = calle;
        this.numExt = numExt;
        this.numInt = numInt;
-       this.principal = principal;
        this.referencias = referencias;
        this.entreCalles = entreCalles;
-       this.idAlmacen = idAlmacen;
-       this.idExterno = idExterno;
-       this.empleados = empleados;
-       this.externos = externos;
+       this.externo = externo;
+       this.empleado = empleado;
     }
    
      @Id 
@@ -162,16 +168,6 @@ public class Domicilio  implements Serializable {
     }
 
     
-    @Column(name="principal", nullable=false)
-    public Boolean getPrincipal() {
-        return this.principal;
-    }
-    
-    public void setPrincipal(Boolean principal) {
-        this.principal = principal;
-    }
-
-    
     @Column(name="referencias", nullable=false, length=450)
     public String getReferencias() {
         return this.referencias;
@@ -191,45 +187,7 @@ public class Domicilio  implements Serializable {
         this.entreCalles = entreCalles;
     }
 
-    
-    @Column(name="id_almacen")
-    public Integer getIdAlmacen() {
-        return this.idAlmacen;
-    }
-    
-    public void setIdAlmacen(Integer idAlmacen) {
-        this.idAlmacen = idAlmacen;
-    }
 
-    
-    @Column(name="id_externo", precision=50, scale=0)
-    public BigDecimal getIdExterno() {
-        return this.idExterno;
-    }
-    
-    public void setIdExterno(BigDecimal idExterno) {
-        this.idExterno = idExterno;
-    }
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="domicilio")
-    public Set<Empleado> getEmpleados() {
-        return this.empleados;
-    }
-    
-    public void setEmpleados(Set<Empleado> empleados) {
-        this.empleados = empleados;
-    }
-
-
-
-@OneToMany(fetch=FetchType.LAZY, mappedBy="domicilio")
-    public Set<Externo> getExternos() {
-        return this.externos;
-    }
-    
-    public void setExternos(Set<Externo> externos) {
-        this.externos = externos;
-    }
 
     @Column(name="cod_colonia", nullable=false, length=45)
 	public String getCodColonia() {
@@ -239,6 +197,110 @@ public class Domicilio  implements Serializable {
 
 	public void setCodColonia(String codColonia) {
 		this.codColonia = codColonia;
+	}
+	
+	 
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_externo")
+    public Externo getExterno() {
+        return this.externo;
+    }
+    
+    public void setExterno(Externo externo) {
+        this.externo = externo;
+    }
+
+
+    @ManyToOne(fetch=FetchType.EAGER)
+    @JoinColumn(name="id_empleado")
+	public Empleado getEmpleado() {
+		return empleado;
+	}
+
+
+	public void setEmpleado(Empleado empleado) {
+		this.empleado = empleado;
+	}
+
+
+    @Column(name="activo")
+	public boolean isActivo() {
+		return activo;
+	}
+
+
+	public void setActivo(boolean activo) {
+		this.activo = activo;
+	}
+
+	@Column(name="fiscal")
+	public boolean isFiscal() {
+		return fiscal;
+	}
+
+
+	public void setFiscal(boolean fiscal) {
+		this.fiscal = fiscal;
+	}
+
+	@Column(name="entrega")
+	public boolean isEntrega() {
+		return entrega;
+	}
+
+
+	public void setEntrega(boolean entrega) {
+		this.entrega = entrega;
+	}
+
+	@Column(name="secundaria")
+	public boolean isSecundaria() {
+		return secundaria;
+	}
+
+
+	public void setSecundaria(boolean secundaria) {
+		this.secundaria = secundaria;
+	}
+
+	@Column(name="pais")
+	public String getPais() {
+		return pais;
+	}
+
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	@Column(name="estado")
+	public String getEstado() {
+		return estado;
+	}
+
+
+	public void setEstado(String estado) {
+		this.estado = estado;
+	}
+
+	@Column(name="municipio")
+	public String getMunicipio() {
+		return municipio;
+	}
+
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
+	@Column(name="colonia")
+	public String getColonia() {
+		return colonia;
+	}
+
+
+	public void setColonia(String colonia) {
+		this.colonia = colonia;
 	}
 
 

@@ -18,7 +18,7 @@
 
 	
 
-          <h:form style="font-size:12px;" onreset=""> 
+          <h:form style="font-size:12px;" > 
           
           
    
@@ -36,11 +36,10 @@
 		            <p:ajax event="change" update="lstProductos,lstAlmacenes,pnlTablaProductos" listener="#{inventarioController.updateListas()}" />
 		        </p:selectOneMenu>
 
-				
-				<p:remoteCommand name="rc" actionListener="#{inventarioController.mostrarPantallaRegistro}" />
- 
+				 
     			<p:growl id="msgs" showDetail="true" />
-    			<p:commandButton type="button" onclick="rc()" value="Solicitud de alta"  icon="ui-icon-circle-plus" />
+    			<p:commandButton process="@this"  id="btnSolicitar"  icon="ui-icon-circle-plus" actionListener="#{inventarioController.mostrarPantallaRegistro}" value="Solicitud de alta" />
+    			
     
            </h:panelGrid>
               
@@ -134,9 +133,6 @@
     	
     </p:panel>
     
-
-    	
-    	
     	</h:form>
 <!--      </p:tab>  -->
         

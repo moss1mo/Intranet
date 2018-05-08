@@ -41,9 +41,6 @@ public class EmpleadosController implements Serializable{
 
 	public EmpleadosController(){
 		UsuarioRol role = new UsuarioRol();
-		Domicilio domicilio = new Domicilio();
-		domicilio.setPrincipal(true);
-		empleado.setDomicilio(domicilio);
 		usuario.setUsuarioRol(role);
 	}
 	public void mostrarPantallaRegistro() {
@@ -105,11 +102,6 @@ public class EmpleadosController implements Serializable{
 	public void cargarDatosDomicilio(Usuario usuario){
 		this.usuario = usuario;
 		empleado = usuario.getEmpleado();
-		if(empleado.getDomicilio() == null){
-			Domicilio domicilio = new Domicilio();
-			domicilio.setPrincipal(true);
-			empleado.setDomicilio(domicilio);
-		}
 	}
 	
 	

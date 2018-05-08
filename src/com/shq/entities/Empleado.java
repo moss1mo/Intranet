@@ -28,12 +28,10 @@ import javax.persistence.TemporalType;
 public class Empleado implements java.io.Serializable {
 
 	private BigDecimal idEmpleado;
-	private Domicilio domicilio;
 	private String nombre;
 	private String apellidoMaterno;
 	private String apellidoPaterno;
 	private Date fechaNacimiento;
-	private String direccion;
 	private String emailEmpresa;
 	private String emailPersonal;
 	private String telCasa;
@@ -42,6 +40,8 @@ public class Empleado implements java.io.Serializable {
 	private String telTrabajo;
 	private String puesto;
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
+	private Set<Domicilio> domicilios  = new HashSet<Domicilio>(0);
+
 
 	public Empleado() {
 	}
@@ -51,16 +51,15 @@ public class Empleado implements java.io.Serializable {
 		this.nombre = nombre;
 	}
 
-	public Empleado(BigDecimal idEmpleado, Domicilio domicilio, String nombre, String apellidoMaterno,
-			String apellidoPaterno, Date fechaNacimiento, String direccion, String emailEmpresa, String emailPersonal,
-			String telCasa, String telCelular, String telExt, String telTrabajo, String puesto, Set<Usuario> usuarios) {
+	public Empleado(BigDecimal idEmpleado, String nombre, String apellidoMaterno,
+			String apellidoPaterno, Date fechaNacimiento, String emailEmpresa, String emailPersonal,
+			String telCasa, String telCelular, String telExt, String telTrabajo, String puesto, Set<Usuario> usuarios,Set<Domicilio> domicilios) {
 		this.idEmpleado = idEmpleado;
-		this.domicilio = domicilio;
+		this.domicilios = domicilios;
 		this.nombre = nombre;
 		this.apellidoMaterno = apellidoMaterno;
 		this.apellidoPaterno = apellidoPaterno;
 		this.fechaNacimiento = fechaNacimiento;
-		this.direccion = direccion;
 		this.emailEmpresa = emailEmpresa;
 		this.emailPersonal = emailPersonal;
 		this.telCasa = telCasa;
@@ -81,16 +80,6 @@ public class Empleado implements java.io.Serializable {
 
 	public void setIdEmpleado(BigDecimal idEmpleado) {
 		this.idEmpleado = idEmpleado;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
-	@JoinColumn(name = "id_domicilio") 
-	public Domicilio getDomicilio() {
-		return this.domicilio;
-	}
-
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
 	}
 
 	@Column(name = "nombre", nullable = false, length = 30)
@@ -128,15 +117,6 @@ public class Empleado implements java.io.Serializable {
 
 	public void setFechaNacimiento(Date fechaNacimiento) {
 		this.fechaNacimiento = fechaNacimiento;
-	}
-
-	@Column(name = "direccion", length = 100)
-	public String getDireccion() {
-		return this.direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
 	}
 
 	@Column(name = "email_empresa", length = 20)
@@ -202,13 +182,22 @@ public class Empleado implements java.io.Serializable {
 		this.puesto = puesto;
 	}
 
-	@OneToMany(fetch = FetchType.LAZY, mappedBy = "empleado")
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empleado")
 	public Set<Usuario> getUsuarios() {
 		return this.usuarios;
 	}
 
 	public void setUsuarios(Set<Usuario> usuarios) {
 		this.usuarios = usuarios;
+	}
+	
+	@OneToMany(fetch = FetchType.EAGER, mappedBy = "empleado")
+	public Set<Domicilio> getDomicilios() {
+		return this.domicilios;
+	}
+
+	public void setDomicilios(Set<Domicilio> domicilios) {
+		this.domicilios = domicilios;
 	}
 
 }

@@ -33,6 +33,7 @@ import com.shq.entities.Almacen;
 import com.shq.entities.CatPaises;
 import com.shq.entities.CatPaisesId;
 import com.shq.entities.CatSepomex;
+import com.shq.entities.Domicilio;
 import com.shq.entities.Externo;
 import com.shq.entities.InventarioVw;
 import com.shq.entities.Producto;
@@ -48,7 +49,7 @@ public class InventarioController implements Serializable {
 	private static final long serialVersionUID = 8568309221535780646L;
 
 	private Double tc;
-	private String itemAltaInventario;
+	private String itemAltaInventario = "producto";
 	private boolean temporal;
 	private AlmacenBean almacen = new AlmacenBean();
 	private Producto producto = new Producto();
@@ -90,7 +91,7 @@ public class InventarioController implements Serializable {
 			if (itemAltaInventario.equalsIgnoreCase("producto")) {
 				listaProductos = new ArrayList<Producto>();
 				FacesContext.getCurrentInstance().getExternalContext()
-						.redirect("/Intranet/secured/subMenu/inventario/altas/registrarInventario.xhtml");
+						.redirect("/Intranet/secured/subMenu/inventario/altas/registrarProducto.xhtml");
 			}
 
 			if (itemAltaInventario.equalsIgnoreCase("almacen")) {
@@ -183,8 +184,10 @@ public class InventarioController implements Serializable {
 	public void guardarAlmacen() {
 
 		try {
-			almacenEnt.setNombre(almacen.getNombre());
-			almacenEnt.setDireccion(almacen.getDireccion());
+			almacenEnt.setNombre(almacen.getNombre());			
+			Domicilio dom = new Domicilio();
+			dom.setCalle(almacen.getDireccion());
+			almacenEnt.setDomicilio(dom);
 			if (temporal) {
 				almacenEnt.setTipoAlmacen("Temporal");
 				almacenEnt.setFechaFinAlmacen(almacen.getFechaFinAlmacen());
@@ -243,16 +246,17 @@ public class InventarioController implements Serializable {
 				externo.setCorreoContacto(solCotizacion.getCorreo());
 				externo.setRfc(solCotizacion.getRfc());
 				externo.setTelContacto(solCotizacion.getTelefono());
-				
-				externo.setPais(solCotizacion.getPais());
-				externo.setEstado(solCotizacion.getEstado());
-				externo.setMunicipio(solCotizacion.getMunicipio());
-				externo.setColonia(solCotizacion.getColonia());
-				externo.setCalle(solCotizacion.getCalle());
-				externo.setCp(solCotizacion.getCp());
-				externo.setReferencias(solCotizacion.getReferencias());
-				externo.setNumExt(solCotizacion.getNumExt());
-				externo.setNumInt(solCotizacion.getNumInt());
+				Domicilio domicilioEntrega = new Domicilio();
+				domicilioEntrega.setPais(solCotizacion.getPais());
+				domicilioEntrega.setEstado(solCotizacion.getEstado());
+				domicilioEntrega.setMunicipio(solCotizacion.getMunicipio());
+				domicilioEntrega.setColonia(solCotizacion.getColonia());
+				domicilioEntrega.setCalle(solCotizacion.getCalle());
+				domicilioEntrega.setCp(solCotizacion.getCp());
+				domicilioEntrega.setReferencias(solCotizacion.getReferencias());
+				domicilioEntrega.setNumExt(solCotizacion.getNumExt());
+				domicilioEntrega.setNumInt(solCotizacion.getNumInt());
+				externo.getDomicilios().add(domicilioEntrega);
 				
 				externo.setClave(usuarioCotizacion.getNombreUsuario());
 				externo.setActivo(Boolean.TRUE);
@@ -493,7 +497,7 @@ public class InventarioController implements Serializable {
 		this.tipoProveedor = tipoProveedor;
 	}
 
-	public List<CatSepomex> getMunicipios() {
+	/**public List<CatSepomex> getMunicipios() {
 		return CatalogosBean.getInstance().getCatMunicipios(proveedor.getEstadoCod());
 	}
 
@@ -508,7 +512,7 @@ public class InventarioController implements Serializable {
 
 	public List<Producto> getListaProductosSeleccionados() {
 		return listaProductosSeleccionados;
-	}
+	} TO DELETE**/
 
 	public void setListaProductosSeleccionados(List<Producto> listaProductosSeleccionados) {
 		this.listaProductosSeleccionados = listaProductosSeleccionados;

@@ -28,7 +28,6 @@ import javax.persistence.TemporalType;
 public class Externo implements java.io.Serializable {
 
 	private BigDecimal idExterno;
-	private Domicilio domicilio;
 	private String clave;
 	private String correoContacto;
 	private Date fechaAlta;
@@ -36,28 +35,14 @@ public class Externo implements java.io.Serializable {
 	private String nombreContacto;
 	private String rfc;
 	private String telContacto;
-	private String pais;
-	private String paisCod;
-	private String estado;
-	private String estadoCod;
-	private String municipio;
-	private String munCod;
-	private String colonia;
-	private String coloniaCod;
-	private String cp;
-	private String calle;
-	private String numInt;
-	private String numExt;
-	private String referencias;
-	private String entreCalles;
 	private Boolean activo;
-	private String direccionFiscal;
-	private String direccionRecoleccion;
 	private Set<MovInventario> movInventarios = new HashSet<MovInventario>(0);
 	private Set<CotizacionProveedor> cotizacionProveedors = new HashSet<CotizacionProveedor>(0);
 	private Set<InvProveedor> invProveedors = new HashSet<InvProveedor>(0);
 	private Set<Usuario> usuarios = new HashSet<Usuario>(0);
 	private Set<CuentaBanco> cuentasBanco = new HashSet<CuentaBanco>(0);
+	private Set<Domicilio> domicilios = new HashSet<Domicilio>(0);
+
 
 	public Externo() {
 	}
@@ -68,14 +53,11 @@ public class Externo implements java.io.Serializable {
 	}
 
 	public Externo(BigDecimal idExterno, Domicilio domicilio, String clave, String correoContacto, Date fechaAlta,
-			String nombre, String nombreContacto, String rfc, String telContacto, String pais, String paisCod,
-			String estado, String estadoCod, String municipio, String munCod, String colonia, String coloniaCod,
-			String cp, String calle, String numInt, String numExt, String referencias, String entreCalles,
-		    Boolean activo, String direccionFiscal, String direccionRecoleccion, Boolean isCliente,
+			String nombre, String nombreContacto, String rfc, String telContacto, Boolean activo, Boolean isCliente,
 			Boolean isProveedor, Set<MovInventario> movInventarios, Set<CotizacionProveedor> cotizacionProveedors,
-			Set<InvProveedor> invProveedors, Set<Usuario> usuarios, Set<CuentaBanco> cuentasBanco) {
+			Set<InvProveedor> invProveedors, Set<Usuario> usuarios, Set<CuentaBanco> cuentasBanco,Set<Domicilio> domicilios) {
 		this.idExterno = idExterno;
-		this.domicilio = domicilio;
+		this.domicilios = domicilios;
 		this.clave = clave;
 		this.correoContacto = correoContacto;
 		this.fechaAlta = fechaAlta;
@@ -83,24 +65,8 @@ public class Externo implements java.io.Serializable {
 		this.nombreContacto = nombreContacto;
 		this.rfc = rfc;
 		this.telContacto = telContacto;
-		this.pais = pais;
-		this.paisCod = paisCod;
-		this.estado = estado;
-		this.estadoCod = estadoCod;
-		this.municipio = municipio;
-		this.munCod = munCod;
-		this.colonia = colonia;
-		this.coloniaCod = coloniaCod;
-		this.cp = cp;
-		this.calle = calle;
-		this.numInt = numInt;
-		this.numExt = numExt;
-		this.referencias = referencias;
-		this.entreCalles = entreCalles;
 		this.cuentasBanco = cuentasBanco;
 		this.activo = activo;
-		this.direccionFiscal = direccionFiscal;
-		this.direccionRecoleccion = direccionRecoleccion;
 		this.movInventarios = movInventarios;
 		this.cotizacionProveedors = cotizacionProveedors;
 		this.invProveedors = invProveedors;
@@ -116,16 +82,6 @@ public class Externo implements java.io.Serializable {
 
 	public void setIdExterno(BigDecimal idExterno) {
 		this.idExterno = idExterno;
-	}
-
-	@ManyToOne(fetch = FetchType.EAGER)
-	@JoinColumn(name = "id_domicilio")
-	public Domicilio getDomicilio() {
-		return this.domicilio;
-	}
-
-	public void setDomicilio(Domicilio domicilio) {
-		this.domicilio = domicilio;
 	}
 
 	@Column(name = "clave", length = 50)
@@ -192,132 +148,6 @@ public class Externo implements java.io.Serializable {
 		this.telContacto = telContacto;
 	}
 
-	@Column(name = "pais", length = 45)
-	public String getPais() {
-		return this.pais;
-	}
-
-	public void setPais(String pais) {
-		this.pais = pais;
-	}
-
-	@Column(name = "pais_cod", length = 20)
-	public String getPaisCod() {
-		return this.paisCod;
-	}
-
-	public void setPaisCod(String paisCod) {
-		this.paisCod = paisCod;
-	}
-
-	@Column(name = "estado", length = 45)
-	public String getEstado() {
-		return this.estado;
-	}
-
-	public void setEstado(String estado) {
-		this.estado = estado;
-	}
-
-	@Column(name = "estado_cod", length = 20)
-	public String getEstadoCod() {
-		return this.estadoCod;
-	}
-
-	public void setEstadoCod(String estadoCod) {
-		this.estadoCod = estadoCod;
-	}
-
-	@Column(name = "municipio", length = 45)
-	public String getMunicipio() {
-		return this.municipio;
-	}
-
-	public void setMunicipio(String municipio) {
-		this.municipio = municipio;
-	}
-
-	@Column(name = "mun_cod", length = 20)
-	public String getMunCod() {
-		return this.munCod;
-	}
-
-	public void setMunCod(String munCod) {
-		this.munCod = munCod;
-	}
-
-	@Column(name = "colonia", length = 45)
-	public String getColonia() {
-		return this.colonia;
-	}
-
-	public void setColonia(String colonia) {
-		this.colonia = colonia;
-	}
-
-	@Column(name = "colonia_cod", length = 20)
-	public String getColoniaCod() {
-		return this.coloniaCod;
-	}
-
-	public void setColoniaCod(String coloniaCod) {
-		this.coloniaCod = coloniaCod;
-	}
-
-	@Column(name = "cp", length = 20)
-	public String getCp() {
-		return this.cp;
-	}
-
-	public void setCp(String cp) {
-		this.cp = cp;
-	}
-
-	@Column(name = "calle", length = 500)
-	public String getCalle() {
-		return this.calle;
-	}
-
-	public void setCalle(String calle) {
-		this.calle = calle;
-	}
-
-	@Column(name = "num_int", length = 45)
-	public String getNumInt() {
-		return this.numInt;
-	}
-
-	public void setNumInt(String numInt) {
-		this.numInt = numInt;
-	}
-
-	@Column(name = "num_ext", length = 45)
-	public String getNumExt() {
-		return this.numExt;
-	}
-
-	public void setNumExt(String numExt) {
-		this.numExt = numExt;
-	}
-
-	@Column(name = "referencias", length = 500)
-	public String getReferencias() {
-		return this.referencias;
-	}
-
-	public void setReferencias(String referencias) {
-		this.referencias = referencias;
-	}
-
-	@Column(name = "entre_calles", length = 500)
-	public String getEntreCalles() {
-		return this.entreCalles;
-	}
-
-	public void setEntreCalles(String entreCalles) {
-		this.entreCalles = entreCalles;
-	}
-
 	@Column(name = "activo", nullable = false)
 	public Boolean getActivo() {
 		return this.activo;
@@ -325,24 +155,6 @@ public class Externo implements java.io.Serializable {
 
 	public void setActivo(Boolean activo) {
 		this.activo = activo;
-	}
-
-	@Column(name = "direccion_fiscal", length = 500)
-	public String getDireccionFiscal() {
-		return this.direccionFiscal;
-	}
-
-	public void setDireccionFiscal(String direccionFiscal) {
-		this.direccionFiscal = direccionFiscal;
-	}
-
-	@Column(name = "direccion_recoleccion", length = 500)
-	public String getDireccionRecoleccion() {
-		return this.direccionRecoleccion;
-	}
-
-	public void setDireccionRecoleccion(String direccionRecoleccion) {
-		this.direccionRecoleccion = direccionRecoleccion;
 	}
 
 	@OneToMany(fetch = FetchType.EAGER, mappedBy = "externo")
@@ -389,5 +201,14 @@ public class Externo implements java.io.Serializable {
 	public void setCuentasBanco(Set<CuentaBanco> cuentasBanco) {
 		this.cuentasBanco = cuentasBanco;
 	}
+	
+	@OneToMany(fetch=FetchType.EAGER, mappedBy = "externo")
+    public Set<Domicilio> getDomicilios() {
+        return this.domicilios;
+    }
+    
+    public void setDomicilios(Set<Domicilio> domicilios) {
+        this.domicilios = domicilios;
+    }
 
 }

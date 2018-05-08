@@ -3,8 +3,10 @@ package com.ektdinero.bitacora.controllers;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
@@ -181,10 +183,9 @@ public class ComprasController implements Serializable{
 	public void cargarDatosDomicilio(Usuario usuario){
 		this.usuario = usuario;
 		externo = usuario.getExterno();
-		if(externo.getDomicilio() == null){
-			Domicilio domicilio = new Domicilio();
-			domicilio.setPrincipal(true);
-			externo.setDomicilio(domicilio);
+		if(externo.getDomicilios() == null){
+			Set<Domicilio> domicilios = new HashSet<Domicilio>();
+			externo.setDomicilios(domicilios);
 		}
 	}
 	
@@ -378,7 +379,7 @@ public class ComprasController implements Serializable{
 		this.tipoProveedor = tipoProveedor;
 	}
 	
-	public List<CatSepomex>getMunicipios(){
+	/**public List<CatSepomex>getMunicipios(){
 		return CatalogosBean.getInstance().getCatMunicipios(externo.getEstadoCod());
 	}
 	
@@ -388,7 +389,7 @@ public class ComprasController implements Serializable{
 	
 	public List<CatSepomex>getCP(){
 		return CatalogosBean.getInstance().getCP(externo.getEstadoCod(),externo.getMunCod(),externo.getColoniaCod());
-	}
+	} TO DELETE**/
 	
 	public List<CatBancos>getBancos(){
 		return CatalogosBean.getInstance().getBancos();

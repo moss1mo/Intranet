@@ -19,21 +19,22 @@
       
       
     <div class="ui-g">
-    <div class="ui-g-4"><h:outputText value="Datos del proveedor" style="font-size:1.5em;margin-left:0px" onreset="#{bitacorasController.updateTodasBitacorasApp(bitacorasController.appSeleccionada)}"/>  </div>
+    <div class="ui-g-4"><h:outputText value="Domicilios" style="font-size:1.5em;margin-left:0px" onreset="#{bitacorasController.updateTodasBitacorasApp(bitacorasController.appSeleccionada)}"/>  </div>
     <div class="ui-g-1"></div>
     <div class="ui-g-1"></div>
     <div class="ui-g-2"></div>
-    <div class="ui-g-2"></div>
-    <div class="ui-g-2">	<p:button value="Regresar" href="../../menuPerfil.xhtml" icon="ui-icon-arrowthick-1-w">
-    				<f:param name="productId" value="10" />
-				</p:button></div>
+    <div class="ui-g-4">	<p:button value="Regresar" href="../../menuPerfil.xhtml" icon="ui-icon-arrowthick-1-w"></p:button>
+   							 <p:commandButton process="@this" style="margin-left:10px" title="Registrar domicilio"
+						  icon="fa fa-plus" value="Registrar domicilio" 
+							actionListener="#{externosController.mostrarRegistrarDomicilio}"  />
+    </div>
 </div>
        		
        				
       
   			
 				
-      <p:panel id="pnl" header="Domicilio del proveedor" style="margin-bottom:25px; overflow:auto; font-size:12px;"
+      <p:panel id="pnl" header="Domicilios registrados" style="margin-bottom:25px; overflow:auto; font-size:12px;"
       >
       <f:facet name="actions">
        <p:commandLink
@@ -43,118 +44,71 @@
     </f:facet> 
       
        <div class="ui-fluid">
-       
-       
-       
-       
-       
-       
-       
+       	<div class="ui-g-12" > 
+         <p:dataTable id="listaDirecciones" scrollHeight="300" rowKey="#{sol.id}"
+					var="dir" value="#{externosController.obtenerDomicilios(loginController.usuarioLogeado.externo)}"
+					paginator="true" rows="10"
+					emptyMessage="No hay solicitudes de alta registradas"
+					paginatorPosition="bottom" style="text-align:center"
+					scrollable="true" sortOrder="descending">
 
-     <div class="ui-g-12" > 
-    
-    <p:panel id="pnlDom">
-      <f:facet name="header">
-	  	<h:panelGrid columns="2">
-	    	<span class="ui-icon ui-icon-pencil" />
-	    	<h:outputText value="Domicilio" />
-	  	</h:panelGrid>
-	  </f:facet>
-	  
-	                 <p:panelGrid columns="2" id="pnlDomicilioGlobal" columnClasses="ui-grid-col-6,ui-grid-col-6" layout="grid" styleClass="ui-panelgrid-blank">
-	  
-	  
-     <p:panelGrid columns="2" id="pnlDomicilio" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
-      		
-      		<p:outputLabel for="pais" value="País:"/>      		
-      		<p:selectOneMenu id="pais" value="#{proveedoresController.proveedor.paisCod}" panelStyle="width:180px"
-                         effect="fade" var="t" style="width:160px" filter="true" filterMatchMode="startsWith">
-       		             <f:selectItem itemLabel="México" itemValue="MX" />
-        </p:selectOneMenu>
-        
 
-        <p:outputLabel   for="municipio" value="Municipio:"/>      		
-      		<p:selectOneMenu id="municipio" value="#{proveedoresController.proveedor.munCod}" panelStyle="width:180px"
-                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
-            <f:selectItems value="#{catalogosController.getMunicipios({proveedoresController.proveedor.estadoCod})}" var="mun" itemLabel="#{mun.id.DMnpio}" itemValue="#{mun.id.CMnpio}" />
-                    	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
-        </p:selectOneMenu>
 
-         <p:outputLabel  for="cp" value="Código Postal:"/>      		        	    
-        	    <p:selectOneMenu  id="cp" value="#{proveedoresController.proveedor.domicilio.cp}" readOnly="true"  panelStyle="width:180px"
-                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith" >
-            <f:selectItems value="#{catalogosController.getCP({proveedoresController.proveedor.estadoCod},{proveedoresController.proveedor.munCod},{proveedoresController.proveedor.coloniaCod})}" var="col"  itemLabel="#{col.id.DCodigo}" itemValue="#{col.id.DCodigo}" />
-        </p:selectOneMenu> 
-        
-          </p:panelGrid>
-          
-               <p:panelGrid columns="2" id="pnlDomicilio2" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
+					<f:facet name="header">
 
-        	<p:outputLabel   for="estado" value="Estado:"/>      		
-      		<p:selectOneMenu id="estado" value="#{proveedoresController.proveedor.estadoCod}" panelStyle="width:180px"
-                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
-            <f:selectItems value="#{catalogosController.getEstados()}" var="estado" itemLabel="#{estado.id.DEstado}" itemValue="#{estado.id.CEstado}" />
-        	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
-                </p:selectOneMenu>
+					</f:facet>
 
-      		   <p:outputLabel   for="colonia" value="Colonia:"/>      		
-      		<p:selectOneMenu  id="colonia" value="#{proveedoresController.proveedor.coloniaCod}" panelStyle="width:180px"
-                         effect="fade" style="width:160px" filter="true" filterMatchMode="startsWith">
-            <f:selectItems value="#{catalogosController.getColonias({proveedoresController.proveedor.estadoCod},{proveedoresController.proveedor.munCod})}" var="col" itemLabel="#{col.id.DAsenta}" itemValue="#{col.id.idAsentaCpcons}" />
-        	        	       		 <p:ajax process="@this"   update="pnlDom" partialSubmit="true"  />
+
+					<p:column headerText="# ID" filterMatchMode="contains" width="65"
+						filterStyle="display:none">  
+           		 #{dir.idDomicilio}  
+        	</p:column>
+
+
+						<p:column headerText="Dirección" filterMatchMode="contains"
+							filterStyle="display:none">
+           		 #{dir.calle} #{dir.numExt} #{dir.numInt}, #{catalogosController.getColonia(dir.codColonia,dir.codEstado,dir.codMunicipio).id.DAsenta},
+           		 CP #{catalogosController.getUnicoCP(dir.codEstado,dir.codMunicipio,dir.codColonia).id.DCp},
+           		 #{catalogosController.getMunicipio(dir.codMunicipio,dir.codEstado).id.DMnpio},
+           		 #{catalogosController.getEstado(dir.codEstado).id.DEstado}, México.
+        	</p:column>
         	
-        </p:selectOneMenu>
-        
+        	<p:column headerText="Tipo" filterMatchMode="contains"
+							filterStyle="display:none" width="65">  
+           		 <p:outputLabel rendered="#{dir.fiscal}" value="Fiscal"></p:outputLabel>
+           		 <p:outputLabel rendered="#{dir.entrega}" value="Entrega"></p:outputLabel>
+           		 <p:outputLabel rendered="#{dir.secundaria}" value="Secundario"></p:outputLabel>
+        	</p:column>
+				
 
-        	</p:panelGrid>
-        	               <p:panelGrid columns="2" id="pnlDomicilio3" columnClasses="ui-grid-col-4,ui-grid-col-8" layout="grid" styleClass="ui-panelgrid-blank">
-        	
-        	  <p:outputLabel for="calle" value="Calle:"/>    
-                         <p:inputText id="calle" value="#{proveedoresController.proveedor.calle}"/>
-                         </p:panelGrid>
+					<p:column headerText="Acción" width="70" filterMatchMode="contains"
+						filterStyle="display:none">
+						<p:commandButton process="listaDirecciones" title="Eliminar"
+							update="listaDirecciones" icon="fa fa-trash" style="width:30px;margin-right:5px;"
+							actionListener="#{externosController.eliminarDomicilio(dir)}" />
 
-                         <p:panelGrid columns="4" id="pnlDomicilio4" columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
-        	
-        	  <p:outputLabel for="numExt" value="Número Exterior:"/>    
-                         <p:inputText id="numExt" value="#{proveedoresController.proveedor.numExt}"/>
-                         
-                          <p:outputLabel for="numInt" value="Número Interior:"/>    
-                         <p:inputText id="numInt" value="#{proveedoresController.proveedor.numInt}"/>
-     
-                         </p:panelGrid>
+							<p:commandButton process="listaDirecciones" style="width:30px;" title="Editar"
+							update="listaDirecciones" icon="fa fa-pencil"
+							actionListener="#{externosController.cargarDatosDomicilio(dir)}"  />
+						
 
-      	</p:panelGrid>
+					</p:column>
 
-      
-   
-   </p:panel>
-   
-   
-    </div>
-    
-   
 
-        <p:panelGrid  cellpadding="10" style="float:right;">
+					<f:facet name="footer">
 
-          <p:row>
-
-          <p:column>
-               
-             <h:panelGroup>
-          <br />
-        <p:commandButton id="saveBtn" value="Guardar cambios" icon="ui-icon-disk" 
-         action="#{proveedoresController.actualizarProveedor()}"   update="pnl" validateClient="true" /> <br /> <br /> <br />
-     </h:panelGroup>
-          </p:column>
-          </p:row>
-     
-            </p:panelGrid>
-            
+					</f:facet>
+				</p:dataTable>
+       
+       
+            </div>
         
  </div>  
  </p:panel>
  
             </h:form>
+            
+          
             
            
                

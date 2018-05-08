@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html
+	 xmlns="http://www.w3.org/1999/xhtml"
+	 xmlns:h="http://java.sun.com/jsf/html"
+	 xmlns:p="http://primefaces.org/ui"
+	 xmlns:ui="http://java.sun.com/jsf/facelets"
+	 xmlns:f="http://java.sun.com/jsf/core">
+    
+     <h:body>
+
+
+ <ui:composition template="/template/mainLayout.xhtml">
+ 
+  <div id="content">
+   
+	 <ui:define  name="content" >
+    
+      <h:form id="formularioBitacora" style=" font-size:12px;" onreset="#{bitacorasController.limpiarForm()}">
+      
+      
+    <div class="ui-g">
+    <div class="ui-g-4"><h:outputText value="Rgeistrar producto" style="font-size:1.5em;margin-left:0px"/>  </div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-1"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2"></div>
+    <div class="ui-g-2">	<p:button outcome="listarAltasInventario" value="Regresar" icon="ui-icon-arrowthick-1-w">
+    				<f:param name="productId" value="10" />
+				</p:button></div>
+</div>
+       		
+       				
+      
+  			
+				
+      <p:panel id="pnl" header="Registro" style="margin-bottom:25px; max-height:600px; overflow:auto; font-size:12px;">
+      <f:facet name="actions">
+        <p:commandLink
+            styleClass="ui-panel-titlebar-icon ui-corner-all ui-state-default">
+            <h:outputText styleClass="ui-icon ui-icon-help" />
+        </p:commandLink>
+        
+
+    </f:facet> 
+      
+      <div class="ui-g">
+    <div class="ui-g-12">
+    
+ 	<p:panelGrid columns="4" id="pnlProducto" columnClasses="ui-grid-col-3,ui-grid-col-3" layout="grid" styleClass="ui-panelgrid-blank">
+        <p:outputLabel for="txtProducto" value="Nombre del producto:"/>
+      	<p:inputText id="txtProducto" value="#{inventarioController.producto.producto}" label="txtProducto" size="50"/>
+       	<p:outputLabel for="txtProdClav" value="Clave del producto:"/>
+   		<p:inputText id="txtProdClav" value="#{inventarioController.producto.clave}"  size="30"/>
+   		
+  		<p:outputLabel for="txtUM" value="Unidad de medición:"/>
+   		<p:inputText id="txtUM" value="#{inventarioController.producto.especificaciones}" size="30" />
+   		<p:outputLabel for="txtTE" value="Tipo de empaque:"/>
+   		<p:inputText id="txtTE" value="#{inventarioController.producto.especificaciones}"  size="30"/>
+   		
+   		<p:outputLabel for="txtPre" value="Presentacion:"/>
+   		<p:inputText id="txtPre" value="#{inventarioController.producto.especificaciones}"  size="30"/>
+   		<p:outputLabel for="txtIVA" value="Causa IVA:"/>
+   		<p:inputText id="txtIVA" value="#{inventarioController.producto.especificaciones}"  size="30"/>
+   		
+   		<p:outputLabel for="txtIEPS" value="Causa IEPS:"/>
+   		<p:inputText id="txtIEPS" value="#{inventarioController.producto.especificaciones}"  size="30"/>
+   		<p:outputLabel for="txtCA" value="Código arancelario:"/>
+   		<p:inputText id="txtCA" value="#{inventarioController.producto.especificaciones}"  size="30"/>
+   		
+   		<p:outputLabel for="txtCLote" value="Causa lote:"/>
+   		<p:inputText id="txtCLote" value="#{inventarioController.producto.especificaciones}"  size="30"/>
+   		
+   		
+    </p:panelGrid>
+    
+    </div>
+    </div>
+
+      
+      
+    
+       
+        <p:panelGrid  cellpadding="10" style="margin-left:60px;">
+        
+        
+        
+        
+
+          <br/><br/>
+          <p:row>
+          
+          
+          
+          <p:column>
+               
+             <h:panelGroup>
+          <br />
+        <p:commandButton id="saveBtn" value="Registrar" icon="ui-icon-disk" 
+        style="margin:0;" action="#{inventarioController.registrarListaProductos()}"   update="pnl" validateClient="true" /><br/><br/><br/>
+     </h:panelGroup>
+          </p:column>
+          </p:row>
+     
+            </p:panelGrid>
+            
+        
+   
+ </p:panel>
+ 
+ 
+ 			
+            </h:form>
+            
+           
+               
+      <!--       <p:blockUI block="pnl" trigger="saveBtn" >
+                 LOADING<br />  
+        <p:graphicImage value="/resources/images/utiles/ajax-loader.gif"/>  
+      </p:blockUI>   --> 
+
+
+        </ui:define>
+        
+        
+        
+  </div>
+  
+		
+</ui:composition>
+ </h:body>
+</html>
